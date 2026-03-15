@@ -15,7 +15,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const snap = await getDocs(q);
 
     if (snap.empty) {
-        return <div>Raga not found</div>;
+        return <div>Raga <strong>{slug}</strong> not found...</div>;
     }
 
     const raga = snap.docs[0].data();
