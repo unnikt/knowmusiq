@@ -3,22 +3,22 @@ import { getApp } from "firebase/app";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 
 
-export default async function RagaPage({ params }: { params: { slug: string } }) {
+export default async function RagaPage(props: { params: { slug: string } }) {
 
-    const { slug } = params;
+    const params = props.params;
 
-    console.log("DEBUG:-", slug, getApp().options.projectId)
+    console.log("DEBUG:-", props, getApp().options.projectId)
 
     const q = query(
         collection(db, "ragas"),
-        where("slug", "==", slug),
+        where("slug", "==", params.slug),
         limit(1)
     );
 
     const snap = await getDocs(q);
 
     if (snap.empty) {
-        return <div>Raga <strong>{slug}</strong> not found...</div>;
+        return <div>Raga <strong>{params.slug}</strong> not found...</div>;
     }
 
     const raga = snap.docs[0].data();
