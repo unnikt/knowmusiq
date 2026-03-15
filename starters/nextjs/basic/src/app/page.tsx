@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SearchBox from "@/src/app/components/SearchBox";
 
 export default function Home() {
   const message = process.env["MESSAGE"] || "Hello!";
@@ -6,6 +7,10 @@ export default function Home() {
     <main className="content">
       <h1 className="heading">Know Music Next.js on Firebase App Hosting</h1>
       <p>{message}</p>
+      <div className="flex flex-col items-center space-y-6">
+        <p className="text-gray-600">Search and explore Carnatic ragas.</p>
+        <SearchBox />
+      </div>
 
       <section className="features">
         <article className="card">

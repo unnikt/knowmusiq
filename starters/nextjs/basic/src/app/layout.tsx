@@ -4,8 +4,8 @@ import "./globals.css";
 import { Header } from "./components";
 
 export const metadata: Metadata = {
-  title: "Next.js on Firebase App Hosting",
-  description: "",
+  title: "knowmusiq",
+  description: "Search and learn about carnatic ragas",
 };
 
 export default function RootLayout({
