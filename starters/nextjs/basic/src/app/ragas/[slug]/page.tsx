@@ -1,14 +1,18 @@
-import { adminDb } from "@/src/lib/firebase-admin";
-// import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/src/lib/firebase";
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
+
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
     const { slug } = await params;
 
-    const snap = await adminDb.collection("ragas")
-        .where("slug", "==", slug)
-        .limit(1)
-        .get();
+    const q = query(
+        collection(db, "ragas"),
+        where("slug", "==", slug),
+        limit(1)
+    );
+
+    const snap = await getDocs(q);
 
     if (snap.empty) {
         return <div>Raga not found</div>;
