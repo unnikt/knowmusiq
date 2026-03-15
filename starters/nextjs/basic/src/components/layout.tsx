@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Head } from "next/document";
 
 import "./globals.css";
 import { Header } from "./Header.jsx";
@@ -13,13 +14,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark-theme">
-      <head>
+      <Head>
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-      </head>
+      </Head>
       <body>
         <div className="dots" />
         <Header />
