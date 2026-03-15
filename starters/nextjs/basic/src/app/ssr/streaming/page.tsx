@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
-import { Loading } from "../../../../components/Loading.jsx";
-import { Timeout } from "../../../../components/Timeout.jsx";
-import { getDateString, getRandomUUID } from "../../utils.js";
+import { Loading } from "@/components/Loading";
+import { Timeout } from "@/components/Timeout";
+import { getDateString, getRandomUUID } from "@/app/utils";
 
 export const dynamic = "force-dynamic";
 
