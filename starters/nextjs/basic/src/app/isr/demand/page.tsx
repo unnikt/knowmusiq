@@ -1,4 +1,4 @@
-import { getDateString, getRandomUUID } from "@/app/utils.js";
+import { getDateString, getRandomUUID } from "@/app/utils";
 import { RegenerateButton } from "./RegenerateButton.jsx";
 
 export default function Page() {
