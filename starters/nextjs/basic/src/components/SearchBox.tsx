@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation.js";
 
 export default function SearchBox() {
     const [query, setQuery] = useState("");

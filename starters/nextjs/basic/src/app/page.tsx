@@ -1,5 +1,5 @@
-import Link from "next/link";
-import SearchBox from "@/src/app/components/SearchBox";
+import Link from "next/link.js";
+import SearchBox from "../components/SearchBox";
 
 export default function Home() {
   const message = process.env["MESSAGE"] || "Hello!";
@@ -11,7 +11,7 @@ export default function Home() {
         <p className="text-gray-600">Search and explore Carnatic ragas.</p>
         <SearchBox />
       </div>
-
+      <div className="bg-red-500 text-white p-4">Tailwind works</div>
       <section className="features">
         <article className="card">
           <h2>Scalable, serverless backends</h2>

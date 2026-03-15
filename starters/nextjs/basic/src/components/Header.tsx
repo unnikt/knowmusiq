@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link.js";
+import { usePathname } from "next/navigation.js";
 
-import { Arrow } from "./Arrow";
-import { Firebase } from "./Firebase";
+import { Arrow } from "./Arrow.jsx";
+import { Firebase } from "./Firebase.jsx";
 
 export function Header() {
   const pathname = usePathname();
