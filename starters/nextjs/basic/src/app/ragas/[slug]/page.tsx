@@ -1,12 +1,10 @@
-import { adminDb } from "../../../server/firebase-admin";
+import { adminDb } from "@/src/server/firebase-admin";
 // import { doc, getDoc } from "firebase/firestore";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
     const { slug } = await params;
 
-    // const ref = doc(db, "ragas", slug);
-    // const snap = await getDoc(ref);
     const snap = await adminDb.collection("ragas")
         .where("slug", "==", slug)
         .limit(1)
