@@ -1,10 +1,13 @@
 import { db } from "@/lib/firebase";
+import { getApp } from "firebase/app";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 
 
-export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function RagaPage({ params }: { params: { slug: string } }) {
 
-    const { slug } = await params;
+    const { slug } = params;
+
+    console.log("DEBUG:-", slug, getApp().options.projectId)
 
     const q = query(
         collection(db, "ragas"),
