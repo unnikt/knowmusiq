@@ -1,5 +1,5 @@
 // app/search/page.tsx
-import { adminDb } from "@/lib/firebase-admin";
+import { shruthiDB } from "@/lib/firebase-admin";
 import Link from "next/link";
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
@@ -15,7 +15,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         );
     }
 
-    const snap = await adminDb
+    const snap = await shruthiDB
         .collection("ragas")
         .where("Parent", "==", q)
         .get();

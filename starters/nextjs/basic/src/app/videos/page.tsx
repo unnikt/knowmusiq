@@ -1,9 +1,9 @@
 // app/videos/page.tsx
 import VideoTile from "@/components/VideoTile";
-import { adminDb } from "@/lib/firebase-admin";
+import { shruthiDB } from "@/lib/firebase-admin";
 
 export default async function Page() {
-    const snapshot = await adminDb.collection("videos").get();
+    const snapshot = await shruthiDB.collection("videos").get();
     const videos = snapshot.docs.map((doc) => doc.data());
 
     return (

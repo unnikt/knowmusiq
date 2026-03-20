@@ -1,0 +1,8 @@
+{
+  "hosting": [
+    {
+      "site": "music-me",
+      "source": "./starters/nextjs/basic"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 // app/raga/[slug]/page.tsx
-import { adminDb } from "@/lib/firebase-admin";
+import { shruthiDB } from "@/lib/firebase-admin";
 import { slugify } from "@/lib/slugify";
 import RagaCard from "@/components/RagaCard";
 import VideoTile from "@/components/VideoTile";
@@ -9,7 +9,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const slugy = slugify(slug);
 
-    const snap = await adminDb.collection("ragas")
+    const snap = await shruthiDB.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
@@ -28,7 +28,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     }
 
     const raga = snap.docs[0].data();
-    const snapshot = await adminDb.collection("videos")
+    const snapshot = await shruthiDB.collection("videos")
         .where("tags.raga", "==", slug.replace(/%20/g, " "))
         .get();
     const videos = snapshot.docs.map((doc) => doc.data());

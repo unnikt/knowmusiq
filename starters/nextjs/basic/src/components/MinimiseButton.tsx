@@ -13,9 +13,9 @@ export default function MinimiseButton() {
     return (
         <button
             onClick={handlePlay}
-            className="p-2 rounded-full text-my-primary hover:bg-my-hilite transition"
+            className="p-2 rounded-full text-pink-400 hover:bg-my-hilite hover:text-white transition"
         >
-            <ArrowsPointingInIcon className="h-5 w-5 text-pink-400" />
+            <ArrowsPointingInIcon className="h-5 w-5" />
         </button>
     );
 }
