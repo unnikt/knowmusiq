@@ -10,15 +10,12 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const slugy = slugify(slug);
     const displayName = slug.replace(/%20/g, " ")
 
+    console.log("Entry:- ", slug, slugy, displayName)
+
     const snapRagas = await shruthiDB.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
-    const snapVideos = await shruthiDB.collection("videos")
-        .where("tags.raga", "==", displayName)
-        .limit(20)
-        .get();
-
     if (snapRagas.empty) {
         return <div>
             <RagaCard
@@ -31,10 +28,17 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
             />
         </div>;
     }
-
     const raga = snapRagas.docs[0].data();
+    console.log("Fetched raga:- ", JSON.stringify(raga));
+
+
+    const snapVideos = await shruthiDB.collection("videos")
+        .where("tags.raga", "==", displayName)
+        .limit(20)
+        .get();
     const videos = snapVideos.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-    console.log(slug, slugy, displayName, videos.length)
+
+    console.log("Fetched Videos count= ", videos.length)
 
     if (videos.length > 0)
         return (
