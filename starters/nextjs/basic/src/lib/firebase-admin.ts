@@ -13,14 +13,14 @@ const app1 = getApps().length
 
 export const shruthiDB = getFirestore(app1);
 
-const app2 = getApps().length
-    ? getApps()[0]
-    : initializeApp({
-        credential: cert({
-            projectId: process.env.KNOWMUSIC_PROJECT_ID,
-            clientEmail: process.env.KNOWMUSIC_CLIENT_EMAIL,
-            privateKey: process.env.KNOWMUSIC_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-        }),
-    });
+// const app2 = getApps().length
+//     ? getApps()[0]
+//     : initializeApp({
+//         credential: cert({
+//             projectId: process.env.KNOWMUSIC_PROJECT_ID,
+//             clientEmail: process.env.KNOWMUSIC_CLIENT_EMAIL,
+//             privateKey: process.env.KNOWMUSIC_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+//         }),
+//     });
 
-export const knowmusiqDB = getFirestore(app2);
+// export const knowmusiqDB = getFirestore(app2);
