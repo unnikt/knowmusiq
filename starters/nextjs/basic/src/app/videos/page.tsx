@@ -7,6 +7,8 @@ export default async function Page() {
         .limit(20).get();
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
 
+    console.log("Videos.tsx:", videos.length)
+
     return (
         <div className="p-6">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
