@@ -20,7 +20,7 @@ export default function RagaCard({
     parent,
 }: RagaCardProps) {
     return (
-        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition min-w-[320px]">
+        <div className="mb-6 rounded-xl border border-sky-200 bg-white p-5 shadow-sm hover:shadow-md transition min-w-[320px]">
             <div className="flex items-start justify-between">
                 <div>
                     <h2 className="text-xl font-semibold text-gray-900">{name}</h2>

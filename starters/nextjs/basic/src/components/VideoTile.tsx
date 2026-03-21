@@ -8,6 +8,7 @@ export default function VideoTile({ video }) {
     const url = `https://www.youtube.com/watch?v=${video.videoId}`;
 
     return (
+
         <Link
             href={url}
             target="_blank"
