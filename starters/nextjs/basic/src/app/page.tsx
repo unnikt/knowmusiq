@@ -10,6 +10,7 @@ export default function Home() {
     <main>
       <p className="p-4 text-gray-400">{message}</p>
       <section className="features">
+        <p>Testing 1</p>
       </section>
     </main>
   );
