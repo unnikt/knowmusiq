@@ -20,7 +20,7 @@ import clsx from 'clsx'
 import DropdownMenu from '@/components/ui/dropdown-menu'
 import { handleSearch, SearchResult } from '@/lib/actions/search'
 import { useAuth } from '@/hooks/useAuth'
-import { auth } from '@/lib/firebase'
+import { auth } from '../../../../../../../lib/firebase'
 import { signOut } from 'firebase/auth'
 
 type Props = {
