@@ -16,9 +16,8 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
         .get();
     const snapVideos = await shruthiDB.collection("videos")
         .where("tags.raga", "==", displayName)
-        .limit(20)
+        .limit(10)
         .get();
-
 
     if (snapRagas.empty) {
         return <div>
