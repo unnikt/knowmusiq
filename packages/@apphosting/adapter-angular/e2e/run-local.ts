@@ -131,8 +131,7 @@ console.log("\n\n");
 for (const [host, run, enableSSR, enableSSG] of tests) {
   try {
     console.log(
-      `> HOST=${host}${enableSSR ? " SSR=1" : ""}${
-        enableSSG ? " SSG=1" : ""
+      `> HOST=${host}${enableSSR ? " SSR=1" : ""}${enableSSG ? " SSG=1" : ""
       } ts-mocha -p tsconfig.json e2e/*.spec.ts`,
     );
     await promiseSpawn("ts-mocha", ["-p", "tsconfig.json", "e2e/*.spec.ts"], {

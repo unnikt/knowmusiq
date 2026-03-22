@@ -1,17 +1,24 @@
 {
-  "hosting": [
+  "firestore": {
+    "database": "knowmusiq",
+    "location": "australia-southeast1",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "auth": {
+    "providers": {}
+  },
+  "apphosting": [
     {
-      "site": "music-me",
-      "source": ".",
+      "backendId": "musiqme",
+      "rootDir": "/",
       "ignore": [
-        "packages/**",
-        "starters/**",
-        "scripts/**",
-        "docs/**",
-        "src/**",
-        ".github/**"
-      ],
-      "frameworksBackend": {}
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "functions"
+      ]
     }
   ]
 }

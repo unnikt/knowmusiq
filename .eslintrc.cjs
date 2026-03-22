@@ -117,5 +117,5 @@ module.exports = {
     },
   },
   parser: "@typescript-eslint/parser",
-  ignorePatterns: ["starters/**"],
+  ignorePatterns: ["./**"],
 };
