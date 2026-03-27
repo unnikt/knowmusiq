@@ -1,19 +1,33 @@
+# Monorepo build output
 /packages/**/*/dist/
 /examples/
 /dist
 /packages/@apphosting/publish-dev/.local
 /packages/@apphosting/publish-dev/htpasswd
 
-# NPM
+# Next.js
+.next
+out/
+
+# Node
 node_modules
 
-# misc
+# Env files
+.env
+.env.local
+.env.development
+.env.production
+
+# Misc
 .vscode
 *.log
 .DS_Store
+*.swp
+*.swo
 /apphosting-*.tgz
 /firebase-frameworks-*.tgz
 
-# firebase
+# Firebase
 .firebase
+firebase-debug.log
 starters/nextjs/basic/out.txt

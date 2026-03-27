@@ -14,7 +14,7 @@ export default function SearchBox() {
     }
 
     return (
-        <div className="flex w-full max-w-xl my-2">
+        <div className="searchBox">
             <input
                 type="text"
                 value={query}
@@ -25,11 +25,10 @@ export default function SearchBox() {
                     }
                 }}
                 placeholder="Search ragas..."
-                className="max-w-xl px-4 py-2 border border-sky-200 rounded-l-md bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             />
             <button
                 onClick={handleSearch}
-                className="bg-blue-600 bg-pink-500 text-white px-5 py-2   rounded-r-md hover:bg-blue-700"
+                className=" bg-pink-500 text-white px-5 py-2   rounded-r-md hover:bg-blue-700"
             >
                 Search
             </button>

@@ -6,21 +6,22 @@ import MinimiseButton from "./MinimiseButton";
 
 const links = [
     { name: 'Home', href: '/' },
-    { name: 'Add Tags to music', href: '#' },
-    { name: 'Videos', href: '/videos' },
+    { name: 'Browse videos', href: '/videos' },
+    { name: 'Search and tag videos', href: '/SearchVideos' },
+    // { name: 'Tags videos', href: '/videos/tag' },
     { name: 'Meet our leadership', href: '#' },
 ]
 const stats = [
-    { name: 'Offices worldwide', value: '12' },
-    { name: 'Full-time colleagues', value: '300+' },
-    { name: 'Hours per week', value: '40' },
-    { name: 'Paid time off', value: 'Unlimited' },
+    { name: 'Languages', value: '12' },
+    { name: 'Ragas tagged', value: '300+' },
+    { name: 'Videos tagged', value: '4000+' },
+    { name: 'Ragas', value: 'Unlimited' },
 ]
 
 export default function Header() {
     const { minimiseHeader } = useApp();
     return (
-        <div className="relative isolate overflow-hidden bg-white py-10 sm:py-12">
+        <div className="relative isolate overflow-hidden bg-white py-10 sm:py-12 border border-b border-my-secondary/40">
             <img
                 alt=""
                 // src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=screen"
@@ -54,18 +55,18 @@ export default function Header() {
             </div>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-                <div className="mx-auto max-w-2xl lg:mx-0">
+                <div className="mx-auto  lg:mx-0">
                     <div className="mb-6 flex justify-between align-middle">
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
                         <MinimiseButton />
                     </div>
+                    <div className="pl-2"><FlyoutMenu /></div>
 
                     <div className={minimiseHeader ? "hidden" : ""}>
                         <p className="mt-8 text-lg font-medium text-pretty text-gray-700 sm:text-xl/8">
                             This site is an attempt to the different music concepts and combine them into a unified framework.
                             Search Carnatic and Hindustani music relate to concepts like
                         </p>
-                        <FlyoutMenu />
                     </div>
                 </div>
 
@@ -74,8 +75,8 @@ export default function Header() {
                 <div className={minimiseHeader ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
                         {links.map((link) => (
-                            <a key={link.name} href={link.href}>
-                                {link.name} <span aria-hidden="true">&rarr;</span>
+                            <a key={link.name} href={link.href} className="text-my-primary">
+                                {link.name} <span aria-hidden="true"></span>
                             </a>
                         ))}
                     </div>

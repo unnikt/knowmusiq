@@ -1,15 +1,8 @@
 {
-  "/isr/demand/revalidate/route": "app/isr/demand/revalidate/route.js",
-  "/icon.svg/route": "app/icon.svg/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/isr/demand/page": "app/isr/demand/page.js",
-  "/isr/page": "app/isr/page.js",
   "/page": "app/page.js",
-  "/ragas/[slug]/page": "app/ragas/[slug]/page.js",
-  "/search/page": "app/search/page.js",
-  "/ssg/page": "app/ssg/page.js",
   "/videos/page": "app/videos/page.js",
-  "/isr/time/page": "app/isr/time/page.js",
-  "/ssr/page": "app/ssr/page.js",
-  "/ssr/streaming/page": "app/ssr/streaming/page.js"
+  "/ragas/[slug]/page": "app/ragas/[slug]/page.js",
+  "/SearchVideos/page": "app/SearchVideos/page.js",
+  "/videos/tag/page": "app/videos/tag/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

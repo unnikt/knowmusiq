@@ -6,25 +6,16 @@ export const metadata = {
   description: 'For those who think Music is life',
 }
 
-export default function RootLayout({
-  children,
-}: {
+export default function RootLayout({ children }: {
   children: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body>
-        {/* <div className="app-container">
-          <Header minimise={true} />
-          {children}
-        </div> */}
-
         <AppProvider>
-
           {<Header />}
           {children}
         </AppProvider>
-
       </body>
     </html>
   )
