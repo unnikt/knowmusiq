@@ -25,7 +25,7 @@ export default function ClientWrap({
         return () => {
             if (restoreOnLeave) setMinimiseHeader(false);
         };
-    }, [minimiseHeader, restoreOnLeave]);
+    }, [minimiseHeader, restoreOnLeave, setMinimiseHeader]);
 
     return <>{children}</>;
 }

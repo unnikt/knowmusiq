@@ -35,7 +35,7 @@ export default function AddVideoPage() {
 
         // optional: restore when leaving page
         return () => setMinimiseHeader(false);
-    }, []);
+    }, [setMinimiseHeader]);
 
 
     return (
