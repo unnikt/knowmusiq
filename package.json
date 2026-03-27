@@ -18,7 +18,7 @@
     "firebase-admin": "^13.7.0",
     "firebase-functions": "^7.2.2",
     "fs-extra": "^11.3.4",
-    "next": "15.0.5",
+    "next": "^16.2.1",
     "react": "^18",
     "react-dom": "^18",
     "yaml": "^2.8.3"
@@ -31,7 +31,7 @@
     "@types/react-dom": "^18",
     "@types/yaml": "^1.9.6",
     "autoprefixer": "^10.4.27",
-    "eslint": "^9",
+    "eslint": "^8.57.1",
     "eslint-config-next": "15.0.0",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.2",
