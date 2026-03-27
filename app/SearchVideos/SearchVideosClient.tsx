@@ -21,7 +21,7 @@ export default function SearchVideosClient() {
     useEffect(() => {
         setMinimiseHeader(true);   // minimise on load
         return () => setMinimiseHeader(false); // restore on exit (optional)
-    }, []);
+    }, [setMinimiseHeader]);
 
     // ----------------------------------------------------
     // 1. Search Firestore (YouTubeVideos collection)
