@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { collection, query, where, orderBy, getDocs, addDoc } from "firebase/firestore";
-import { dbKnowMusic } from "@/lib/firebaseKM";
+import { dbKnowMusic } from "@/lib/firebaseKM.client";
 import VideoTile from "@/components/VideoTile";
 import { useApp } from "@/context/AppContext";
 import TagVideoButton from "@/components/TagButton";

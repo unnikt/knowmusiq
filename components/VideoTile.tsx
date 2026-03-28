@@ -8,7 +8,7 @@ export default function VideoTile({ video, url, target }) {
     // const url = `https://www.youtube.com/watch?v=${video.videoId}`;
 
     return (
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+        <div className="p-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
             <Link
                 href={url}
                 target={target}
@@ -19,7 +19,8 @@ export default function VideoTile({ video, url, target }) {
                         src={thumbnail}
                         alt={video.title ?? ""}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="rounded object-cover group-hover:scale-105 transition-transform"
                     />
                     {video.duration && (
                         <span className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-xs text-white">

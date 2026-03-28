@@ -21,7 +21,10 @@ const stats = [
 export default function Header() {
     const { minimiseHeader } = useApp();
     return (
-        <div className="relative isolate overflow-hidden bg-white py-10 sm:py-12 border border-b border-my-secondary/40">
+        <div className={
+            minimiseHeader ? "relative isolate overflow-hidden bg-slate-800 py-4 sm:py-12 border border-b border-my-secondary/40"
+                : "relative isolate overflow-hidden bg-white text-white py-10 sm:py-12 border border-b border-my-secondary/40"
+        }>
             <img
                 alt=""
                 // src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=screen"

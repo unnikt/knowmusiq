@@ -31,3 +31,4 @@ node_modules
 .firebase
 firebase-debug.log
 starters/nextjs/basic/out.txt
+.env.local

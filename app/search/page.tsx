@@ -1,5 +1,5 @@
 // app/search/page.tsx
-import { shruthiDB } from "../../lib/firebase-admin";
+import { shruthiDB } from "../../lib/shruthiAdmin";
 import Link from "next/link";
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {

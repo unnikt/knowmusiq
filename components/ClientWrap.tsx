@@ -16,8 +16,6 @@ export default function ClientWrap({
     const { setMinimiseHeader } = useApp();
 
     useEffect(() => {
-        console.log("ClientPage mounted, minimiseHeader =", minimiseHeader);
-
         // Apply header state on mount
         setMinimiseHeader(minimiseHeader);
 

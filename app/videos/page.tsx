@@ -1,6 +1,6 @@
 // app/videos/page.tsx
 import VideoTile from "@/components/VideoTile";
-import { shruthiDB } from "@/lib/firebase-admin";
+import { shruthiDB } from "@/lib/shruthiAdmin";
 import ClientWrap from "@/components/ClientWrap";
 import BackButton from "@/components/BackButton";
 

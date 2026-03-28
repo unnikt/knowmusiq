@@ -45,6 +45,7 @@
   --button: linear-gradient(90deg, #ffca28, #f57c00);
 }
 
+
 /* * {
   margin: 0;
   font-family: "Google Sans";
@@ -389,7 +390,7 @@ input {
 }
 
 .searchBox {
-  @apply flex w-full max-w-xl my-2;
+  @apply flex justify-center w-full max-w-xl my-2;
 }
 
 .searchBox > input {

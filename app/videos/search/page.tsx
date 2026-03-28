@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { db } from "@/lib/firebaseSH";
+import { dbShruthi } from "@/lib/firebaseSH.client";
 import { doc, setDoc } from "firebase/firestore";
 import TagVideo from "@/components/TagVideo";
 import BackButton from "@/components/BackButton";
@@ -15,7 +15,7 @@ export default function AddVideoPage() {
             setStatus("saving");
 
             // Use YouTube ID as the Firestore document ID
-            await setDoc(doc(db, "videos", data.youtubeId), {
+            await setDoc(doc(dbShruthi, "videos", data.youtubeId), {
                 ...data,
                 createdAt: Date.now(),
             });

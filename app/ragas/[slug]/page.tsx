@@ -1,11 +1,12 @@
 // app/raga/[slug]/page.tsx
-import { shruthiDB } from "../../../lib/firebase-admin";
+import { shruthiDB } from "../../../lib/shruthiAdmin";
 import { slugify } from "../../../lib/slugify";
 import RagaCard from "../../../components/RagaCard";
 import VideoTile from "@/components/VideoTile";
 import { toCamelCase } from "@/lib/camelcase";
 import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
+import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
@@ -13,22 +14,26 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const slugy = slugify(slug);
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
-    const snapRagas = await shruthiDB.collection("ragas")
+    const snapRagas = await knowmusiqAdmin.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
+
     if (snapRagas.empty) {
         return (
-            <div className="p-8">
-                <RagaCard
-                    name={displayName}
-                    type=""
-                    description="Not found..!"
-                    arohana=""
-                    avarohana=""
-                    parent={{ name: "", slug: "" }} // {name, slug}
-                />
-            </div>)
+            <ClientWrap minimiseHeader={true}>
+                <div className="section-mid">
+                    <RagaCard
+                        name={displayName}
+                        type=""
+                        description="Not found.. try with a different spelling.."
+                        arohana=""
+                        avarohana=""
+                        parent={{ name: "", slug: "" }} // {name, slug}
+                    />
+                </div>
+            </ClientWrap>
+        )
     }
     const raga = snapRagas.docs[0].data();
 
@@ -41,40 +46,43 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
 
     console.log("Fetched Videos count= ", videos.length)
 
-    if (videos.length > 0)
-        return (
-            <div className="p-8">
+    return (
+        <ClientWrap minimiseHeader={true}>
+            <div className="section-mid">
                 <BackButton />
                 <RagaCard
                     name={displayName}
-                    type={raga.Type}
+                    type={raga.type}
                     description={"A beautiful raga for every occasion.."}
-                    parent={{ name: raga.Parent, slug: raga.Parent }} // { name, slug }
-                    arohana={raga.Arohana}
-                    avarohana={raga.Avarohana}
+                    parent={{ name: raga.parent, slug: raga.parent }} // { name, slug }
+                    arohana={raga.arohana}
+                    avarohana={raga.avarohana}
                 />
-                <h2 className=" my-4 text-gray-600">Songs in raga <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
+                {videos.length &&
+                    <div>
+                        <h2 className=" my-4 text-gray-600">Songs in <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {videos.map((video) => (
-                        <VideoTile key={video.id} video={video} url={`https://www.youtube.com/watch?v=${video.videoId}`} target={"_blank"} />
-                    ))}
-                </div>
+                        <div className="videoGrid">
+                            {videos.map((video) => (
+                                <VideoTile key={video.id} video={video} url={`https://www.youtube.com/watch?v=${video.videoId}`} target={"_blank"} />
+                            ))}
+                        </div>
+                    </div>
+                }
             </div>
-        );
-    else
-        return (
-            <ClientWrap minimiseHeader={true}>
-                <div className="p-8">
-                    <RagaCard
-                        name={displayName}
-                        type={raga.Type}
-                        description={"A beautiful raga for every occasion.."}
-                        parent={{ name: raga.Parent, slug: raga.Parent }} // { name, slug }
-                        arohana={raga.Arohana}
-                        avarohana={raga.Avarohana}
-                    />
-                </div>
-            </ClientWrap>
-        );
+        </ClientWrap>
+    );
+    // else
+    //     return (
+    //         <div className="p-8">
+    //             <RagaCard
+    //                 name={displayName}
+    //                 type={raga.type}
+    //                 description={"A beautiful raga for every occasion.."}
+    //                 parent={{ name: raga.Parent, slug: raga.Parent }} // { name, slug }
+    //                 arohana={raga.Arohana}
+    //                 avarohana={raga.Avarohana}
+    //             />
+    //         </div>
+    //     );
 }

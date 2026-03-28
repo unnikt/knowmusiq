@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { dbKnowMusic } from "./firebaseKM";
+import { dbKnowMusic } from "./firebaseKM.client";
 
 export type YoutubeVideo = {
     videoId: string;

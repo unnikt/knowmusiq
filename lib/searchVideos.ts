@@ -1,6 +1,6 @@
 // \knowmusiq\lib\searchVideos.ts
 import { collection, query, where, orderBy, getDocs, } from "firebase/firestore";
-import { dbKnowMusic } from "./firebaseKM";
+import { dbKnowMusic } from "./firebaseKM.client";
 
 export async function searchLocalVideos(title: string) {
     if (!title || title.trim() === "") return [];

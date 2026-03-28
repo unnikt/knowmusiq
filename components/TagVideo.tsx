@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/lib/firebaseSH"; // adjust path
+import { dbShruthi } from "@/lib/firebaseSH.client"; // adjust path
 import BackButton from "./BackButton";
 
 export default function VideoTagForm({ onSubmit }) {
@@ -20,7 +20,7 @@ export default function VideoTagForm({ onSubmit }) {
     useEffect(() => {
         async function loadRagas() {
             const q = query(
-                collection(db, "ragas"),
+                collection(dbShruthi, "ragas"),
                 where("Name", "==", "Kalyani")
             );
 

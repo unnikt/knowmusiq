@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { dbKnowMusic } from "@/lib/firebaseKM";
+import { dbKnowMusic } from "@/lib/firebaseKM.client";
 import YouTubePlayer from "@/components/YouTubePlayer";
 import BackButton from "@/components/BackButton";
 
