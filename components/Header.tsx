@@ -3,6 +3,7 @@ import SearchBox from "./SearchBox"
 import FlyoutMenu from "./FlyoutMenu"
 import { useApp } from "../context/AppContext";
 import MinimiseButton from "./MinimiseButton";
+import MaximizeButton from "./MaximizeButton";
 
 const links = [
     { name: 'Home', href: '/' },
@@ -45,7 +46,7 @@ export default function Header() {
                 />
             </div>
             <div
-                aria-hidden="true"
+                aria-hidden="false"
                 className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:-top-112 sm:ml-16 sm:translate-x-0"
             >
                 <div
@@ -61,7 +62,7 @@ export default function Header() {
                 <div className="mx-auto  lg:mx-0">
                     <div className="mb-6 flex justify-between align-middle">
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
-                        <MinimiseButton />
+                        {minimiseHeader ? <MaximizeButton /> : <MinimiseButton />}
                     </div>
                     <div className="pl-2"><FlyoutMenu /></div>
 

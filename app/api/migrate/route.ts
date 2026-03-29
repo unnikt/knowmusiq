@@ -1,48 +1,55 @@
 import { NextResponse } from "next/server";
-import { dbShruthi } from "@/lib/firebaseSH.client";
-import { collection, getDocs, query } from "firebase/firestore";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { shruthiAdmin } from "@/lib/shruthiAdmin";        // Admin SDK (Shruthi)
+import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";    // Admin SDK (KnowMusic)
+import { slugify } from "@/lib/slugify";
 
 export async function GET() {
+    const sCollection = "krithis";  // Change this to "composers", "singers", etc. as needed
+    // console.log("DEBUG: Available collections:");
+    // const collections = await shruthiAdmin.listCollections();
+    // collections.forEach(c => console.log(" -", c.id));
     try {
-        // 1. Read from client Firestore (Shruthi)
-        const q = query(collection(dbShruthi, "ragas"));
-        const snaps = await getDocs(q);
+        console.log(`Fetching ${sCollection} from Shruthi...`);
 
-        const rows = snaps.docs.map(doc => {
+        // 1. Read from Shruthi (Admin SDK)
+        const snapshot = await shruthiAdmin.collection(sCollection).get();
+
+        console.log(`Fetched ${snapshot.size} ${sCollection} from Shruthi.`);
+
+        const rows = snapshot.docs.map(doc => {
             const d = doc.data();
             return {
-                slug: d.slug,
-                name: d.name,
-                rid: d.rid,
-                type: d.type,
-                parent: d.parent,
-                pid: d.pid,
-                idx: d.idx,
-                arohana: d.arohana,
-                avarohana: d.avarohana,
+                slug: slugify(d.Krithi),  // Unique slug based on krithi name
+                name: d.Krithi,
+                raga: d.Raaga,
+                tala: d.Taala,
+                comp: d.Composer || "unknown",  // Default composer (can be modified based on actual data)
+                idx: d.Kindex || d.Krithi.toUpperCase().slice(0, 3), // Default index (can be modified based on actual data)
+                ridx: d.Index || d.Raaga.toUpperCase().slice(0, 3), // Default index (can be modified based on actual data)
+                type: d.type || "Mood",  // Default type (can be modified based on actual data)
+                lang: "Carnatic",  // Default language (can be modified based on actual data)
             };
         });
 
-        console.log("Starting batch...")
-        // 2. Write to Admin Firestore (KnowMusic)
+        // 2. Write to KnowMusic (Admin SDK)
+        console.log("Writing to KnowMusic...");
+
         const batch = knowmusiqAdmin.batch();
-        const colRef = knowmusiqAdmin.collection("ragas");
+        const colRef = knowmusiqAdmin.collection(sCollection);
 
         rows.forEach(row => {
-            const docRef = colRef.doc(row.slug); // preserve ID
+            const docRef = colRef.doc(row.slug);
             batch.set(docRef, row);
         });
 
         await batch.commit();
 
         return NextResponse.json({
-            message: `Migrated ${rows.length} ragas successfully`,
+            message: `Migrated ${rows.length} ${sCollection} successfully`,
         });
+
     } catch (err: any) {
-        return NextResponse.json(
-            { error: err.message },
-            { status: 500 }
-        );
+        console.error(err);
+        return NextResponse.json({ error: err.message }, { status: 500 });
     }
 }

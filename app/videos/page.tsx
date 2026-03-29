@@ -1,11 +1,11 @@
 // app/videos/page.tsx
 import VideoTile from "@/components/VideoTile";
-import { shruthiDB } from "@/lib/shruthiAdmin";
+import { shruthiAdmin } from "@/lib/shruthiAdmin";
 import ClientWrap from "@/components/ClientWrap";
 import BackButton from "@/components/BackButton";
 
 export default async function Page() {
-    const snapshot = await shruthiDB.collection("videos").limit(20).get();
+    const snapshot = await shruthiAdmin.collection("videos").limit(20).get();
 
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
 

@@ -1,5 +1,5 @@
 // app/search/page.tsx
-import { shruthiDB } from "../../lib/shruthiAdmin";
+import { shruthiAdmin } from "../../lib/shruthiAdmin";
 import Link from "next/link";
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
@@ -15,7 +15,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         );
     }
 
-    const snap = await shruthiDB
+    const snap = await shruthiAdmin
         .collection("ragas")
         .where("Parent", "==", q)
         .get();
