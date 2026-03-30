@@ -1,9 +1,8 @@
 "use client"
 import SearchBox from "./SearchBox"
 import FlyoutMenu from "./FlyoutMenu"
-import { useApp } from "../context/AppContext";
 import MinimiseButton from "./MinimiseButton";
-import MaximizeButton from "./MaximizeButton";
+import { useState } from "react";
 
 const links = [
     { name: 'Home', href: '/' },
@@ -20,10 +19,10 @@ const stats = [
 ]
 
 export default function Header() {
-    const { minimiseHeader } = useApp();
+    const [minHeader, setMinimiseHeader] = useState(false);
     return (
         <div className={
-            minimiseHeader ? "relative isolate overflow-hidden bg-slate-800 py-4 sm:py-12 border border-b border-my-secondary/40"
+            minHeader ? "relative isolate overflow-hidden bg-slate-800 py-4 sm:py-12 border border-b border-my-secondary/40"
                 : "relative isolate overflow-hidden bg-white text-white py-10 sm:py-12 border border-b border-my-secondary/40"
         }>
             <img
@@ -62,11 +61,13 @@ export default function Header() {
                 <div className="mx-auto  lg:mx-0">
                     <div className="mb-6 flex justify-between align-middle">
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
-                        {minimiseHeader ? <MaximizeButton /> : <MinimiseButton />}
+                        <MinimiseButton isMinimised={minHeader} setIsMinimised={setMinimiseHeader} />
                     </div>
-                    <div className="pl-2"><FlyoutMenu /></div>
+                    <SearchBox />
 
-                    <div className={minimiseHeader ? "hidden" : ""}>
+                    <div className="pl-2 hidden"><FlyoutMenu /></div>
+
+                    <div className={minHeader ? "hidden" : ""}>
                         <p className="mt-8 text-lg font-medium text-pretty text-gray-700 sm:text-xl/8">
                             This site is an attempt to the different music concepts and combine them into a unified framework.
                             Search Carnatic and Hindustani music relate to concepts like
@@ -74,9 +75,8 @@ export default function Header() {
                     </div>
                 </div>
 
-                <SearchBox />
 
-                <div className={minimiseHeader ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
+                <div className={minHeader ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
                         {links.map((link) => (
                             <a key={link.name} href={link.href} className="text-my-primary">

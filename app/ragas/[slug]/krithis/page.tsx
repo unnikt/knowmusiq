@@ -1,18 +1,15 @@
-// app/raga/[slug]/page.tsx
-import { shruthiAdmin } from "@/lib/shruthiAdmin";
-import { slugify } from "@/lib/slugify";
-import VideoTile from "@/components/VideoTile";
-import { toCamelCase } from "@/lib/camelcase";
 import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
-import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
+import RagaCard from "@/components/RagaCard";
+import { toCamelCase } from "@/lib/camelcase";
+import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { slugify } from "@/lib/slugify";
 
-export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
-
+export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const slugy = slugify(slug);
+
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
     const snapRagas = await knowmusiqAdmin.collection("ragas")
@@ -39,13 +36,18 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     }
     const raga = snapRagas.docs[0].data();
 
-    const snapVideos = await shruthiAdmin.collection("videos")
-        .where("tags.raga", "==", displayName)
-        .limit(20)
+    const snap = await knowmusiqAdmin
+        .collection("krithis")
+        .where("raga", "==", slugify(slug))
+        .orderBy("name")
         .get();
-    const videos = snapVideos.docs.map((doc) => ({ id: doc.id, videoId: doc.data(), ...doc.data() }));
 
-    console.log("Fetched Videos count= ", videos.length)
+    console.log("Fetched Krithis count= ", snap.size);
+
+    const items = snap.docs.map((doc) => ({
+        label: doc.data().name,
+        href: `/krithis/${doc.data().slug}`,
+    }));
 
     return (
         <ClientWrap minimiseHeader={true}>
@@ -60,20 +62,14 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
                     parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
                     arohana={raga.arohana}
                     avarohana={raga.avarohana}
-                    display={"videos"}
+                    display={"krithis"}
                 />
-                {videos.length > 0 &&
+                {items.length > 0 &&
                     <div>
-                        <h2 className=" my-4 text-gray-600">Songs in <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
-
-                        <div className="videoGrid">
-                            {videos.map((video) => (
-                                <VideoTile key={video.id} video={video} url={`https://www.youtube.com/watch?v=${video.videoId}`} target={"_blank"} />
-                            ))}
-                        </div>
+                        <h2 className=" my-4 text-gray-600">Krithis in <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
+                        <ItemList items={items} />
                     </div>
-                    || <p className="text-gray-500">No videos found for this raga.</p>
-                }
+                    || <p className="text-gray-500">No krithis available for this raga.</p>}
             </div>
         </ClientWrap>
     );

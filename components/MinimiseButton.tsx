@@ -1,21 +1,23 @@
 "use client";
 
-import { useApp } from "../context/AppContext";
-import { ArrowsPointingInIcon } from "@heroicons/react/20/solid";
+import { ArrowsPointingInIcon, ArrowsPointingOutIcon } from "@heroicons/react/20/solid";
 
-export default function MinimiseButton() {
-    const { setMinimiseHeader } = useApp();
+interface MinimiseButtonProps {
+    isMinimised: boolean;
+    setIsMinimised: (value: boolean) => void;
+}
 
-    function handlePlay() {
-        setMinimiseHeader(prev => !prev);
-    }
-
+export default function MinimiseButton({ isMinimised, setIsMinimised }: MinimiseButtonProps) {
     return (
         <button
-            onClick={handlePlay}
+            onClick={() => setIsMinimised(!isMinimised)}
             className="p-2 rounded-full text-pink-400 hover:bg-my-hilite hover:text-white transition"
         >
-            <ArrowsPointingInIcon className="h-5 w-5" />
+            {isMinimised ? (
+                <ArrowsPointingOutIcon className="h-5 w-5" />
+            ) : (
+                <ArrowsPointingInIcon className="h-5 w-5" />
+            )}
         </button>
     );
 }

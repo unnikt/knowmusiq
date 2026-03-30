@@ -14,7 +14,7 @@ export default function Paginate({
     if (!pages || pages.length <= 1) return null;
 
     return (
-        <div className="p-2 gap-1 flex flex-wrap bg-my-lite rounded-t-lg   shadow-sm">
+        <div className="p-2 gap-1 flex flex-wrap bg-my-lite rounded-t-lg border border-sky-300 shadow-sm">
             {pages.map((p) => (
                 <button
                     key={p}

@@ -26,9 +26,10 @@ export default function SearchBox() {
                 }}
                 placeholder="Search ragas..."
             />
+
             <button
                 onClick={handleSearch}
-                className=" bg-pink-500 text-white px-5 py-2   rounded-r-md hover:bg-blue-700"
+                className=" bg-pink-500 text-white px-5 py-2 rounded-r-md hover:bg-blue-700"
             >
                 Search
             </button>

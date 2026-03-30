@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { shruthiAdmin } from "@/lib/shruthiAdmin";        // Admin SDK (Shruthi)
 import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";    // Admin SDK (KnowMusic)
 import { slugify } from "@/lib/slugify";
 
@@ -14,10 +13,10 @@ export async function GET() {
     try {
         console.log(`Fetching ${sCollection} from Shruthi...`);
 
-        // 1. Read from Shruthi (Admin SDK)
-        const snapshot = await shruthiAdmin.collection(sCollection).get();
+        // 1. Read from KnowMusic (Admin SDK)
+        const snapshot = await knowmusiqAdmin.collection(sCollection).get();
 
-        console.log(`Fetched ${snapshot.size} ${sCollection} from Shruthi.`);
+        console.log(`Fetched ${snapshot.size} ${sCollection} from KnowMusic.`);
 
         const rows = snapshot.docs.map(doc => {
             const d = doc.data();

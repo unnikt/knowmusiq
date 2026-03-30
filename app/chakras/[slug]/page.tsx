@@ -40,6 +40,7 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
                 <ItemList
                     title={""}
                     items={items}
+                    className="border-t-0 rounded-t-none"
                 />
             </div>
         </ClientWrap>

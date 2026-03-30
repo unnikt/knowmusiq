@@ -1,10 +1,11 @@
 interface ItemListProps {
     title?: string;
     items: { label: string; href?: string }[];
+    className?: string;
 }
-export default function ItemList({ title, items }: ItemListProps) {
+export default function ItemList({ title, items, className }: ItemListProps) {
     return (
-        <div className="card-new">
+        <div className={`card-new ${className || ""}`}>
             {title && (
                 <h3 className="text-lg font-semibold text-gray-600 mb-3">
                     {title}

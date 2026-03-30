@@ -388,7 +388,7 @@ input {
 }
 
 .searchBox {
-  @apply flex justify-center w-full max-w-xl my-2;
+  @apply flex justify-start w-full max-w-xl;
 }
 
 .searchBox > input {
@@ -396,8 +396,7 @@ input {
 }
 
 .searchBox > button {
-  @apply px-5 py-2 rounded-r-md hover:bg-blue-700;
-
+  @apply px-5 py-2 hover:bg-blue-700;
 }
 
 .videoGrid {
