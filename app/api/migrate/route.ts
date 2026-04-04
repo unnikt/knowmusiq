@@ -7,7 +7,7 @@ export async function GET() {
 
     return NextResponse.json({ message: "This endpoint is currently disabled." }, { status: 200 });
 
-    const sCollection = "krithis";  // Change this to "composers", "singers", etc. as needed
+    const sCollection = "languages";  // Change this to "composers", "singers", etc. as needed
     // console.log("DEBUG: Available collections:");
     // const collections = await shruthiAdmin.listCollections();
     // collections.forEach(c => console.log(" -", c.id));
@@ -22,15 +22,10 @@ export async function GET() {
         const rows = snapshot.docs.map(doc => {
             const d = doc.data();
             return {
-                slug: slugify(d.Krithi),  // Unique slug based on krithi name
-                name: d.Krithi,
-                raga: slugify(d.Raaga),
-                tala: d.Taala,
-                comp: slugify(d.Composer) || "unknown",  // Default composer (can be modified based on actual data)
-                idx: d.Kindex || d.Krithi.toUpperCase().slice(0, 3), // Default index (can be modified based on actual data)
-                ridx: d.Index || d.Raaga.toUpperCase().slice(0, 3), // Default index (can be modified based on actual data)
-                type: d.type || "Mood",  // Default type (can be modified based on actual data)
-                lang: "Carnatic",  // Default language (can be modified based on actual data)
+                slug: slugify(d.name),  // Unique slug based on krithi name
+                name: d.name,
+                region: slugify(d.region || "not set"),  // Default region (can be modified based on actual data)
+                idx: d.idx || d.name.toUpperCase().slice(0, 3), // Default index (can be modified based on actual data)
             };
         });
 

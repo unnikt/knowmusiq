@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { dbShruthi } from "@/lib/firebaseSH.client"; // adjust path
-import BackButton from "./BackButton";
 
 export default function VideoTagForm({ onSubmit }) {
     const [youtubeUrl, setYoutubeUrl] = useState("");
@@ -58,7 +57,7 @@ export default function VideoTagForm({ onSubmit }) {
         async function fetchMetadata() {
             try {
                 const res = await fetch(
-                    `/api/youtube?id=${id}` // You will create this API route
+                    `/api/youtube?vid=${id}` // You will create this API route
                 );
                 const data = await res.json();
 
@@ -130,7 +129,6 @@ export default function VideoTagForm({ onSubmit }) {
                         <span className="font-medium text-gray-800">Video ID:</span> {youtubeId}
                     </p>
                 )}
-
             </div>
 
             {/* Auto-filled Title */}

@@ -360,7 +360,7 @@ h1,
 }
 
 .H2 {
-  @apply text-2xl font-semibold mb-4 text-gray-600;
+  @apply text-xl font-bold mb-4 text-gray-600;
 }
 
 .btn {
@@ -404,7 +404,7 @@ input {
 }
 
 .section-mid {
-  @apply max-w-4xl mx-auto p-6;
+  @apply max-w-4xl mx-auto px-6 pt-4;
 }
 
 @layer components {

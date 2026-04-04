@@ -32,7 +32,7 @@ export default function RagaCard({
     const slug = slugify(name); // or use slugify(name)
     const [minRaga, setMinRaga] = useState(false);
     return (
-        <div className="card-new">
+        <div className="card-new mb-0">
             <div className="flex items-start justify-between">
                 <div>
                     <h2 className="text-xl font-bold text-gray-600">{name}</h2>
@@ -70,9 +70,13 @@ export default function RagaCard({
                 </div>
             )}
 
-
+            <p className={`text-sm mt-2 text-slate-600 text-justify ${minRaga ? "hidden" : ""}`}>
+                Note: While the swaras and notes are fundamental to the raga,
+                their specific arrangement, ornamentation and emotional expression
+                create the unique character of a particular raga.
+            </p>
             {/* 🎵 Tabs Section */}
-            <div className="mt-6 border-t-2 pt-4 border-my-secondary">
+            <div className="mt-2 border-t-2 pt-4 border-my-secondary">
                 <div className="flex gap-4 text-sm font-medium">
                     {display != "videos" &&
                         <Link

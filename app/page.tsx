@@ -14,7 +14,6 @@ export default function Home() {
         <span>Click </span>
         <span><ArrowsPointingOutIcon className="h-5 w-5" /></span>
         <span> to expand the header</span>
-        <img src="" alt="" />
       </section>
     </main>
   );

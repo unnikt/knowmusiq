@@ -1,13 +1,12 @@
 // context/AppContext.tsx
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
     const [minimiseHeader, setMinimiseHeader] = useState<boolean>(false);
-
     return (
         <AppContext.Provider value={{ minimiseHeader, setMinimiseHeader }}>
             {children}

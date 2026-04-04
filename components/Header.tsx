@@ -2,13 +2,15 @@
 import SearchBox from "./SearchBox"
 import FlyoutMenu from "./FlyoutMenu"
 import MinimiseButton from "./MinimiseButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useApp } from "@/context/AppContext";
 
 const links = [
     { name: 'Home', href: '/' },
     { name: 'Browse videos', href: '/videos' },
     { name: 'Search and tag videos', href: '/SearchVideos' },
-    // { name: 'Tags videos', href: '/videos/tag' },
+    { name: 'Tags videos', href: '/videos/tag' },
     { name: 'Meet our leadership', href: '#' },
 ]
 const stats = [
@@ -19,19 +21,23 @@ const stats = [
 ]
 
 export default function Header() {
-    const [minHeader, setMinimiseHeader] = useState(false);
+    const { minimiseHeader } = useApp();
+    const [minimise, setMinimise] = useState(minimiseHeader);
+    useEffect(() => {
+        setMinimise(minimiseHeader);
+    }, [minimiseHeader]);
+
     return (
-        <div className={
-            minHeader ? "relative isolate overflow-hidden bg-slate-800 py-4 sm:py-12 border border-b border-my-secondary/40"
-                : "relative isolate overflow-hidden bg-white text-white py-10 sm:py-12 border border-b border-my-secondary/40"
-        }>
-            <img
+        <div className={(minimise ? "bg-slate-800 " : "bg-white") +
+            " relative isolate overflow-hidden py-4 sm:py-12 border border-b border-my-secondary/40"}>
+            <Image
                 alt=""
-                // src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=screen"
-                // src="/music-smoke.jpg"
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                fill
                 className="absolute inset-0 -z-10 size-full object-cover object-right opacity-20 md:object-center"
+                priority
             />
+
             <div
                 aria-hidden="true"
                 className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -58,16 +64,15 @@ export default function Header() {
             </div>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-                <div className="mx-auto  lg:mx-0">
-                    <div className="mb-6 flex justify-between align-middle">
+                <div className="secton-mid">
+                    <div className="mb-2 flex justify-between align-middle">
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
-                        <MinimiseButton isMinimised={minHeader} setIsMinimised={setMinimiseHeader} />
+                        <MinimiseButton isMinimised={minimise} setIsMinimised={setMinimise} />
                     </div>
-                    <SearchBox />
+                    {!minimise && (<SearchBox />)}
+                    {/* <div className="pl-2 hidden"><FlyoutMenu /></div> */}
 
-                    <div className="pl-2 hidden"><FlyoutMenu /></div>
-
-                    <div className={minHeader ? "hidden" : ""}>
+                    <div className={minimise ? "hidden" : ""}>
                         <p className="mt-8 text-lg font-medium text-pretty text-gray-700 sm:text-xl/8">
                             This site is an attempt to the different music concepts and combine them into a unified framework.
                             Search Carnatic and Hindustani music relate to concepts like
@@ -76,7 +81,7 @@ export default function Header() {
                 </div>
 
 
-                <div className={minHeader ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
+                <div className={minimise ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
                     <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
                         {links.map((link) => (
                             <a key={link.name} href={link.href} className="text-my-primary">

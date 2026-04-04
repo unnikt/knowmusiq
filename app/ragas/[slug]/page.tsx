@@ -1,18 +1,19 @@
 // app/raga/[slug]/page.tsx
 import { shruthiAdmin } from "@/lib/shruthiAdmin";
 import { slugify } from "@/lib/slugify";
-import VideoTile from "@/components/VideoTile";
 import { toCamelCase } from "@/lib/camelcase";
 import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
 import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
+import RagaVideos from "@/components/RagaVideos";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
     const { slug } = await params;
     const slugy = slugify(slug);
+
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
     const snapRagas = await knowmusiqAdmin.collection("ragas")
@@ -39,17 +40,15 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     }
     const raga = snapRagas.docs[0].data();
 
-    const snapVideos = await shruthiAdmin.collection("videos")
-        .where("tags.raga", "==", displayName)
-        .limit(20)
-        .get();
-    const videos = snapVideos.docs.map((doc) => ({ id: doc.id, videoId: doc.data(), ...doc.data() }));
 
-    console.log("Fetched Videos count= ", videos.length)
-
+    // console.log("Fetched Videos count= ", videos.length)
+    // const handleSaveVideo = (videoId: string) => {
+    //     console.log("Saved video:", videoId);
+    //     // Add to list, send to API, etc.
+    // };
     return (
         <ClientWrap minimiseHeader={true}>
-            <div className="section-mid">
+            <div className="section-mid mb-0">
                 <BackButton />
                 <RagaCard
                     name={displayName}
@@ -62,18 +61,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
                     avarohana={raga.avarohana}
                     display={"videos"}
                 />
-                {videos.length > 0 &&
-                    <div>
-                        <h2 className=" my-4 text-gray-600">Songs in <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
-
-                        <div className="videoGrid">
-                            {videos.map((video) => (
-                                <VideoTile key={video.id} video={video} url={`https://www.youtube.com/watch?v=${video.videoId}`} target={"_blank"} />
-                            ))}
-                        </div>
-                    </div>
-                    || <p className="text-gray-500">No videos found for this raga.</p>
-                }
+                <RagaVideos slug={slugy} name={displayName} type={raga.type} />
             </div>
         </ClientWrap>
     );
