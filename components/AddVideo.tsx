@@ -48,7 +48,6 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
             try {
                 // Get ID token for authenticated requests
                 const token = await auth.currentUser?.getIdToken(true);
-                const result = await auth.currentUser?.getIdTokenResult();
                 const header = token ? { Authorization: `Bearer ${token}` } : {};
 
                 // Fetch data from YouTube API route

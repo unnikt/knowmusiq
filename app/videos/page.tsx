@@ -3,9 +3,10 @@ import VideoTile from "@/components/VideoTile";
 import { shruthiAdmin } from "@/lib/shruthiAdmin";
 import ClientWrap from "@/components/ClientWrap";
 import BackButton from "@/components/BackButton";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 
 export default async function Page() {
-    const snapshot = await shruthiAdmin.collection("videos").limit(20).get();
+    const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
 
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
 

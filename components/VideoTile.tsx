@@ -33,12 +33,10 @@ export default function VideoTile({ video, url, target }) {
                 <h3 className="line-clamp-2 text-sm font-semibold text-gray-900">
                     {toCamelCase(video.title)}
                 </h3>
-                {(video.tags && video.tags.raga) &&
+                {(video.raga) &&
                     <Link
-                        href={`/ragas/${video.tags.raga}`}>
-                        {video.tags &&
-                            <p className="mt-1 text-xs text-my-primary">{video.tags.raga}</p>
-                        }
+                        href={`/ragas/${video.raga}`}>
+                        <p className="mt-1 text-sm text-my-primary">{toCamelCase(video.raga.replace(/-/g, " "))}</p>
                     </Link>
                 }
             </div>
