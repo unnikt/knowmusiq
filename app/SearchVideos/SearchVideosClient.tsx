@@ -90,8 +90,6 @@ export default function SearchVideosClient() {
         // 1. Search Firestore first
         const local = await searchLocal(searchTerm.toLowerCase());
 
-        console.log("Local...", local);
-
         if (local.length > 0) {
             setResults(local);
             setLoading(false);

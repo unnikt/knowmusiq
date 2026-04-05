@@ -4,4 +4,5 @@ export function requireRole(decoded: any, roles: string[]) {
     if (!hasRole) {
         throw new Error("FORBIDDEN");
     }
+    return hasRole;
 }

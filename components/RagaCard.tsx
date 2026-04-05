@@ -4,6 +4,7 @@ import MinimiseButton from "@/components/MinimiseButton";
 import { ordinalString } from "@/lib/ordinalstring";
 import { slugify } from "@/lib/slugify";
 import { useState } from "react";
+import AddVideo from "./AddVideo";
 
 interface RagaCardProps {
     name: string;
@@ -15,6 +16,7 @@ interface RagaCardProps {
     avarohana: string;
     parent?: { name: string; slug: string };
     display?: string; // "krithis", "songs", "chords", etc. to conditionally render tabs or other UI elements
+    onSaved?: (msg: string) => void;
 }
 
 export default function RagaCard({
@@ -27,10 +29,13 @@ export default function RagaCard({
     avarohana,
     parent,
     display,
+    onSaved
 }: RagaCardProps) {
 
     const slug = slugify(name); // or use slugify(name)
     const [minRaga, setMinRaga] = useState(false);
+
+
     return (
         <div className="card-new mb-0">
             <div className="flex items-start justify-between">
@@ -76,8 +81,8 @@ export default function RagaCard({
                 create the unique character of a particular raga.
             </p>
             {/* 🎵 Tabs Section */}
-            <div className="mt-2 border-t-2 pt-4 border-my-secondary">
-                <div className="flex gap-4 text-sm font-medium">
+            <div className=" mt-2 border-t-2 pt-4 border-my-secondary">
+                <div className="flex gap-4 justify-between align-middle text-sm font-medium">
                     {display != "videos" &&
                         <Link
                             href={`/ragas/${slug}`}
@@ -100,6 +105,7 @@ export default function RagaCard({
                         >
                             Chords
                         </Link>}
+                    <AddVideo slug={slug} onSaved={onSaved} name={name} type={"raga"} />
                 </div>
             </div>
         </div>

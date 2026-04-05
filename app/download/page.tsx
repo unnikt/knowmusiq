@@ -15,7 +15,6 @@ export default function MigratePage({ params }: { params: Promise<{ slug: string
     async function getData(source: string) {
         const q = query(collection(dbShruthi, source));
         const snaps = await getDocs(q);
-        console.log("Records received...", snaps.size);
         const data = snaps.docs.map(doc => {
             const d = doc.data();
             return {

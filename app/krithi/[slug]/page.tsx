@@ -35,7 +35,6 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
 
     chords.scale.forEach((note) => {
         const ch = chords.chords[note];
-        console.log(`Chord for ${note}: ${ch.join(" ")}`);
     })
 
     return (

@@ -67,10 +67,15 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     }, [youtubeUrl]);
 
     async function handleSave() {
+
+        // Get ID token for authenticated requests
+        const token = await auth.currentUser?.getIdToken(true);
+        const header = token ? { Authorization: `Bearer ${token}` } : {};
+
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", ...header },
             body: JSON.stringify({
                 videoId: videoId,
                 data: {
@@ -100,7 +105,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     }
 
     return (
-        <div className="mt-4">
+        <div >
             <button
                 onClick={() => {
                     if (!auth.currentUser) {

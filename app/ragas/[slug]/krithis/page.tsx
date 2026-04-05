@@ -42,8 +42,6 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
         .orderBy("name")
         .get();
 
-    console.log("Fetched Krithis count= ", snap.size);
-
     const items = snap.docs.map((doc) => ({
         label: doc.data().name,
         href: `/krithis/${doc.data().slug}`,

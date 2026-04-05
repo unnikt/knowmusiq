@@ -41,7 +41,7 @@ export async function GET(req: Request) {
         const status = message === "MISSING_TOKEN" || message === "INVALID_TOKEN"
             ? 401 : message === "FORBIDDEN" ? 403 : 400;
 
-        console.log("api/youtube Auth error:", message);
+        console.log("ERR: api/youtube Auth error:", message);
 
         return NextResponse.json({ error: message }, { status });
     }

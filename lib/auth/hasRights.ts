@@ -7,11 +7,11 @@ export async function hasRights(req: Request, roles: string[]) {
         // 1. Authenticate
         const user = await verifyUser(req);
         // 2. Authorize
-        requireRole(user.decoded, ["admin", "tagEditor"]);
-        return true;
+        const roles = requireRole(user.decoded, ["admin", "tagEditor"]);
+        return { user: user.email, hasRights: true, roles: roles };
 
     } catch (err) {
         console.error("hasRights error:", err);
-        return false;
+        return { user: null, hasRights: false, roles: null };
     }
 }

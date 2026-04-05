@@ -7,7 +7,7 @@ import ClientWrap from "@/components/ClientWrap";
 import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
-import RagaVideos from "@/components/RagaVideos";
+import RagaClient from "@/components/RagaClient";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
@@ -44,18 +44,15 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
         <ClientWrap minimiseHeader={true}>
             <div className="section-mid mb-0">
                 <BackButton />
-                <RagaCard
-                    name={displayName}
-                    type={raga.type}
+                <RagaClient
+                    slug={slugy} name={displayName} type={raga.type}
+                    displayName={displayName}
                     rid={raga.rid}
                     pid={raga.pid}
-                    description={"A beautiful raga for every occasion.."}
-                    parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
-                    arohana={raga.arohana}
-                    avarohana={raga.avarohana}
-                    display={"videos"}
+                    arohana={raga.arohana || ""}
+                    avarohana={raga.avarohana || ""}
+                    parent={raga.parent}
                 />
-                <RagaVideos slug={slugy} name={displayName} type={raga.type} />
             </div>
         </ClientWrap>
     );

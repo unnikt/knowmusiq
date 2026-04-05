@@ -2,17 +2,24 @@
 
 import { useEffect, useState } from "react";
 import VideoTile from "@/components/VideoTile";
-import AddVideo from "./AddVideo";
-import { auth, dbKnowMusic } from "@/lib/firebaseKM.client";
+import { dbKnowMusic } from "@/lib/firebaseKM.client";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
+import RagaCard from "./RagaCard";
+import { slugify } from "@/lib/slugify";
 
-interface RagaVideosProps {
+interface RagaClientProps {
     slug: string;
     name?: string;
+    displayName: string;
     type?: string;
+    rid?: string;
+    pid?: string;
+    parent?: string;
+    arohana?: string;
+    avarohana?: string
 }
 
-export default function RagaVideos({ type, name, slug }: RagaVideosProps) {
+export default function RagaClient({ slug, name, displayName, type, rid, pid, parent, arohana, avarohana }: RagaClientProps) {
     const [videos, setVideos] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
     const [message, setMessage] = useState("");
@@ -45,10 +52,23 @@ export default function RagaVideos({ type, name, slug }: RagaVideosProps) {
                 Refresh Token
             </button> */}
 
-            <AddVideo slug={slug} onSaved={refresh} name={name} type={"raga"} />
+            {/* <AddVideo slug={slug} onSaved={refresh} name={name} type={"raga"} /> */}
+            <RagaCard
+                name={displayName}
+                type={type}
+                rid={rid}
+                pid={pid}
+                description={"A beautiful raga for every occasion.."}
+                parent={{ name: parent, slug: slugify(parent) }} // { name, slug }
+                arohana={arohana}
+                avarohana={avarohana}
+                display={"videos"}
+                onSaved={refresh}
+            />
+
             {message && <p className="text-green-500">{message}</p>}
             {videos.length > 0 ? (
-                <div className="videoGrid">
+                <div key={refreshKey} className="videoGrid mt-4">
                     {videos.map((video: any) => (
                         <VideoTile
                             key={video.id}

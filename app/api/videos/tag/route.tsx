@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
+import { hasRights } from "@/lib/auth/hasRights";
 
 export async function POST(req: Request) {
     try {
@@ -13,6 +14,14 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
+        const roles = await hasRights(req, ["admin", "tagEditor"]);
+
+        if (!roles.hasRights) {
+            return NextResponse.json(
+                { error: "Unauthorized!" },
+                { status: 403 }
+            );
+        }
 
         // Create if not present, update only provided fields if present
         await knowmusiqAdminDB.collection("videos").doc(videoId).set(
@@ -20,6 +29,7 @@ export async function POST(req: Request) {
                 ...data,
                 videoId,
                 updatedAt: Date.now(),
+                user: roles.user || "unknown", // Assuming you have user authentication set up
             },
             { merge: true } // <-- MAGIC: update only required fields
         );
