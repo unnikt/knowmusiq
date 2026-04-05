@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 
 export async function POST(req: Request) {
     try {
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
         }
 
         // Create if not present, update only provided fields if present
-        await knowmusiqAdmin.collection("videos").doc(videoId).set(
+        await knowmusiqAdminDB.collection("videos").doc(videoId).set(
             {
                 ...data,
                 videoId,

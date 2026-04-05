@@ -3,7 +3,7 @@ import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/camelcase";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 import { slugify } from "@/lib/slugify";
 
 export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -12,13 +12,13 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
 
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
-    const snapRagas = await knowmusiqAdmin.collection("ragas")
+    const snapRagas = await knowmusiqAdminDB.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
 
     if (snapRagas.empty) {
-        const snapRagas = await knowmusiqAdmin.collection("ragas")
+        const snapRagas = await knowmusiqAdminDB.collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
@@ -36,7 +36,7 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
     }
     const raga = snapRagas.docs[0].data();
 
-    const snap = await knowmusiqAdmin
+    const snap = await knowmusiqAdminDB
         .collection("krithis")
         .where("raga", "==", slugify(slug))
         .orderBy("name")

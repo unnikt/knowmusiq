@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    typescript: {
+        tsconfigPath: "tsconfig.server.json",
+    },
     images: {
         remotePatterns: [
             {

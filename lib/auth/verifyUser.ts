@@ -1,12 +1,6 @@
-import { getAuth } from "firebase-admin/auth";
+import { knowmusiqAdminAuth } from "@/lib/knowmusiqAdmin";
 
-export interface AuthenticatedUser {
-    uid: string;
-    email?: string;
-    claims: Record<string, any>;
-}
-
-export async function verifyUser(req: Request): Promise<AuthenticatedUser> {
+export async function verifyUser(req: Request) {
     const authHeader = req.headers.get("authorization");
 
     if (!authHeader?.startsWith("Bearer ")) {
@@ -16,14 +10,15 @@ export async function verifyUser(req: Request): Promise<AuthenticatedUser> {
     const idToken = authHeader.split(" ")[1];
 
     try {
-        const decoded = await getAuth().verifyIdToken(idToken);
+        const decoded = await knowmusiqAdminAuth.verifyIdToken(idToken);
 
         return {
             uid: decoded.uid,
             email: decoded.email,
-            claims: decoded,
+            decoded: decoded,
         };
-    } catch {
+    } catch (err) {
+        console.error("verifyUser error:", err);
         throw new Error("INVALID_TOKEN");
     }
 }

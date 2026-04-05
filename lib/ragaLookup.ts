@@ -1,10 +1,10 @@
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 
 export async function getRaga(slug: string) {
     const slugy = slug.replace(/%20/g, " ");
 
     // 1. Try exact slug match
-    const snapBySlug = await knowmusiqAdmin
+    const snapBySlug = await knowmusiqAdminDB
         .collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
@@ -20,7 +20,7 @@ export async function getRaga(slug: string) {
     // 2. Fallback: melakarta idx search
     const idxKey = slugy.toUpperCase().slice(0, 3);
 
-    const snapByIdx = await knowmusiqAdmin
+    const snapByIdx = await knowmusiqAdminDB
         .collection("ragas")
         .where("idx", "==", idxKey)
         .get();

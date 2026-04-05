@@ -4,7 +4,7 @@ import { slugify } from "@/lib/slugify";
 import { toCamelCase } from "@/lib/camelcase";
 import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
 import RagaVideos from "@/components/RagaVideos";
@@ -16,13 +16,13 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
 
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
-    const snapRagas = await knowmusiqAdmin.collection("ragas")
+    const snapRagas = await knowmusiqAdminDB.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
 
     if (snapRagas.empty) {
-        const snapRagas = await knowmusiqAdmin.collection("ragas")
+        const snapRagas = await knowmusiqAdminDB.collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
@@ -40,12 +40,6 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     }
     const raga = snapRagas.docs[0].data();
 
-
-    // console.log("Fetched Videos count= ", videos.length)
-    // const handleSaveVideo = (videoId: string) => {
-    //     console.log("Saved video:", videoId);
-    //     // Add to list, send to API, etc.
-    // };
     return (
         <ClientWrap minimiseHeader={true}>
             <div className="section-mid mb-0">

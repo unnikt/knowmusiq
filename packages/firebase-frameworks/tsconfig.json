@@ -1,8 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
-    "outDir": "dist",
+    "noEmit": true,
     "skipLibCheck": true
   },
   "include": [
@@ -12,5 +11,6 @@
     "src/*/index.ts",
     "src/*/firebase-aware.ts",
     "types/*.d.ts"
-  ]
+  ],
+  "exclude": []
 }

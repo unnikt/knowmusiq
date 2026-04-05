@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdmin } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 
 export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
     const parent = searchParams.get("parent");
 
-    const snap = await knowmusiqAdmin
+    const snap = await knowmusiqAdminDB
         .collection("ragas")
         .where("parent", "==", parent)
         .orderBy("rid")

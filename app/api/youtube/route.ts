@@ -12,12 +12,13 @@ export async function GET(req: Request) {
             { status: 400 }
         );
     }
-
     try {
+
         // 1. Authenticate
         const user = await verifyUser(req);
+
         // 2. Authorize
-        requireRole(user, ["admin", "tagEditor"]);
+        requireRole(user.decoded, ["admin", "tagEditor"]);
 
     } catch (err: any) {
         const message =

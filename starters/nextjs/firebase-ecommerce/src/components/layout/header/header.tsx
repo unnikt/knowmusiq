@@ -20,8 +20,8 @@ import clsx from 'clsx'
 import DropdownMenu from '@/components/ui/dropdown-menu'
 import { handleSearch, SearchResult } from '@/lib/actions/search'
 import { useAuth } from '@/hooks/useAuth'
-import { auth } from '../../../../../../../lib/firebase'
 import { signOut } from 'firebase/auth'
+import { auth } from '@/lib/firebase'
 
 type Props = {
   navigation: { label: string; href: string }[]
@@ -88,7 +88,7 @@ export default function Header({ navigation }: Props) {
   return (
     <header className="sticky top-0 z-40 text-foreground bg-background border-b">
       <div className="container relative">
-        <div className="max-w-screen-2xl mx-auto flex gap-10 items-center h-[60px]">
+        <div className="max-w-screen-2xl mx-auto flex gap-10 items-center h-15">
           <HamburgerButton isOpen={mobileNavOpen} setIsOpen={setMobileNavOpen} />
 
           <Link

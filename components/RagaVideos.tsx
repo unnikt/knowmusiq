@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import VideoTile from "@/components/VideoTile";
 import AddVideo from "./AddVideo";
-import { dbKnowMusic } from "@/lib/firebaseKM.client";
+import { auth, dbKnowMusic } from "@/lib/firebaseKM.client";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 
 interface RagaVideosProps {
@@ -36,7 +36,16 @@ export default function RagaVideos({ type, name, slug }: RagaVideosProps) {
 
     return (
         <div>
-            <AddVideo slug={slug} onSaved={refresh} name={name} type={type} />
+            {/* <button
+                onClick={async () => {
+                    const token = await auth.currentUser?.getIdToken(true);
+                    const result = await auth.currentUser?.getIdTokenResult();
+                }} className="px-3 py-1 bg-blue-600 text-white rounded"
+            >
+                Refresh Token
+            </button> */}
+
+            <AddVideo slug={slug} onSaved={refresh} name={name} type={"raga"} />
             {message && <p className="text-green-500">{message}</p>}
             {videos.length > 0 ? (
                 <div className="videoGrid">

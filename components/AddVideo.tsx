@@ -5,6 +5,9 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import Modal from "./Modal";
 import YouTubePlayer from "./YTPlayer";
 import { getVideoId } from "@/lib/getVideoId";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebaseKM.client";
+import { onAuthStateChanged } from "firebase/auth";
 
 interface AddVideo {
     name: string;
@@ -19,21 +22,39 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const [videoId, setVideoId] = useState("");
     const [title, setTitle] = useState("");
     const [API_STATUS, setApiStatus] = useState({ status: 0, text: "" });
+    const router = useRouter();
+
+    const [authReady, setAuthReady] = useState(false);
+
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, () => {
+            setAuthReady(true);
+        });
+        return () => unsub();
+    }, []);
+
+
 
     // Fetch metadata when URL changes
     useEffect(() => {
+        if (!authReady) return;   // ⬅️ Wait for Firebase Auth to load
+
         const id = getVideoId(youtubeUrl);
         setVideoId(id);
+
         if (!id) { setTitle(null); return };
 
         async function fetchMetadata() {
             try {
-                console.log("Calling YouTube API for video ID:", id);
+                // Get ID token for authenticated requests
+                const token = await auth.currentUser?.getIdToken(true);
+                const result = await auth.currentUser?.getIdTokenResult();
+                const header = token ? { Authorization: `Bearer ${token}` } : {};
 
                 // Fetch data from YouTube API route
-                const res = await fetch(
-                    `/api/youtube?vid=${id}` // You will create this API route
-                );
+                const res = await fetch(`/api/youtube?vid=${id}`, {
+                    headers: header,
+                });
                 setApiStatus({ status: res.status, text: res.statusText });
 
                 const data = await res.json();
@@ -82,7 +103,13 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     return (
         <div className="mt-4">
             <button
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    if (!auth.currentUser) {
+                        router.push("/auth/signin");
+                        return;
+                    }
+                    setOpen(true);
+                }}
                 className="flex items-center gap-2 px-4 py-1 bg-my-secondary text-white rounded hover:bg-my-primary/80 transition"
             >
                 <PlusIcon className="h-5 w-5 font-bold" />
@@ -93,9 +120,10 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 isOpen={open}
                 onClose={() => { cleanup() }}
                 children={
-                    <div className="p-4 scroll-auto min-h-50">
-                        <h2 className="text-xl font-semibold text-gray-600 mb-2">Add a video to {type} <i className="text-my-accent">{name}</i></h2>
-                        <p className="text-sm min-h-5 pl-1 ">
+                    <div className="p-4 scroll-auto min-h-60">
+                        <h2 className="text-xl font-semibold text-gray-600 mb-2">Add a video</h2>
+                        <p className=" bg-my-accent/20 p-2 ">{type} : {name}</p>
+                        <p className="text-sm min-h-6 px-1 pl-1 ">
                             <span className="text-gray-500"> {videoId && `Video ID: ${videoId}`}</span>
                         </p>
 
@@ -109,7 +137,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                             />
                         </div>
                         {API_STATUS.status !== 200 && API_STATUS.status !== 0 && (
-                            <p className="text-sm text-gray-500 mt-1 pl-1 py-4">
+                            <p className="text-sm text-gray-500 pl-1 py-2">
                                 {API_STATUS.status} {API_STATUS.text}
                             </p>
                         )}
@@ -129,7 +157,6 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                                 >
                                     Save & Close
                                 </button>
-
                             </div>
                         )}
                     </div>
