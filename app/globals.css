@@ -384,7 +384,7 @@ h1,
 }
 
 input {
-  @apply px-4 py-2 bg-white outline-none;
+  @apply p-2 bg-white outline-none;
 }
 
 .searchBox {
@@ -413,6 +413,10 @@ input {
 
 .btn-secondary {
   @apply mt-4 px-4 py-2 bg-my-secondary text-white rounded hover:bg-my-secondary/80 transition;
+}
+
+.btn-outline {
+  @apply mt-4 px-4 py-2 border border-slate-300 text-my-primary rounded hover:bg-my-secondary/80 transition;
 }
 
 @layer components {

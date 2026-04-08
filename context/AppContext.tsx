@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-    const [minimiseHeader, setMinimiseHeader] = useState<boolean>(false);
+    const [minimiseHeader, setMinimiseHeader] = useState<boolean>(true);
     return (
         <AppContext.Provider value={{ minimiseHeader, setMinimiseHeader }}>
             {children}

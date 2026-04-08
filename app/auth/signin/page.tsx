@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import GoogleSignInButton from "@/components/GoogleSignInButton";
 import ClientWrap from "@/components/ClientWrap";
-import { auth } from "@/lib/firebaseKM.client";
+import { auth } from "@/lib/client/firebaseKM.client";
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");

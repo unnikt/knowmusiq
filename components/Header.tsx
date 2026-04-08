@@ -1,16 +1,17 @@
 "use client"
-import SearchBox from "./SearchBox"
-import FlyoutMenu from "./FlyoutMenu"
-import MinimiseButton from "./MinimiseButton";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useApp } from "@/context/AppContext";
+import { useUser } from "@/hooks/useUser"
+import ProfileMenu from "./ProfileMenu";
+import Image from "next/image";
+import SearchBox from "./SearchBox"
+import MinimiseButton from "./MinimiseButton";
 
 const links = [
     { name: 'Home', href: '/' },
     { name: 'Browse videos', href: '/videos' },
-    { name: 'Search and tag videos', href: '/SearchVideos' },
-    { name: 'Tags videos', href: '/videos/tag' },
+    // { name: 'Search and tag videos', href: '/SearchVideos' },
+    // { name: 'Tags videos', href: '/videos/tag' },
     { name: 'Meet our leadership', href: '#' },
 ]
 const stats = [
@@ -23,13 +24,30 @@ const stats = [
 export default function Header() {
     const { minimiseHeader } = useApp();
     const [minimise, setMinimise] = useState(minimiseHeader);
+    const [profile] = useState("Profile");
+    const [open, setOpen] = useState(false)
+    const [userName, setName] = useState(null);
+
+    const { user, rights, loading } = useUser();
+
     useEffect(() => {
         setMinimise(minimiseHeader);
     }, [minimiseHeader]);
 
+    useEffect(() => {
+        if (!loading) {
+            setName(user?.displayName ?? null);
+            console.log(rights);
+        }
+    }, [loading, user]);
+
+
+    function handleClick() {
+        setOpen(prev => !prev)
+    }
     return (
         <div className={(minimise ? "bg-slate-800 " : "bg-white") +
-            " relative isolate overflow-hidden py-4 sm:py-12 border border-b border-my-secondary/40"}>
+            " relative isolate overflow-hidden py-4 sm:py-4 border-0 border-b border-b-my-secondary/40 "}>
             <Image
                 alt=""
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
@@ -40,7 +58,7 @@ export default function Header() {
 
             <div
                 aria-hidden="true"
-                className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+                className=" hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
             >
                 <div
                     style={{
@@ -49,6 +67,7 @@ export default function Header() {
                     }}
                     className="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15"
                 />
+                <p>Test</p>
             </div>
             <div
                 aria-hidden="false"
@@ -62,12 +81,23 @@ export default function Header() {
                     className="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15"
                 />
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="secton-mid">
-                    <div className="mb-2 flex justify-between align-middle">
+                    <div className="mb-4 flex justify-between align-middle">
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
-                        <MinimiseButton isMinimised={minimise} setIsMinimised={setMinimise} />
+                        <div className="flex flex-col justify-center items-center">
+                            <MinimiseButton isMinimised={minimise} setIsMinimised={setMinimise} />
+                            <div className="relative inline-block">
+                                <button
+                                    className={minimise ? "text-white" : "text-my-primary"}
+                                    onClick={handleClick}
+                                >
+                                    {profile}
+                                </button>
+                                {open && <ProfileMenu user={userName} rights={rights} />}
+                            </div>
+                        </div>
                     </div>
                     {!minimise && (<SearchBox />)}
                     {/* <div className="pl-2 hidden"><FlyoutMenu /></div> */}
@@ -80,23 +110,24 @@ export default function Header() {
                     </div>
                 </div>
 
-
                 <div className={minimise ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
-                    <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
+                    <div className=" grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
                         {links.map((link) => (
                             <a key={link.name} href={link.href} className="text-my-primary">
                                 {link.name} <span aria-hidden="true"></span>
                             </a>
                         ))}
                     </div>
-                    <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-                        {stats.map((stat) => (
-                            <div key={stat.name} className="flex flex-col-reverse gap-1">
-                                <dt className="text-base/7 text-gray-700">{stat.name}</dt>
-                                <dd className="text-4xl font-semibold tracking-tight text-gray-900">{stat.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
+                    <div className="hidden">
+                        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+                            {stats.map((stat) => (
+                                <div key={stat.name} className="flex flex-col-reverse gap-1">
+                                    <dt className="text-base/7 text-gray-700">{stat.name}</dt>
+                                    <dd className="text-4xl font-semibold tracking-tight text-gray-900">{stat.value}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div >

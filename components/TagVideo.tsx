@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { dbShruthi } from "@/lib/firebaseSH.client"; // adjust path
+import { dbShruthi } from "@/lib/client/firebaseSH.client"; // adjust path
 
 export default function VideoTagForm({ onSubmit }) {
     const [youtubeUrl, setYoutubeUrl] = useState("");

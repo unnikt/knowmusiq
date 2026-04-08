@@ -1,6 +1,6 @@
 "use client";
 
-import { auth, googleProvider } from "@/lib/firebaseKM.client";
+import { auth, googleProvider } from "@/lib/client/firebaseKM.client";
 import { signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import { useState } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { dbShruthi } from "@/lib/firebaseSH.client";
+import { dbShruthi } from "@/lib/client/firebaseSH.client";
 import { doc, setDoc } from "firebase/firestore";
 import TagVideo from "@/components/TagVideo";
 import BackButton from "@/components/BackButton";

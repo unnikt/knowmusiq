@@ -6,7 +6,7 @@ import Modal from "./Modal";
 import YouTubePlayer from "./YTPlayer";
 import { getVideoId } from "@/lib/getVideoId";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebaseKM.client";
+import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
 
 interface AddVideo {

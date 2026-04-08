@@ -1,7 +1,7 @@
 "use client";
 
 import ClientWrap from "@/components/ClientWrap";
-import { dbShruthi } from "@/lib/firebaseSH.client";
+import { dbShruthi } from "@/lib/client/firebaseSH.client";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useState } from "react";
 

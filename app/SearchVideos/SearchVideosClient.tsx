@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { collection, query, where, orderBy, getDocs, addDoc } from "firebase/firestore";
-import { dbKnowMusic } from "@/lib/firebaseKM.client";
+import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import VideoTile from "@/components/VideoTile";
 import { useApp } from "@/context/AppContext";
 import TagVideoButton from "@/components/TagButton";
