@@ -412,7 +412,7 @@ input {
 }
 
 .btn-secondary {
-  @apply mt-4 px-4 py-2 bg-my-secondary text-white rounded hover:bg-my-secondary/80 transition;
+  @apply px-4 py-2 bg-my-secondary text-white rounded hover:bg-my-secondary/80 transition;
 }
 
 .btn-outline {

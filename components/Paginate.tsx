@@ -21,8 +21,8 @@ export default function Paginate({
                     onClick={() => onPageChange(p)}
                     className={`mb-1 px-3 py-1 text-white  rounded  min-w-10 transition 
                         ${p === currentPage
-                            ? " bg-my-secondary font-semibold"
-                            : "hover:bg-gray-100 border-gray-300"
+                            ? "bg-my-secondary font-semibold  "
+                            : "hover:bg-gray-100 hover:text-my-secondary"
                         }`}
                 >
                     {p}

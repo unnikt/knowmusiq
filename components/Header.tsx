@@ -9,10 +9,11 @@ import MinimiseButton from "./MinimiseButton";
 
 const links = [
     { name: 'Home', href: '/' },
-    { name: 'Browse videos', href: '/videos' },
+    { name: 'Videos', href: '/videos' },
+    { name: 'Personalities', href: '/persons/composers' },
     // { name: 'Search and tag videos', href: '/SearchVideos' },
     // { name: 'Tags videos', href: '/videos/tag' },
-    { name: 'Meet our leadership', href: '#' },
+    { name: 'About us', href: '#' },
 ]
 const stats = [
     { name: 'Languages', value: '12' },
@@ -37,7 +38,6 @@ export default function Header() {
     useEffect(() => {
         if (!loading) {
             setName(user?.displayName ?? null);
-            console.log(rights);
         }
     }, [loading, user]);
 
@@ -84,7 +84,7 @@ export default function Header() {
 
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="secton-mid">
-                    <div className="mb-4 flex justify-between align-middle">
+                    <div className={`${minimise ? "mb-0" : "mb-4"} flex justify-between align-middle`}>
                         <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
                         <div className="flex flex-col justify-center items-center">
                             <MinimiseButton isMinimised={minimise} setIsMinimised={setMinimise} />
@@ -110,10 +110,10 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className={minimise ? "hidden" : "mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none"} >
-                    <div className=" grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10">
+                <div className={`mx-auto ${!minimise && "mt-10"} max-w-2xl lg:mx-0 lg:max-w-none`} >
+                    <div className={`grid ${minimise ? "grid-cols-4 gap-1" : "grid-cols-1 gap-y-6"}    text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10`}>
                         {links.map((link) => (
-                            <a key={link.name} href={link.href} className="text-my-primary">
+                            <a key={link.name} href={link.href} className={`${minimise ? "text-white" : "text-my-primary"}`}>
                                 {link.name} <span aria-hidden="true"></span>
                             </a>
                         ))}

@@ -13,7 +13,7 @@ export default function ItemList({ title, items, className }: ItemListProps) {
             )}
 
             <ul className="space-y-2">
-                {items.map((item, idx) => (
+                {items && items.map((item, idx) => (
                     <li
                         key={idx}
                         className=" flex items-center justify-between"

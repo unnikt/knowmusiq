@@ -1,9 +1,9 @@
 // app/videos/page.tsx
 import VideoTile from "@/components/VideoTile";
-import { shruthiAdmin } from "@/lib/shruthiAdmin";
 import ClientWrap from "@/components/ClientWrap";
 import BackButton from "@/components/BackButton";
 import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
+import Link from "next/link";
 
 export default async function Page() {
     const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
@@ -13,7 +13,16 @@ export default async function Page() {
     return (
         <ClientWrap minimiseHeader>
             <div className="section-mid">
-                <BackButton />
+
+                <div className="flex justify-between align-middle items-center">
+                    <BackButton />
+                    <Link
+                        className="btn-secondary"
+                        href="/videos/tag">
+                        Add videos
+                    </Link>
+                </div>
+
                 <div className="videoGrid">
                     {videos.map((video) => (
                         <VideoTile key={video.id} video={video}

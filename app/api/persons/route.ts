@@ -18,6 +18,9 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const fld = searchParams.get("key");
         const value = searchParams.get("value");
+
+        console.log("Fld|val - ", fld, value)
+
         const map: Record<string, string> =
             { Composer: "comp", Singer: "sing", Lyricist: "lyri" };
 
@@ -26,17 +29,24 @@ export async function GET(req: Request) {
         }
 
         // Map UI tag → Firestore type
-        const snaps = await knowmusiqAdminDB
-            .collection("persons")
-            .where(fld, "==", fld == "type" ? map[value] : value)
-            .get();
+        let queryRef: FirebaseFirestore.Query = knowmusiqAdminDB.collection("persons");
+
+        if (!(fld === "type" && value === "all")) {
+            queryRef = queryRef.where(
+                fld,
+                "==",
+                fld === "type" ? map[value] : value
+            );
+        }
+        const snaps = await queryRef.get();
 
         const values = snaps.docs.map(doc => ({
             name: doc.data().name,
             type: doc.data().type,
+            thumbnail: doc.data().thumbnail || "",
             slug: doc.data().slug
         }));
-
+        console.log(values)
         return NextResponse.json({ values });
     } catch (err: any) {
         console.error("ERR: api/persons:", err);
