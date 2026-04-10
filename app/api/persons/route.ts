@@ -19,8 +19,6 @@ export async function GET(req: Request) {
         const fld = searchParams.get("key");
         const value = searchParams.get("value");
 
-        console.log("Fld|val - ", fld, value)
-
         const map: Record<string, string> =
             { Composer: "comp", Singer: "sing", Lyricist: "lyri" };
 
@@ -38,15 +36,15 @@ export async function GET(req: Request) {
                 fld === "type" ? map[value] : value
             );
         }
-        const snaps = await queryRef.get();
 
+        const snaps = await queryRef.get();
         const values = snaps.docs.map(doc => ({
             name: doc.data().name,
             type: doc.data().type,
             thumbnail: doc.data().thumbnail || "",
             slug: doc.data().slug
         }));
-        console.log(values)
+
         return NextResponse.json({ values });
     } catch (err: any) {
         console.error("ERR: api/persons:", err);

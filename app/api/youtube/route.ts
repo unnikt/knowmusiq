@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     }
     try {
         // 1. Authenticate user and check rights
-        const Rights = await hasRights(req, ["admin", "tagEditor"]);
+        const Rights = await hasRights(req);
         // 2. If user doesn't have rights, return 403
         if (!Rights) {
             return NextResponse.json(
@@ -40,8 +40,6 @@ export async function GET(req: Request) {
         const message = err?.message || (typeof err === "string" ? err : "Authentication failed");
         const status = message === "MISSING_TOKEN" || message === "INVALID_TOKEN"
             ? 401 : message === "FORBIDDEN" ? 403 : 400;
-
-        console.log("ERR: api/youtube Auth error:", message);
 
         return NextResponse.json({ error: message }, { status });
     }

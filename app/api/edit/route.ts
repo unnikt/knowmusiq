@@ -11,12 +11,9 @@ export async function GET() {
     // const collections = await shruthiAdmin.listCollections();
     // collections.forEach(c => console.log(" -", c.id));
     try {
-        console.log(`Fetching ${sCollection} from Shruthi...`);
 
         // 1. Read from KnowMusic (Admin SDK)
         const snapshot = await knowmusiqAdminDB.collection(sCollection).get();
-
-        console.log(`Fetched ${snapshot.size} ${sCollection} from KnowMusic.`);
 
         const rows = snapshot.docs.map(doc => {
             const d = doc.data();
@@ -34,8 +31,6 @@ export async function GET() {
         });
 
         // 2. Write to KnowMusic (Admin SDK)
-        console.log("Writing to KnowMusic...");
-
         const batch = knowmusiqAdminDB.batch();
         const colRef = knowmusiqAdminDB.collection(sCollection);
 

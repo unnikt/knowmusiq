@@ -1,7 +1,7 @@
 import { requireRole } from "./requireRole";
 import { verifyUser } from "./verifyUser";
 
-export async function hasRights(req: Request, roles: string[]) {
+export async function hasRights(req: Request) {
 
     try {
         // 1. Authenticate

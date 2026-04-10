@@ -17,10 +17,10 @@ export default function Home() {
       redirect: "/chakras/Indu Chakra",
     },
     {
-      name: "Personalities", id: "2",
-      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
-      title: "Personalities", subtitle: "Composers | Singer | Lyricists",
-      redirect: "/persons",
+      name: "Legends", id: "2",
+      thumbnail: "./legends.png",
+      title: "Legends", subtitle: "Composers | Singer | Lyricists",
+      redirect: "/persons/legends",
     },
     {
       name: "Personalities", id: "3",
@@ -33,6 +33,7 @@ export default function Home() {
     <ClientWrap minimiseHeader={false}>
       <main>
         {/* <p className="p-4 text-gray-400">{message}</p> */}
+
         <section className="flex flex-col items-center gap-2 mt-2 p-4 text-gray-400">
           {/* <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))]"> */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4">

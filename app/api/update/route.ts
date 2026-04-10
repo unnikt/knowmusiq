@@ -6,11 +6,11 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
 
-        const { videoId, data } = body;
+        const { db, doc_id, data } = body;
 
-        if (!videoId || !data) {
+        if (!db || !doc_id || !data) {
             return NextResponse.json(
-                { error: "Missing videoId or data" },
+                { error: "Missing db or doc_id or data" },
                 { status: 400 }
             );
         }
@@ -24,10 +24,10 @@ export async function POST(req: Request) {
         }
 
         // Create if not present, update only provided fields if present
-        await knowmusiqAdminDB.collection("videos").doc(videoId).set(
+        await knowmusiqAdminDB.collection(db).doc(doc_id).set(
             {
                 ...data,
-                videoId,
+                doc_id,
                 updatedAt: Date.now(),
                 user: roles.user || "unknown", // Assuming you have user authentication set up
             },
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({
             success: true,
-            id: videoId,
+            id: doc_id,
         });
     } catch (err: any) {
         return NextResponse.json({ error: err.message }, { status: 500 });

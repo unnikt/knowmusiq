@@ -15,8 +15,6 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
     const [items, setItems] = useState([]);
     const router = useRouter();
 
-    console.log(currentPage)
-
     useEffect(() => {
         async function load() {
 
@@ -32,7 +30,7 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
     }, [currentPage]);
 
     function handleClick(p) {
-        router.push(`/persons/${p}`);
+        router.push(`/persons/type/${p}`);
     }
 
     return (

@@ -43,16 +43,6 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
 
     return (
         <div>
-            {/* <button
-                onClick={async () => {
-                    const token = await auth.currentUser?.getIdToken(true);
-                    const result = await auth.currentUser?.getIdTokenResult();
-                }} className="px-3 py-1 bg-blue-600 text-white rounded"
-            >
-                Refresh Token
-            </button> */}
-
-            {/* <AddVideo slug={slug} onSaved={refresh} name={name} type={"raga"} /> */}
             <RagaCard
                 name={displayName}
                 type={type}
@@ -81,6 +71,8 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
             ) : (
                 <p className="text-gray-500">No videos found for this raga.</p>
             )}
+
+
         </div>
     );
 }

@@ -396,7 +396,7 @@ input {
 }
 
 .searchBox > button {
-  @apply px-5 py-2 hover:bg-blue-700;
+  @apply px-5 py-2 rounded-r-sm hover:bg-blue-700;
 }
 
 .videoGrid {

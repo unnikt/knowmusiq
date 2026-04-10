@@ -10,7 +10,7 @@ import MinimiseButton from "./MinimiseButton";
 const links = [
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
-    { name: 'Personalities', href: '/persons/composers' },
+    { name: 'Personalities', href: '/persons/type/Composers' },
     // { name: 'Search and tag videos', href: '/SearchVideos' },
     // { name: 'Tags videos', href: '/videos/tag' },
     { name: 'About us', href: '#' },

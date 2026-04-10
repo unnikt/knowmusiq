@@ -7,6 +7,5 @@ export async function getWikiSummary(name: string) {
     if (!res.ok) return null;
 
     const data = await res.json();
-    if (data.title) console.log(data)
     return { summary: data.extract || null, pic: data.thumbnail?.source || null };
 }

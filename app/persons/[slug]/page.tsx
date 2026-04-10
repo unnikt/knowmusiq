@@ -1,8 +1,12 @@
+import BackButton from "@/components/BackButton";
+import GetWikiName from "@/components/GetWikiName";
+import PersonsClient from "@/components/PersonsClient";
 import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
 import { xRef } from "@/lib/MapValues";
 import { slugify } from "@/lib/slugify";
 import { getWikiSummary } from "@/lib/wiki";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -23,13 +27,12 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     const person = snap.docs[0].data();
     // Fetch Wikipedia summary
     const wiki = await getWikiSummary(person.wiki);
-    console.log(wiki)
     const bio = person.bio || wiki.summary || "No biography available.";
 
     return (
         <div className="max-w-3xl mx-auto p-6">
-            <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center text-center">
-
+            <BackButton url="/persons/type/composers" />
+            <div className="bg-white  p-6 flex flex-col items-center text-center">
                 {/* Profile Picture */}
                 <Image
                     src={person.image || wiki.pic || "/no_profile_pic.jpg"}
@@ -40,19 +43,29 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
                 />
 
                 {/* Name */}
-                <h1 className="text-3xl font-bold tracking-tight">
+                <h2 className="text-3xl text-slate-700  tracking-wide">
                     {person.name}
-                </h1>
+                </h2>
 
                 {/* Profession */}
-                <p className="text-pink-600 font-medium tracking-wide mt-1">
+                <Link
+                    href={`/persons/type/${xRef(person.type)}s`}
+                    className="text-pink-600 font-medium tracking-wide mt-1"
+                >
                     {xRef(person.type) || "Musician"}
-                </p>
+                </Link>
+
+                {person.wiki && <Link
+                    href={`https://en.wikipedia.org/wiki/${person.wiki}`}
+                    className=" text-my-primary">Source: Wikipedia</Link>}
 
                 {/* Bio */}
                 <p className="mt-4 text-gray-600 text-left max-w-xl">
                     {bio || "No biography available."}
                 </p>
+                {!person.wiki &&
+                    <PersonsClient src="persons" doc_id={person.slug} />
+                }
 
                 {/* Link to Music */}
                 {person.musicLink && (
@@ -65,6 +78,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
                     </a>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
