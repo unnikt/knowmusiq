@@ -6,14 +6,17 @@ import ProfileMenu from "./ProfileMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
 import MinimiseButton from "./MinimiseButton";
+import Link from "next/link";
+import { HomeIcon } from "@heroicons/react/20/solid";
+import { UserCircleIcon } from "@heroicons/react/20/solid";
 
 const links = [
-    { name: 'Home', href: '/' },
-    { name: 'Videos', href: '/videos' },
-    { name: 'Personalities', href: '/persons/type/Composers' },
+    // { name: 'Home', href: '/' },
+    // { name: 'Videos', href: '/videos' },
+    // { name: 'Personalities', href: '/persons/type/Composers' },
     // { name: 'Search and tag videos', href: '/SearchVideos' },
     // { name: 'Tags videos', href: '/videos/tag' },
-    { name: 'About us', href: '#' },
+    // { name: 'About us', href: '#' },
 ]
 const stats = [
     { name: 'Languages', value: '12' },
@@ -46,17 +49,53 @@ export default function Header() {
         setOpen(prev => !prev)
     }
     return (
-        <div className={(minimise ? "bg-slate-800 " : "bg-white") +
-            " relative isolate overflow-hidden py-4 sm:py-4 border-0 border-b border-b-my-secondary/40 "}>
-            <Image
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                fill
-                className="absolute inset-0 -z-10 size-full object-cover object-right opacity-20 md:object-center"
-                priority
-            />
+        <div>
+            <section className="bg-slate-800  relative isolate  p-2 section-mid rounded-t-lg" >
+                <Image
+                    alt=""
+                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                    fill
+                    className="absolute inset-0 -z-10 size-full object-cover object-right opacity-20 md:object-center"
+                    priority
+                />
+                <div className="mb-2 px-2 flex justify-between items-center  ">
+                    <h2 className="text-2xl font-semibold tracking-tight text-white">
+                        musiq me
+                    </h2>
 
-            <div
+                    <div className="flex justify-between items-center gap-2">
+                        <Link href="/" className="text-white flex items-center gap-2">
+                            <HomeIcon className="h-7 w-7" />
+                        </Link>
+                        <div className="relative">
+                            <Link
+                                href="#"
+                                onClick={handleClick}
+                                className="text-white flex items-center gap-2">
+                                <UserCircleIcon className="h-7 w-7" />
+                            </Link>
+                            {open && <ProfileMenu user={userName} rights={rights} />}
+                        </div>
+
+                        <MinimiseButton
+                            isMinimised={minimise}
+                            setIsMinimised={setMinimise}
+                        />
+
+                    </div>
+                </div>
+            </section>
+            <section className={minimise ? "hidden" : "" + "px-4 py-2 border-b border-my-secondary bg-slate-100 section-mid"} >
+                <SearchBox />
+                <div >
+                    <p className="mx-2 text-lg font-semibold  text-wide text-gray-700 sm:text-xl/8">
+                        This site is an attempt to the different music concepts and combine them into a unified framework.
+                        Search Carnatic and Hindustani music relate to concepts like
+                    </p>
+                </div>
+            </section>
+
+            {/* <div
                 aria-hidden="true"
                 className=" hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
             >
@@ -68,8 +107,8 @@ export default function Header() {
                     className="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15"
                 />
                 <p>Test</p>
-            </div>
-            <div
+            </div> */}
+            {/* <div
                 aria-hidden="false"
                 className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:-top-112 sm:ml-16 sm:translate-x-0"
             >
@@ -80,56 +119,9 @@ export default function Header() {
                     }}
                     className="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15"
                 />
-            </div>
+            </div> */}
 
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="secton-mid">
-                    <div className={`${minimise ? "mb-0" : "mb-4"} flex justify-between align-middle`}>
-                        <h2 className="text-5xl font-semibold tracking-tight text-my-primary sm:text-7xl">musiq me</h2>
-                        <div className="flex flex-col justify-center items-center">
-                            <MinimiseButton isMinimised={minimise} setIsMinimised={setMinimise} />
-                            <div className="relative inline-block">
-                                <button
-                                    className={minimise ? "text-white" : "text-my-primary"}
-                                    onClick={handleClick}
-                                >
-                                    {profile}
-                                </button>
-                                {open && <ProfileMenu user={userName} rights={rights} />}
-                            </div>
-                        </div>
-                    </div>
-                    {!minimise && (<SearchBox />)}
-                    {/* <div className="pl-2 hidden"><FlyoutMenu /></div> */}
 
-                    <div className={minimise ? "hidden" : ""}>
-                        <p className="mt-8 text-lg font-medium text-pretty text-gray-700 sm:text-xl/8">
-                            This site is an attempt to the different music concepts and combine them into a unified framework.
-                            Search Carnatic and Hindustani music relate to concepts like
-                        </p>
-                    </div>
-                </div>
-
-                <div className={`mx-auto ${!minimise && "mt-10"} max-w-2xl lg:mx-0 lg:max-w-none`} >
-                    <div className={`grid ${minimise ? "grid-cols-4 gap-1" : "grid-cols-1 gap-y-6"}    text-base/7 font-semibold text-gray-900 sm:grid-cols-2 md:flex lg:gap-x-10`}>
-                        {links.map((link) => (
-                            <a key={link.name} href={link.href} className={`${minimise ? "text-white" : "text-my-primary"}`}>
-                                {link.name} <span aria-hidden="true"></span>
-                            </a>
-                        ))}
-                    </div>
-                    <div className="hidden">
-                        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-                            {stats.map((stat) => (
-                                <div key={stat.name} className="flex flex-col-reverse gap-1">
-                                    <dt className="text-base/7 text-gray-700">{stat.name}</dt>
-                                    <dd className="text-4xl font-semibold tracking-tight text-gray-900">{stat.value}</dd>
-                                </div>
-                            ))}
-                        </dl>
-                    </div>
-                </div>
-            </div>
         </div >
     )
 }

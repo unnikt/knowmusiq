@@ -30,9 +30,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     const bio = person.bio || wiki.summary || "No biography available.";
 
     return (
-        <div className="max-w-3xl mx-auto p-6">
+        <div className="section-mid ">
             <BackButton url="/persons/type/composers" />
-            <div className="bg-white  p-6 flex flex-col items-center text-center">
+            <div className="bg-white  p-6 flex flex-col items-center text-center bg-linear-90 from-blue-100 to-blue-300 rounded-sm">
                 {/* Profile Picture */}
                 <Image
                     src={person.image || wiki.pic || "/no_profile_pic.jpg"}

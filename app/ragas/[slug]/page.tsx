@@ -29,7 +29,9 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
         return (
             <ClientWrap minimiseHeader={true}>
                 <div className="section-mid">
-                    <BackButton />
+                    <div className="flex justify-between align-middle items-center">
+                        <BackButton />
+                    </div>
                     <ItemList
                         title="Did you mean?"
                         items={items}

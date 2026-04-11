@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import GoogleSignInButton from "@/components/GoogleSignInButton";
 import ClientWrap from "@/components/ClientWrap";
 import { auth } from "@/lib/client/firebaseKM.client";
+import BackButton from "@/components/BackButton";
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");
@@ -29,7 +30,9 @@ export default function SignInPage() {
 
     return (
         <ClientWrap minimiseHeader={true}>
-            <div className="flex justify-center items-center min-h-screen bg-gray-50">
+            <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
+                <BackButton />
+
                 <div className="bg-white p-8 rounded shadow-md w-80 space-y-4">
                     <h2 className="font-semibold text-xl text-slate-600">Sign In</h2>
 

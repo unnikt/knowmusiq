@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     }
     try {
         // 1. Authenticate user and check rights
-        const Rights = await hasRights(req);
+        const Rights = await hasRights(req, ["tagEditor"]);
         // 2. If user doesn't have rights, return 403
         if (!Rights) {
             return NextResponse.json(

@@ -9,7 +9,7 @@ interface ProfileMenuProps {
 export default function ProfileMenu(
     { user, rights }: ProfileMenuProps) {
     return (
-        <div className="bg-slate-100 p-2 absolute right-0 shadow  min-w-70 mt-1 rounded-sm">
+        <div className="bg-slate-100 p-2 absolute right-0 shadow  min-w-70 mt-1 rounded-sm ">
             {user && (
                 <div>
                     <h2 className="text-slate-700 py-2 font-semibold border-b-2 border-b-my-secondary">{toCamelCase(user)}</h2>

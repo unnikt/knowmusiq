@@ -14,7 +14,7 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
-        const roles = await hasRights(req);
+        const roles = await hasRights(req, ["tagEditor"]);
 
         if (!roles.hasRights) {
             return NextResponse.json(

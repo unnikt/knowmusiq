@@ -1,6 +1,8 @@
 "use client";
 
+import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const legends = [
@@ -26,6 +28,7 @@ type WikiData = {
 
 export default function LegendsPage() {
     const [data, setData] = useState<Record<string, WikiData>>({});
+    const [loading, setLoading] = useState("loading...");
 
     useEffect(() => {
         async function fetchAll() {
@@ -43,6 +46,7 @@ export default function LegendsPage() {
             }
 
             setData(results);
+            setLoading(null);
         }
 
         fetchAll();
@@ -51,13 +55,21 @@ export default function LegendsPage() {
     return (
         <ClientWrap minimiseHeader={true}>
 
-            <main className="min-h-screen bg-linear-to-b from-amber-100 to-orange-200 p-8">
-                <h1 className="text-4xl font-bold text-center mb-8 text-amber-900">
-                    Legends of Indian Music
-                </h1>
-
+            <main className="min-h-screen bg-linear-to-b from-sky-50 via-sky-100/60 to-orange-100 p-8! bg-fixed section-mid">
+                <div className="flex flex-col align-middle">
+                    <h2 className="text-4xl font-bold text-slate-700">
+                        Legends of Indian Music
+                    </h2>
+                    {loading && <p>Loading...</p>}
+                    <Link
+                        href="/persons/type/Composers"
+                        className="text-my-primary py-2">
+                        Browse personalities
+                    </Link>
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {legends.map((name) => {
+
+                    {!loading && legends.map((name) => {
                         const legend = data[name];
                         const img =
                             legend?.originalimage?.source ||

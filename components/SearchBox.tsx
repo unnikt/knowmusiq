@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
 export default function SearchBox() {
     const [query, setQuery] = useState("");
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function SearchBox() {
     }
 
     return (
-        <div className="w-full max-w-md flex flex-col sm:flex-row items-stretch gap-2 sm:gap-0">
+        <div className="w-full flex flex-col justify-center gap-1 sm:flex-row sm:gap-0 sm:max-w-md ">
             <input
                 type="text"
                 value={query}

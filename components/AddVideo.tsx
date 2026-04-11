@@ -72,6 +72,8 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
         const token = await auth.currentUser?.getIdToken(true);
         const header = token ? { Authorization: `Bearer ${token}` } : {};
 
+
+
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {
             method: "POST",
@@ -127,11 +129,11 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                     <div className="p-4 scroll-auto min-h-60">
                         <h2 className="text-xl font-semibold text-gray-600 mb-2">Add a video</h2>
                         <p className=" bg-my-accent/20 p-2 ">{type} : {name}</p>
+
+                        {/* YouTube URL */}
                         <p className="text-sm min-h-6 px-1 pl-1 ">
                             <span className="text-gray-500"> {videoId && `Video ID: ${videoId}`}</span>
                         </p>
-
-                        {/* YouTube URL */}
                         <div>
                             <input
                                 className="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-300"

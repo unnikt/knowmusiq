@@ -3,7 +3,6 @@
 import ClientWrap from "@/components/ClientWrap";
 import { ArrowsPointingOutIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { title } from "process";
 
 
 export default function Home() {
@@ -11,19 +10,25 @@ export default function Home() {
   // const [minHeader, setMinimiseHeader] = useState(false);
   const items = [
     {
-      name: "Chakra", id: "1",
+      name: "Videos", id: "1",
+      thumbnail: "/videos.jpeg",
+      title: "Videos", subtitle: "Browse videos by ragas",
+      redirect: "/videos",
+    },
+    {
+      name: "Chakra", id: "2",
       thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
       title: "Chakras", subtitle: "Subtitle",
       redirect: "/chakras/Indu Chakra",
     },
     {
-      name: "Legends", id: "2",
+      name: "Legends", id: "3",
       thumbnail: "./legends.png",
       title: "Legends", subtitle: "Composers | Singer | Lyricists",
       redirect: "/persons/legends",
     },
     {
-      name: "Personalities", id: "3",
+      name: "Personalities", id: "4",
       thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
       title: "Movies", subtitle: "Composers | Singer | Lyricists",
       redirect: "/movies",
@@ -31,17 +36,17 @@ export default function Home() {
   ]
   return (
     <ClientWrap minimiseHeader={false}>
-      <main>
+      <main className="section-mid">
         {/* <p className="p-4 text-gray-400">{message}</p> */}
 
-        <section className="flex flex-col items-center gap-2 mt-2 p-4 text-gray-400">
+        <section className="flex flex-col items-center gap-2   text-gray-400">
           {/* <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))]"> */}
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
             {items.map((item) => (
               <Link
                 key={item.id}
                 href={item.redirect}
-                className=" sm:max-w-100 md:max-w-70 border-b-4 border-b-my-secondary/50 hover:border-b-my-secondary/80   bg-white  hover:shadow-md transition p-4 block"
+                className=" sm:max-w-100 md:max-w-70 border-b-4 border-b-my-secondary hover:border-b-my-accent/80   bg-white  hover:shadow-md transition block"
               >
                 <div className="aspect-video bg-gray-200">
                   <img

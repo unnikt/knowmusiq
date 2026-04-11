@@ -404,7 +404,11 @@ input {
 }
 
 .section-mid {
-  @apply max-w-4xl mx-auto px-6 pt-4;
+  @apply p-4 max-w-4xl mx-auto flex flex-col gap-1;
+}
+
+.btn {
+  @apply px-4 py-2 m-2
 }
 
 .btn-primary {
@@ -413,6 +417,10 @@ input {
 
 .btn-secondary {
   @apply px-4 py-2 bg-my-secondary text-white rounded hover:bg-my-secondary/80 transition;
+}
+
+.btn-accent {
+  @apply bg-my-accent text-white rounded hover:bg-my-secondary/80 transition;
 }
 
 .btn-outline {

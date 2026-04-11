@@ -23,7 +23,9 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
         return (
             <ClientWrap minimiseHeader={true}>
                 <div className="section-mid">
-                    <BackButton />
+                    <div className="flex justify-between align-middle items-center">
+                        <BackButton />
+                    </div>
                     <ItemList
                         title="Did you mean?"
                         items={results.items}
