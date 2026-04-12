@@ -203,7 +203,7 @@ export default function SearchVideosClient() {
             <div className="videoGrid">
                 {results.map((video) => (
                     <div key={video.id ? video.id : video.videoId}>
-                        <VideoTile video={video} url={`videos/tag?url=${video.videoId}`} target={"_self"} />
+                        <VideoTile video={video} url={`videos/tag?url=${video.videoId}`} target={"_self"} link="raga" width="" key={video.id} />
                         <TagVideoButton videoId={video.videoId} />
                     </div>
                 ))}
