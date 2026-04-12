@@ -1,4 +1,4 @@
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export async function getRaga(slug: string) {
     const slugy = slug.replace(/%20/g, " ");

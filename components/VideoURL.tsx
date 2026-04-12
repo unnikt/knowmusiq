@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getVideoId } from "@/lib/getVideoId";
+import { getVideoId } from "@/lib/video/getVideoId";
 
 interface VideoURLProps {
     onChange: (videoId: string | null) => void;

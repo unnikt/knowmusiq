@@ -1,14 +1,25 @@
 // src/components/YouTubeVideoTile.tsx
-import { toCamelCase } from "../lib/camelcase";
+import { xRef } from "@/lib/MapValues";
+import { toCamelCase } from "../lib/string/camelcase";
 import Image from "next/image";
 import Link from "next/link";
+import { SquaresPlusIcon } from "@heroicons/react/20/solid";
 
-export default function VideoTile({ video, url, target }) {
+interface videoTileProps {
+    video: any;
+    url: string;
+    target: string;
+    link: string;
+    width: string;
+}
+export default function VideoTile({ video, url, target = "_self", link = "raga", width = "" }: videoTileProps) {
     const thumbnail = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
     // const url = `https://www.youtube.com/watch?v=${video.videoId}`;
 
+    const base = ["comp", "sing", "lyri"].includes(link) ? "/persons/" : "/ragas/";
+
     return (
-        <div className="p-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+        <div className={`p-2 my-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition ${width}`}>
             <Link
                 href={url}
                 target={target}
@@ -29,16 +40,20 @@ export default function VideoTile({ video, url, target }) {
                     )}
                 </div>
             </Link>
-            <div className="p-3 min-h-20">
-                <h3 className="line-clamp-2 text-sm font-semibold text-gray-900">
+            <div className="flex flex-col justify-around pb-3 min-h-20">
+                <h3 className="line-clamp-2 text-sm font-semibold text-gray-900 min-h-4">
                     {toCamelCase(video.title)}
                 </h3>
-                {(video.raga) &&
-                    <Link
-                        href={`/ragas/${video.raga}`}>
-                        <p className="mt-1 text-sm text-my-primary">{toCamelCase(video.raga.replace(/-/g, " "))}</p>
+                <div className="flex justify-between items-center pt-2">
+                    <Link href={`${base}${video[link]}`} >
+                        {(video[link]) &&
+                            <p className="mt-1 text-sm text-my-primary">{toCamelCase(video[link].replace(/-/g, " "))}</p>
+                        }
                     </Link>
-                }
+                    <Link href={`videos/tag?v=${video.videoId}`}>
+                        <SquaresPlusIcon className="w-5 h-5 text-my-primary/70" />
+                    </Link>
+                </div>
             </div>
         </div>
     );

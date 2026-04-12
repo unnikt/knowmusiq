@@ -10,7 +10,7 @@ type ClientWrapProps = {
 };
 export default function ClientWrap({
     children,
-    minimiseHeader = false,
+    minimiseHeader = true,
     restoreOnLeave = true,
 }: ClientWrapProps) {
     const { setMinimiseHeader } = useApp();

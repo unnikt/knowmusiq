@@ -5,7 +5,8 @@ export function xRef(str: string) {
         "Singer": "sing",
         "sing": "Singer",
         "Lyricist": "lyri",
-        "lyri": "Lyricist"
+        "lyri": "Lyricist",
+        "persons": ["comp", "sing", "lyri"]
     }
     return MAP[str];
 }

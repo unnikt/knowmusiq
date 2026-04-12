@@ -1,14 +1,13 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useUser } from "@/hooks/useUser"
-import ProfileMenu from "./ProfileMenu";
+import MainMenu from "./MainMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
 import MinimiseButton from "./MinimiseButton";
 import Link from "next/link";
-import { HomeIcon } from "@heroicons/react/20/solid";
-import { UserCircleIcon } from "@heroicons/react/20/solid";
+import { Bars3Icon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
 const links = [
     // { name: 'Home', href: '/' },
@@ -28,7 +27,6 @@ const stats = [
 export default function Header() {
     const { minimiseHeader } = useApp();
     const [minimise, setMinimise] = useState(minimiseHeader);
-    const [profile] = useState("Profile");
     const [open, setOpen] = useState(false)
     const [userName, setName] = useState(null);
 
@@ -44,13 +42,22 @@ export default function Header() {
         }
     }, [loading, user]);
 
+    const menuRef = useRef(null);
 
-    function handleClick() {
-        setOpen(prev => !prev)
-    }
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     return (
         <div>
-            <section className="bg-slate-800  relative isolate  p-2 section-mid rounded-t-lg" >
+            <section className="py-1! bg-slate-800  relative  section-mid rounded-t-lg" >
                 <Image
                     alt=""
                     src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
@@ -59,40 +66,26 @@ export default function Header() {
                     priority
                 />
                 <div className="mb-2 px-2 flex justify-between items-center  ">
+                    <div ref={menuRef} className="relative">
+                        <Bars3Icon className="w-7 h-7 text-white"
+                            onClick={() => setOpen(prev => !prev)} />
+                        {open && <MainMenu onClose={() => setOpen(false)} />}
+
+                    </div>
+
                     <h2 className="text-2xl font-semibold tracking-tight text-white">
                         musiq me
                     </h2>
 
                     <div className="flex justify-between items-center gap-2">
-                        <Link href="/" className="text-white flex items-center gap-2">
-                            <HomeIcon className="h-7 w-7" />
-                        </Link>
-                        <div className="relative">
-                            <Link
-                                href="#"
-                                onClick={handleClick}
-                                className="text-white flex items-center gap-2">
-                                <UserCircleIcon className="h-7 w-7" />
-                            </Link>
-                            {open && <ProfileMenu user={userName} rights={rights} />}
-                        </div>
-
-                        <MinimiseButton
-                            isMinimised={minimise}
-                            setIsMinimised={setMinimise}
-                        />
-
+                        <MagnifyingGlassIcon
+                            className="w-7 h-7 text-white"
+                            onClick={() => { setMinimise(prev => !prev) }} />
                     </div>
                 </div>
             </section>
             <section className={minimise ? "hidden" : "" + "px-4 py-2 border-b border-my-secondary bg-slate-100 section-mid"} >
                 <SearchBox />
-                <div >
-                    <p className="mx-2 text-lg font-semibold  text-wide text-gray-700 sm:text-xl/8">
-                        This site is an attempt to the different music concepts and combine them into a unified framework.
-                        Search Carnatic and Hindustani music relate to concepts like
-                    </p>
-                </div>
             </section>
 
             {/* <div

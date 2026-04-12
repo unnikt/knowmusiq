@@ -1,20 +1,17 @@
 // app/page.tsx
 
+import HomePage from "@/components/client/Home";
 import ClientWrap from "@/components/ClientWrap";
+import VideoSlider from "@/components/VideoSlider";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { ArrowsPointingOutIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 
-export default function Home() {
+export default async function Home() {
   const message = process.env["MESSAGE"] || "Scroll ends here...";
   // const [minHeader, setMinimiseHeader] = useState(false);
   const items = [
-    {
-      name: "Videos", id: "1",
-      thumbnail: "/videos.jpeg",
-      title: "Videos", subtitle: "Browse videos by ragas",
-      redirect: "/videos",
-    },
     {
       name: "Chakra", id: "2",
       thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
@@ -34,10 +31,18 @@ export default function Home() {
       redirect: "/movies",
     },
   ]
+
+  const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
+
+  const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
+
+
   return (
-    <ClientWrap minimiseHeader={false}>
+    <ClientWrap >
       <main className="section-mid">
         {/* <p className="p-4 text-gray-400">{message}</p> */}
+
+        <HomePage videos={videos}></HomePage>
 
         <section className="flex flex-col items-center gap-2   text-gray-400">
           {/* <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))]"> */}

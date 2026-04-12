@@ -58,7 +58,7 @@ export default function MigratePage({ params }: { params: Promise<{ slug: string
     }
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid flex flex-col justify-center align-middle">
                 <div className="searchBox">
                     <input type="text"

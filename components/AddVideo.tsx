@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Modal from "./Modal";
 import YouTubePlayer from "./YTPlayer";
-import { getVideoId } from "@/lib/getVideoId";
+import { getVideoId } from "@/lib/video/getVideoId";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
@@ -71,8 +71,6 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
         // Get ID token for authenticated requests
         const token = await auth.currentUser?.getIdToken(true);
         const header = token ? { Authorization: `Bearer ${token}` } : {};
-
-
 
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {

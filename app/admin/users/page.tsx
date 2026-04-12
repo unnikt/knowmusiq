@@ -14,7 +14,7 @@ export default function UsersPage() {
     }, []);
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid">
                 <h2 className="text-2xl font-semibold mb-4">User Roles</h2>
 

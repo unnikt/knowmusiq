@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";    // Admin SDK (KnowMusic)
-import { slugify } from "@/lib/slugify";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
+import { slugify } from "@/lib/string/slugify";
 
 export async function GET() {
 

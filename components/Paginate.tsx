@@ -14,14 +14,14 @@ export default function Paginate({
     if (!pages || pages.length <= 1) return null;
 
     return (
-        <div className="p-2 gap-1 flex flex-wrap bg-my-lite rounded-t-lg border border-sky-300 shadow-sm">
+        <div className="p-2 gap-1 flex flex-wrap border-b-3 border-b-my-secondary/70 mb-2  border-sky-300 shadow-sm">
             {pages.map((p) => (
                 <button
                     key={p}
                     onClick={() => onPageChange(p)}
-                    className={`mb-1 px-3 py-1 text-white  rounded  min-w-10 transition 
+                    className={`mb-1 px-3 py-1 text-my-secondary/80  rounded  min-w-10 transition 
                         ${p === currentPage
-                            ? "bg-my-secondary font-semibold  "
+                            ? "bg-my-secondary text-white font-semibold  "
                             : "hover:bg-gray-100 hover:text-my-secondary"
                         }`}
                 >

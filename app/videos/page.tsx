@@ -2,8 +2,7 @@
 import VideoTile from "@/components/VideoTile";
 import ClientWrap from "@/components/ClientWrap";
 import BackButton from "@/components/BackButton";
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
-import AddVideo from "@/components/AddVideo";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export default async function Page() {
     const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
@@ -11,15 +10,16 @@ export default async function Page() {
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
 
     return (
-        <ClientWrap minimiseHeader>
+        <ClientWrap >
             <div className="section-mid">
                 <BackButton />
 
                 <div className="videoGrid">
                     {videos.map((video) => (
-                        <VideoTile key={video.id} video={video}
+                        <VideoTile key={video.id} video={video} width=""
                             url={`/videos/tag/?v=${video.videoId}`}
-                            target={"_self"} />
+                            target={"_self"}
+                            link="raga" />
                     ))}
                 </div>
             </div>

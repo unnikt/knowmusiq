@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
+import { SaveVideo } from "@/lib/video/SaveVideo";
 
 interface TagFormProps {
     vid: string;
@@ -78,6 +79,18 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
         }
     }
 
+    function handleSave() {
+        const filter = tags.filter(e => e.value != "");
+        const data = filter.reduce((acc, e) => {
+            acc[e.key.slice(0, 4).toLowerCase()] = e.value;
+            return acc;
+        }, {});
+        console.log(video.videoId, data);
+        SaveVideo(video.videoId, data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
     return (
         <div>
             <div className="flex flex-col sm:flex-row gap-1 w-full">
@@ -130,7 +143,10 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     </div>
 
                     <div className="flex items-center align-middle">
-                        <button className="btn-primary" >Save tags</button>
+                        <button className="btn-primary"
+                            onClick={handleSave} >
+                            Save tags
+                        </button>
                         <p className="text-sm text-gray-500 pl-4">
                             {loadingSuggestions ? "Loading..." : ""}
                         </p>

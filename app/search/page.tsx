@@ -1,5 +1,5 @@
 // app/search/page.tsx
-import { shruthiAdmin } from "../../lib/shruthiAdmin";
+import { shruthiAdmin } from "../../lib/server/shruthiAdmin";
 import Link from "next/link";
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {

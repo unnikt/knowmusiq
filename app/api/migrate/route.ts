@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { shruthiAdmin } from "@/lib/shruthiAdmin";        // Admin SDK (Shruthi)
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";    // Admin SDK (KnowMusic)
-import { slugify } from "@/lib/slugify";
+import { shruthiAdmin } from "@/lib/server/shruthiAdmin";        // Admin SDK (Shruthi)
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
+import { slugify } from "@/lib/string/slugify";
 
 export async function GET() {
 

@@ -2,9 +2,9 @@ import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import { toCamelCase } from "@/lib/camelcase";
+import { toCamelCase } from "@/lib/string/camelcase";
 import { getRaga } from "@/lib/ragaLookup";
-import { slugify } from "@/lib/slugify";
+import { slugify } from "@/lib/string/slugify";
 import { getChords } from "@/lib/GenerateChords";
 
 export default async function KrithiPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -18,7 +18,7 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
 
     if (results.type === "suggestions") {
         return (
-            <ClientWrap minimiseHeader={true}>
+            <ClientWrap >
                 <div className="section-mid">
                     <BackButton />
                     <ItemList
@@ -38,7 +38,7 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
     })
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid">
                 <BackButton />
                 <RagaCard

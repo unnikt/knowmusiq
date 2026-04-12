@@ -29,7 +29,7 @@ export default function SignInPage() {
     }
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
                 <BackButton />
 

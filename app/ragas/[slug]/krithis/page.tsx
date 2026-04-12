@@ -2,9 +2,9 @@ import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import { toCamelCase } from "@/lib/camelcase";
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
-import { slugify } from "@/lib/slugify";
+import { toCamelCase } from "@/lib/string/camelcase";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { slugify } from "@/lib/string/slugify";
 
 export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -23,7 +23,7 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
             .get();
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
         return (
-            <ClientWrap minimiseHeader={true}>
+            <ClientWrap >
                 <div className="section-mid">
                     <BackButton />
                     <ItemList
@@ -48,7 +48,7 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
     }));
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid">
                 <BackButton />
                 <RagaCard

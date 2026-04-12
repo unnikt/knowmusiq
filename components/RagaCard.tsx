@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import MinimiseButton from "@/components/MinimiseButton";
-import { ordinalString } from "@/lib/ordinalstring";
-import { slugify } from "@/lib/slugify";
+import { ordinalString } from "@/lib/string/ordinalstring";
+import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
 import AddVideo from "./AddVideo";
 

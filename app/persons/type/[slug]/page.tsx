@@ -6,7 +6,7 @@ import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
-import { toCamelCase } from "@/lib/camelcase";
+import { toCamelCase } from "@/lib/string/camelcase";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -34,7 +34,7 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
     }
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid">
                 <BackButton />
                 <Paginate

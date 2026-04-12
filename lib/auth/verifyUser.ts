@@ -1,4 +1,4 @@
-import { knowmusiqAdminAuth } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
 
 export async function verifyUser(req: Request) {
     const authHeader = req.headers.get("authorization");

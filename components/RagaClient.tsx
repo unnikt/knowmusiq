@@ -5,7 +5,7 @@ import VideoTile from "@/components/VideoTile";
 import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import RagaCard from "./RagaCard";
-import { slugify } from "@/lib/slugify";
+import { slugify } from "@/lib/string/slugify";
 
 interface RagaClientProps {
     slug: string;
@@ -22,7 +22,8 @@ interface RagaClientProps {
 export default function RagaClient({ slug, name, displayName, type, rid, pid, parent, arohana, avarohana }: RagaClientProps) {
     const [videos, setVideos] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
-    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState("Loading...");
+    const [message, setMessage] = useState(null);
 
     async function loadVideos() {
 
@@ -32,6 +33,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
         const videos = (await snapVideos).docs.map((doc) => ({ id: doc.id, videoId: doc.data(), ...doc.data() }));
 
         setVideos(videos || []);
+        setLoading(null);
     }
 
     useEffect(() => {
@@ -56,7 +58,8 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                 onSaved={refresh}
             />
 
-            {message && <p className="text-green-500">{message}</p>}
+            {loading && <p className="text-my-primary p-2">{loading}</p>}
+
             {videos.length > 0 ? (
                 <div key={refreshKey} className="videoGrid mt-4">
                     {videos.map((video: any) => (
@@ -64,14 +67,14 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                             key={video.id}
                             video={video}
                             url={`https://www.youtube.com/watch?v=${video.videoId}`}
-                            target="_blank"
+                            target="_self"
+                            link="comp"
                         />
                     ))}
                 </div>
-            ) : (
-                <p className="text-gray-500">No videos found for this raga.</p>
+            ) : (!loading &&
+                <p className="text-gray-500 p-2">No videos found for this raga.</p>
             )}
-
 
         </div>
     );

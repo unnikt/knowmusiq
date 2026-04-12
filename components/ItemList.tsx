@@ -5,7 +5,7 @@ interface ItemListProps {
 }
 export default function ItemList({ title, items, className }: ItemListProps) {
     return (
-        <div className={`card-new ${className || ""}`}>
+        <div className={`${className || "p-4"}`}>
             {title && (
                 <h3 className="text-lg font-semibold text-gray-600 mb-3">
                     {title}

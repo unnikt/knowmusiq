@@ -24,7 +24,7 @@ export default function TagVideoPage() {
     const [loading, setLoading] = useState(false);
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid mb-0">
                 <BackButton />
                 <div className={videoId ? "hidden" : ""}>

@@ -9,15 +9,16 @@ import { useState } from "react";
 
 export default function SignOutButton() {
     return (
-        <ClientWrap minimiseHeader={true}>
-            <div className="section-mid flex justify-center">
+        <ClientWrap >
+            <div className="section-mid ">
+                <p>Do you want to sign out?</p>
                 <button
                     onClick={() => {
                         signOut(auth);
                         window.location.href = "/auth/signin"
                     }}
-                    className="btn-outline"                >
-                    Sign Out
+                    className="btn-outline w-fit hover:bg-my-hilite"                >
+                    Yes sign Out!
                 </button>
             </div>
         </ClientWrap>

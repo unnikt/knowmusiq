@@ -1,10 +1,10 @@
 // app/raga/[slug]/page.tsx
-import { shruthiAdmin } from "@/lib/shruthiAdmin";
-import { slugify } from "@/lib/slugify";
-import { toCamelCase } from "@/lib/camelcase";
+import { shruthiAdmin } from "@/lib/server/shruthiAdmin";
+import { slugify } from "@/lib/string/slugify";
+import { toCamelCase } from "@/lib/string/camelcase";
 import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
-import { knowmusiqAdminDB } from "@/lib/knowmusiqAdmin";
+import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
 import RagaClient from "@/components/RagaClient";
@@ -27,7 +27,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
             .get();
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
         return (
-            <ClientWrap minimiseHeader={true}>
+            <ClientWrap >
                 <div className="section-mid">
                     <div className="flex justify-between align-middle items-center">
                         <BackButton />
@@ -43,7 +43,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const raga = snapRagas.docs[0].data();
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid mb-0">
                 <BackButton />
                 <RagaClient

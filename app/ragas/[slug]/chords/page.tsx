@@ -2,9 +2,9 @@ import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import { toCamelCase } from "@/lib/camelcase";
+import { toCamelCase } from "@/lib/string/camelcase";
 import { getRaga } from "@/lib/ragaLookup";
-import { slugify } from "@/lib/slugify";
+import { slugify } from "@/lib/string/slugify";
 import { getChords } from "@/lib/GenerateChords";
 import NotesTray from "@/components/NotesTray";
 import ChordsTray from "@/components/ChordsTray";
@@ -21,7 +21,7 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
 
     if (results.type === "suggestions") {
         return (
-            <ClientWrap minimiseHeader={true}>
+            <ClientWrap >
                 <div className="section-mid">
                     <div className="flex justify-between align-middle items-center">
                         <BackButton />
@@ -39,7 +39,7 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
     const chords = getChords(raga.arohana, raga.avarohana);
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
             <div className="section-mid">
                 <BackButton />
                 <RagaCard

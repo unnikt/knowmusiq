@@ -53,7 +53,7 @@ export default function LegendsPage() {
     }, []);
 
     return (
-        <ClientWrap minimiseHeader={true}>
+        <ClientWrap >
 
             <main className="min-h-screen bg-linear-to-b from-sky-50 via-sky-100/60 to-orange-100 p-8! bg-fixed section-mid">
                 <div className="flex flex-col align-middle">
