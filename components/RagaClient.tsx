@@ -69,6 +69,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                             url={`https://www.youtube.com/watch?v=${video.videoId}`}
                             target="_self"
                             link="comp"
+                            width=""
                         />
                     ))}
                 </div>
