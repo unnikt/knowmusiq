@@ -3,6 +3,7 @@ import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
+import { TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 interface TagFormProps {
     vid: string;
@@ -50,10 +51,12 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
         loadVideo();
     }, [vid]);
 
-
+    function clearTag() {
+    }
     async function handleChange() {
+        const min = 0
         setSuggestions([]);
-        if (tagValue.length < 3) return
+        if (tagValue.length < min) return
         setLoadingSuggestions(true);
         try {
 
@@ -92,26 +95,26 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     }
 
     return (
-        <div>
+        <div className="p-2 bg-(--surface) rounded-md">
             <div className="flex flex-col sm:flex-row gap-1 w-full">
-                <div className="w-full max-w-200  aspect-video">
+                <div className="w-full max-w-200  aspect-video pt-4">
                     <YouTubePlayer key={vid} videoId={vid} />
                     {video && (
                         <div key={video}>
-                            <h2 className="text-md font-semibold text-gray-600">{video.title}</h2>
-                            <p className="text-gray-600 mb-6">{video.description}</p>
+                            <h2 className="text-md font-semibold ">{video.title}</h2>
+                            <p className="mb-6">{video.description}</p>
                         </div>
                     )}
                 </div>
 
-                <div className="p-2 w-full lg:ml-2 bg-slate-100">
-                    <input className="w-full my-2 rounded p-0   bg-my-secondary/20!"
+                <div className="p-2 w-full lg:ml-2 ">
+                    <input className="w-full my-2 rounded p-0"
                         value={tagValue}
                         onChange={(e) => setTagValue(e.target.value)}
                         onKeyDown={() => { handleChange() }} />
 
                     {suggestions.length > 0 && (
-                        <div className="absolute mt-1 border border-gray-300 bg-white rounded shadow">
+                        <div className="absolute mt-1 menu min-h-10 min-w-25 rounded shadow">
                             {suggestions.map((s, i) => (
                                 <div
                                     key={i}
@@ -136,27 +139,45 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     <div className="flex flex-col  gap-1 ">
                         {tags.map(t =>
                             <span key={t.key}
-                                className={`p-1 cursor-pointer ${selectedTag === t.key ? "bg-my-secondary/40" : "bg-slate-200"}`}
+                                className={`p-1 cursor-pointer  ${selectedTag === t.key ? "bg-(--primary)/20" : "text-slate-700 bg-slate-200"}`}
                                 onClick={() => { setSelectedTag(t.key); setTagValue(""); setSuggestions([]) }}
-                            > {t.value ? `${t.key}: ${t.value}` : t.key}</span>)
-                        }
+                            > {t.value ? `${t.key}: ${t.value}` : t.key}
+                            </span>
+                        )}
                     </div>
 
-                    <div className="flex items-center align-middle">
-                        <button className="btn-primary"
+                    <div className="flex items-center">
+                        <button className="btn btn-primary"
                             onClick={handleSave} >
                             Save tags
                         </button>
-                        <p className="text-sm text-gray-500 pl-4">
+                        <button className="ml-4 btn btn-outline"
+                            onClick={handleSave} >
+                            Add new
+                        </button>
+                        <button
+                            className=" p-2 rounded"
+                            disabled={!selectedTag}
+                            onClick={() => {
+                                setTags(prev =>
+                                    prev.map(tag =>
+                                        tag.key === selectedTag ? { ...tag, value: "" } : tag
+                                    )
+                                );
+                                setSelectedTag("");
+                                setTagValue("");
+                                setSuggestions([]);
+                            }}
+                        >
+                            <TrashIcon className="w-5 h-5" />
+                        </button>
+
+                        <button className="btn pl-4 border-0! ">
                             {loadingSuggestions ? "Loading..." : ""}
-                        </p>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div>
-                <h2>Create a new Tag value</h2>
-            </div>
-
         </div >
     )
 

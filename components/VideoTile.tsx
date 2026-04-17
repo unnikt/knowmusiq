@@ -19,7 +19,8 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
     const base = ["comp", "sing", "lyri"].includes(link) ? "/persons/" : "/ragas/";
 
     return (
-        <div className={`p-2 my-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition ${width}`}>
+        // <div className={`p-2 my-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition ${width}`}>
+        <div className={`pt-4 px-4 my-2 bg-(--surface) text-(--text) border border-(--border) rounded-md ${width}`}>
             <Link
                 href={url}
                 target={target}
@@ -34,24 +35,24 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         className="rounded object-cover group-hover:scale-105 transition-transform"
                     />
                     {video.duration && (
-                        <span className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-xs text-white">
+                        <span className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-xs ">
                             {video.duration}
                         </span>
                     )}
                 </div>
             </Link>
             <div className="flex flex-col justify-around pb-3 min-h-20">
-                <h3 className="line-clamp-2 text-sm font-semibold text-gray-900 min-h-4">
+                <h3 className="line-clamp-2 text-sm font-semibold  min-h-4">
                     {toCamelCase(video.title)}
                 </h3>
                 <div className="flex justify-between items-center pt-2">
                     <Link href={`${base}${video[link]}`} >
                         {(video[link]) &&
-                            <p className="mt-1 text-sm text-my-primary">{toCamelCase(video[link].replace(/-/g, " "))}</p>
+                            <p className="mt-1 text-sm text-(--primary)">{toCamelCase(video[link].replace(/-/g, " "))}</p>
                         }
                     </Link>
-                    <Link href={`videos/tag?v=${video.videoId}`}>
-                        <SquaresPlusIcon className="w-5 h-5 text-my-primary/70" />
+                    <Link href={`/videos/tag?v=${video.videoId}`}>
+                        <SquaresPlusIcon className="w-5 h-5 text-(--primary)" />
                     </Link>
                 </div>
             </div>

@@ -44,7 +44,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
     const refresh = (msg: string) => { setRefreshKey((k) => k + 1); setMessage(msg) };
 
     return (
-        <div>
+        <div className="px-2 sm:px-0">
             <RagaCard
                 name={displayName}
                 type={type}

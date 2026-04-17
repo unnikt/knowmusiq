@@ -24,7 +24,7 @@ export default function SearchBox() {
                     if (e.key === "Enter") handleSearch();
                 }}
                 placeholder="Search ragas..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md sm:rounded-r-none focus:outline-none focus:ring-1 focus:ring-my-primary/80"
+                className="flex-1 px-4 py-2 bg-slate-200! text-slate-800 rounded-md sm:rounded-r-none focus:outline-none focus:ring-1 focus:ring-my-primary/80"
             />
 
             <button

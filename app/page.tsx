@@ -1,6 +1,6 @@
 // app/page.tsx
 
-import HomePage from "@/components/client/Home";
+import HomePage from "@/components/Client/Home";
 import ClientWrap from "@/components/ClientWrap";
 import VideoSlider from "@/components/VideoSlider";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
@@ -39,21 +39,21 @@ export default async function Home() {
 
   return (
     <ClientWrap >
-      <main className="section-mid">
+      <main className="section-mid px-4 md:px-0">
         {/* <p className="p-4 text-gray-400">{message}</p> */}
 
         <HomePage videos={videos}></HomePage>
 
-        <section className="flex flex-col items-center gap-2   text-gray-400">
+        <section className="flex flex-col">
           {/* <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))]"> */}
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
+          <div className="grid gap-1 grid-cols-1 sm:grid-cols-3">
             {items.map((item) => (
               <Link
                 key={item.id}
                 href={item.redirect}
-                className=" sm:max-w-100 md:max-w-70 border-b-4 border-b-my-secondary hover:border-b-my-accent/80   bg-white  hover:shadow-md transition block"
+                className="sm:max-w-100 p-4 rounded mt-2 border-b-4 bg-(--surface)  border-b-my-secondary hover:border-b-my-accent/80  hover:shadow-md transition block"
               >
-                <div className="aspect-video bg-gray-200">
+                <div className="aspect-video">
                   <img
                     src={item.thumbnail}
                     alt={item.title}
@@ -61,17 +61,13 @@ export default async function Home() {
                   />
                 </div>
                 <div className="p-3">
-                  <h3 className="text-lg  tracking-wider text-my-accent line-clamp-2">
+                  <h3 className="text-lg  tracking-wider line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-gray-500">{item.subtitle}</p>
+                  <p className="text-xs ">{item.subtitle}</p>
                 </div>
               </Link>))}
           </div>
-
-          <span>Click </span>
-          <span><ArrowsPointingOutIcon className="h-5 w-5" /></span>
-          <span> to expand the header</span>
         </section>
       </main>
     </ClientWrap>

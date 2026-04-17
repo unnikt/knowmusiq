@@ -20,31 +20,57 @@
   --primary-contrast: var(--color-indigo-700);
   --secondary-contrast: #0b151e99;
   --background-gradient: linear-gradient(90deg, #ffca28, #f57c00);
-  --background: #ffca28;
+  --background: white;
   --muted: rgba(194, 137, 3, 0.3);
-  --surface: #e99e1d;
-  --border: transparent;
+  --border: var(--color-gray-300);
   --top-gradient: #ffffff33;
   --bottom-gradient-top: #ffffff75;
   --bottom-gradient-bottom: transparent;
   --button: #0b151e;
   --blurple: rgb(72 64 187/var(--tw-text-opacity));
+  --bg: white;
+  --surface: white;
+  --text: var(--color-gray-800);
+  --primary: var(--color-my-primary)
 }
 
-.dark-theme {
+/* .dark {
   --primary-contrast: #fff;
   --secondary-contrast: #ffffff99;
   --background-gradient: linear-gradient(90deg, #0b151e, #0b151e);
   --background: #0b151e;
   --muted: rgba(21, 39, 60, 0.6);
-  --surface: #112031;
+  --surface: #0a0d0f;
   --border: #ffffff20;
   --top-gradient: #1b72e833;
   --bottom-gradient-top: #1b72e8;
   --bottom-gradient-bottom: #1b72e850;
   --button: linear-gradient(90deg, #ffca28, #f57c00);
+} */
+.dark {
+  --bg: #04040a;
+  /*#0d0d0f;*/
+  --surface: #3f3f51;
+  /* #141436; */
+  --surface-hover: #1d1d22;
+  --text: #e6e6e9;
+  --text-muted: #a1a1aa;
+  --accent: #f5c242;
+  --accent-soft: #f5c24222;
+  --border: var(--surface);
+  /* --border: #6c6c70; */
+  --primary: #6ed3f7;
 }
 
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.menu {
+  background: var(--color-slate-600);
+  color: white;
+}
 
 /* * {
   margin: 0;
@@ -362,9 +388,7 @@ h1,
   @apply text-xl font-bold mb-4 text-gray-600;
 }
 
-.btn {
-  @apply bg-indigo-700 text-white py-2 px-4 rounded-sm text-xl text-center size-auto m-auto;
-}
+
 
 .icn-sm {
   @apply h-9 w-9 text-indigo-600 drop-shadow-md drop-shadow-slate-300 m-auto;
@@ -383,7 +407,7 @@ h1,
 }
 
 input {
-  @apply p-2 bg-white outline-none;
+  @apply p-2 bg-my-secondary/30 outline-none;
 }
 
 .searchBox {
@@ -391,7 +415,7 @@ input {
 }
 
 .searchBox > input {
-  @apply max-w-xl px-4 py-2 border border-sky-200 rounded-l-md bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+  @apply max-w-xl px-4 py-2 border border-sky-200 rounded-l-md placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
 }
 
 .searchBox > button {
@@ -404,31 +428,29 @@ input {
 }
 
 .section-mid {
-  @apply p-4 max-w-4xl mx-auto flex flex-col gap-1;
+  @apply max-w-4xl mx-auto flex flex-col gap-1;
 }
 
-.sub-title {
-  @apply text-slate-400;
-}
+
 
 .btn {
-  @apply px-4 py-2 m-2
+  @apply px-4 py-2 m-2 border rounded;
 }
 
 .btn-primary {
-  @apply mt-4 px-4 py-2 bg-my-primary text-white rounded hover:bg-my-primary/80 transition;
+  @apply bg-my-primary text-white hover:bg-my-primary/80 transition;
 }
 
 .btn-secondary {
-  @apply px-4 py-2 bg-my-secondary text-white rounded hover:bg-my-secondary/80 transition;
+  @apply bg-my-secondary text-white hover:bg-my-secondary/80 transition;
 }
 
 .btn-accent {
-  @apply bg-my-accent text-white rounded hover:bg-my-secondary/80 transition;
+  @apply bg-my-accent text-white hover:bg-my-secondary/80 transition;
 }
 
 .btn-outline {
-  @apply mt-4 px-4 py-2 border border-slate-300 text-my-primary rounded hover:bg-my-secondary/80 hover:text-white transition;
+  @apply border-slate-300 text-my-primary hover:bg-my-secondary/80 hover:text-white transition;
 }
 
 @layer components {

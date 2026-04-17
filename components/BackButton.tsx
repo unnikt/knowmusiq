@@ -17,7 +17,7 @@ export default function BackButton({ url }: { url?: string }) {
   return (
     <button
       onClick={handleClick}
-      className="text-purple-600 hover:text-purple-700 text-sm font-medium my-2"
+      className="text-(--primary) hover:text-purple-700 text-sm font-medium my-2"
     >
       ← Back
     </button>

@@ -2,12 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useUser } from "@/hooks/useUser"
-import MainMenu from "./MainMenu";
+import MainMenu from "@/components/Client/MainMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
-import MinimiseButton from "./MinimiseButton";
-import Link from "next/link";
 import { Bars3Icon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
     // { name: 'Home', href: '/' },
@@ -76,17 +75,19 @@ export default function Header() {
                     <h2 className="text-2xl font-semibold tracking-tight text-white">
                         musiq me
                     </h2>
-
                     <div className="flex justify-between items-center gap-2">
-                        <MagnifyingGlassIcon
-                            className="w-7 h-7 text-white"
-                            onClick={() => { setMinimise(prev => !prev) }} />
+                        <ThemeToggle />
+                        <div>
+                            <MagnifyingGlassIcon
+                                className="w-7 h-7 text-white mt-2"
+                                onClick={() => { setMinimise(prev => !prev) }} />
+                        </div>
                     </div>
                 </div>
             </section>
-            <section className={minimise ? "hidden" : "" + "px-4 py-2 border-b border-my-secondary bg-slate-100 section-mid"} >
+            <div className={minimise ? "hidden" : "" + "bg-(--surface) p-4 border-b-2 border-my-secondary section-mid"} >
                 <SearchBox />
-            </section>
+            </div>
 
             {/* <div
                 aria-hidden="true"

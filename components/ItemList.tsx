@@ -5,7 +5,7 @@ interface ItemListProps {
 }
 export default function ItemList({ title, items, className }: ItemListProps) {
     return (
-        <div className={`${className || "p-4"}`}>
+        <div className={`${className || "p-4 bg-(--surface) rounded-md"}`}>
             {title && (
                 <h3 className="text-lg font-semibold text-gray-600 mb-3">
                     {title}
@@ -21,7 +21,7 @@ export default function ItemList({ title, items, className }: ItemListProps) {
                         {item.href ? (
                             <a
                                 href={item.href}
-                                className="text-my-accent hover:text-my-hilite "
+                                className="text-(--primary) hover:text-my-hilite "
                             >
                                 {item.label}
                             </a>
