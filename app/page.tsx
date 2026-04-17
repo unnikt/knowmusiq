@@ -1,6 +1,6 @@
 // app/page.tsx
 
-import HomePage from "@/components/Client/Home";
+import HomePage from "@/components/client/Home";
 import ClientWrap from "@/components/ClientWrap";
 import VideoSlider from "@/components/VideoSlider";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";

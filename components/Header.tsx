@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useUser } from "@/hooks/useUser"
-import MainMenu from "@/components/Client/MainMenu";
+import MainMenu from "@/components/client/MainMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
 import { Bars3Icon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";

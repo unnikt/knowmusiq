@@ -1,5 +1,4 @@
 import BackButton from "@/components/BackButton";
-import PersonsClient from "@/components/PersonsClient";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { xRef } from "@/lib/MapValues";
 import { slugify } from "@/lib/string/slugify";
@@ -7,7 +6,7 @@ import { getWikiSummary } from "@/lib/wiki";
 import Image from "next/image";
 import Link from "next/link";
 import ClientWrap from "@/components/ClientWrap";
-import { Accordion } from "@/components/Client/Accordion";
+import { Accordion } from "@/components/client/Accordion";
 import VideoTile from "@/components/VideoTile";
 
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
