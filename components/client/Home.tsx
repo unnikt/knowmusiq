@@ -15,7 +15,7 @@ export default function HomePage({ videos }: HomeProps) {
     return (
         < ClientWrap >
             <div className="text-(--text)">
-                <h2 className="mt-2 text-md tracking-wider font-semibold inline-block">
+                <h2 className="title">
                     Browse by raga
                 </h2>
                 <VideoSlider>
@@ -23,7 +23,7 @@ export default function HomePage({ videos }: HomeProps) {
                         <VideoTile link="raga" target="_self" key={v.id} video={v} url={`/ragas/${v.raga}`} width="min-w-80" />
                     ))}
                 </VideoSlider>
-                <h2 className="mt-2 text-md tracking-wider font-semibold inline-block">
+                <h2 className="title">
                     Browse by composer
                 </h2>
                 <VideoSlider>
@@ -32,7 +32,7 @@ export default function HomePage({ videos }: HomeProps) {
                         <VideoTile link="comp" target="_self" key={v.id} video={v} url={`/persons/${v.comp}`} width="min-w-70" />
                     ))}
                 </VideoSlider>
-                <h2 className="mt-2 text-md tracking-wider font-semibold inline-block">
+                <h2 className="title">
                     Topics
                 </h2>
 

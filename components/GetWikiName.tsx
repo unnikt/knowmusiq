@@ -5,12 +5,16 @@ import { useState } from "react";
 
 interface GetWikiProps {
     onName: (name: string) => void;
+    pic?: boolean;
+    className?: string;
 }
 
-export default function GetWikiName({ onName }: GetWikiProps) {
+export default function GetWikiName({ onName, pic = false, className }: GetWikiProps) {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
+    const [showPic, setShowPic] = useState(false);
 
     const extractTitleFromUrl = (wikiUrl: string) => {
         try {
@@ -46,6 +50,10 @@ export default function GetWikiName({ onName }: GetWikiProps) {
             if (!res.ok) throw new Error("Not found");
 
             const data = await res.json();
+            if (pic && data.thumbnail?.source) {
+                setThumbnail(data.thumbnail.source);
+                setShowPic(true);
+            }
             onName(data.title); // send clean title back to parent
         } catch {
             setError("Could not fetch Wikipedia page");
@@ -55,14 +63,14 @@ export default function GetWikiName({ onName }: GetWikiProps) {
     };
 
     return (
-        <div className="space-y-3" >
+        <div className={`space-y-3 ${className || ""}`} >
             <div className="searchBox">
                 <input
                     type="text"
                     placeholder="Paste Wikipedia URL"
                     value={url}
-                    onChange={(e) => setUrl(e.target.value)
-                    }
+                    onChange={(e) => setUrl(e.target.value)}
+                    className="w-full bg-slate-50 focus:outline-none focus:ring focus:border-blue-300"
                 />
 
                 <button
@@ -75,6 +83,14 @@ export default function GetWikiName({ onName }: GetWikiProps) {
                 </button>
 
             </div>
+            {showPic && <img
+                alt="thumbnail"
+                src={thumbnail}
+                width={100}
+                height={100}
+                className="rounded mt-2"
+            />}
+
             {error && <p className="text-red-600 text-sm" > {error} </p>}
         </div>
     );

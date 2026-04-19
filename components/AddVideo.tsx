@@ -8,6 +8,7 @@ import { getVideoId } from "@/lib/video/getVideoId";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
+import getHeader from "@/lib/client/getHearder";
 
 interface AddVideo {
     name: string;
@@ -46,13 +47,10 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
 
         async function fetchMetadata() {
             try {
-                // Get ID token for authenticated requests
-                const token = await auth.currentUser?.getIdToken(true);
-                const header = token ? { Authorization: `Bearer ${token}` } : {};
 
                 // Fetch data from YouTube API route
                 const res = await fetch(`/api/youtube?vid=${id}`, {
-                    headers: header,
+                    headers: await getHeader(),
                 });
                 setApiStatus({ status: res.status, text: res.statusText });
 
@@ -68,14 +66,10 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
 
     async function handleSave() {
 
-        // Get ID token for authenticated requests
-        const token = await auth.currentUser?.getIdToken(true);
-        const header = token ? { Authorization: `Bearer ${token}` } : {};
-
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {
             method: "POST",
-            headers: { "Content-Type": "application/json", ...header },
+            headers: { "Content-Type": "application/json", ...await getHeader() },
             body: JSON.stringify({
                 videoId: videoId,
                 data: {

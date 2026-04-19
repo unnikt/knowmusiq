@@ -41,7 +41,7 @@ export async function GET(req: Request) {
         const values = snaps.docs.map(doc => ({
             name: doc.data().name,
             type: doc.data().type,
-            thumbnail: doc.data().thumbnail || "",
+            idx: doc.data().idx,
             slug: doc.data().slug
         }));
 

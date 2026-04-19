@@ -1,9 +1,11 @@
+"use client";
 import { useEffect, useState } from "react";
 import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
+import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
-import { TrashIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { TrashIcon } from "@heroicons/react/20/solid";
+import { slugify } from "@/lib/string/slugify";
 
 interface TagFormProps {
     vid: string;
@@ -11,11 +13,11 @@ interface TagFormProps {
 }
 export default function TagForm({ vid, onLoad }: TagFormProps) {
     const [video, setVideo] = useState<any>(null);
-    const [tagValue, setTagValue] = useState<string | null>("")
     const [selectedTag, setSelectedTag] = useState<string | null>("")
     const [suggestions, setSuggestions] = useState<{ name: string; slug: string }[]>([]);
-    const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+    const [message, setMessage] = useState("");
     const PERSON_TAGS = ["Composer", "Singer", "Lyricist"];
+    const [persons, setPersons] = useState<{ name: string; type: string; slug: string }[]>([]);
 
     const [tags, setTags] = useState([
         { key: "Composer", value: "" },
@@ -51,35 +53,58 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
         loadVideo();
     }, [vid]);
 
-    function clearTag() {
-    }
-    async function handleChange() {
-        const min = 0
+    async function handleTagChange(tagKey: string) {
+        setSelectedTag(tagKey);
         setSuggestions([]);
-        if (tagValue.length < min) return
-        setLoadingSuggestions(true);
-        try {
+        if (PERSON_TAGS.includes(tagKey)) {
+            setMessage("Loading ...");
 
-            // Get ID token for authenticated requests
-            const token = await auth.currentUser?.getIdToken(true);
-            const header = token ? { Authorization: `Bearer ${token}` } : {};
+            const tagType = tagKey.slice(0, 4).toLowerCase();
 
-            // Fetch data from YouTube API route
-            if (PERSON_TAGS.includes(selectedTag)) {
-                const idx = tagValue.slice(0, 3).toUpperCase()
-                const res = await fetch(`/api/persons?key=idx&value=${idx}`, {
-                    headers: header,
-                });
+            // Check cache first
+            const values = persons?.filter((e: { type: string; }) => e.type == tagType);
+            if (values?.length > 0) {
+                setSuggestions(values || []);
+                setMessage("");
+                return;
+            }
+            // If not in cache, fetch from API and update cache
+            try {
+                const res = await fetch(`/api/persons?key=type&value=${tagKey}`);
                 const data = await res.json();
-                const values = data.values.filter((e: { type: string; }) => e.type == selectedTag.slice(0, 4).toLowerCase());
+                setPersons(prev => [...prev, ...data.values]);
+                const values = data.values.filter((e: { type: string; }) => e.type == tagType);
                 setSuggestions(values || []);
             }
-
-        } catch (err) {
-            console.error("Error fetching suggestions:", err);
-        } finally {
-            setLoadingSuggestions(false);
+            catch (err) {
+                console.error("Error fetching suggestions:", err);
+                setMessage("Error fetching suggestions");
+            }
+            finally {
+                setMessage("");
+            }
         }
+    }
+
+    async function filterSuggestions(query: string) {
+        console.log("Filtering suggestions for query:", slugify(query));
+
+        if (query.length < 2) {
+            // Get from cache if available
+            const tagType = selectedTag?.slice(0, 4).toLowerCase();
+            const values = persons?.filter((e: { type: string; }) => e.type == tagType);
+            if (values?.length > 0)
+                setSuggestions(values || []);
+            else
+                setSuggestions([]);
+            return;
+        };
+
+        const q = query.toLowerCase().replace(/\s+/g, "");
+        const values = suggestions.filter(p =>
+            p.name.toLowerCase().replace(/\s+/g, "").includes(q)
+        );
+        if (values?.length > 0) setSuggestions(values);
     }
 
     function handleSave() {
@@ -88,37 +113,35 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
             acc[e.key.slice(0, 4).toLowerCase()] = e.value;
             return acc;
         }, {});
-        console.log(video.videoId, data);
+
         SaveVideo(video.videoId, data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then(res => { setMessage("Saved..."); console.log(res) })
+            .catch(err => { setMessage("Error saving tags"); console.log(err) })
     }
 
     return (
-        <div className="p-2 bg-(--surface) rounded-md">
+        <div className="mx-4 p-2 bg-(--surface) rounded-md sm:mx-0 ">
             <div className="flex flex-col sm:flex-row gap-1 w-full">
-                <div className="w-full max-w-200  aspect-video pt-4">
+                <div className="w-full max-w-200 aspect-video">
                     <YouTubePlayer key={vid} videoId={vid} />
                     {video && (
                         <div key={video}>
                             <h2 className="text-md font-semibold ">{video.title}</h2>
-                            <p className="mb-6">{video.description}</p>
+                            {video.description && <p className="mb-6">{video.description}</p>}
                         </div>
                     )}
                 </div>
 
                 <div className="p-2 w-full lg:ml-2 ">
-                    <input className="w-full my-2 rounded p-0"
-                        value={tagValue}
-                        onChange={(e) => setTagValue(e.target.value)}
-                        onKeyDown={() => { handleChange() }} />
-
                     {suggestions.length > 0 && (
-                        <div className="absolute mt-1 menu min-h-10 min-w-25 rounded shadow">
+                        <div className="absolute mt-1 menu min-h-10 min-w-50 rounded shadow right-5">
+                            <input className=" m-2 rounded p-0"
+                                onKeyDown={(e) => { filterSuggestions(e.currentTarget.value) }} />
+
                             {suggestions.map((s, i) => (
                                 <div
                                     key={i}
-                                    className="px-3 py-1 hover:bg-gray-100 cursor-pointer"
+                                    className="px-3 py-1 hover:text-my-hilite cursor-pointer overflow-y-auto max-h-10"
                                     onClick={() => {
                                         setTags(prev =>
                                             prev.map(t =>
@@ -127,7 +150,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                                     : t
                                             )
                                         );
-                                        setTagValue(s.name)
                                         setSuggestions([])
                                     }}
                                 >
@@ -140,21 +162,22 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         {tags.map(t =>
                             <span key={t.key}
                                 className={`p-1 cursor-pointer  ${selectedTag === t.key ? "bg-(--primary)/20" : "text-slate-700 bg-slate-200"}`}
-                                onClick={() => { setSelectedTag(t.key); setTagValue(""); setSuggestions([]) }}
+                                onClick={() => { handleTagChange(t.key) }}
                             > {t.value ? `${t.key}: ${t.value}` : t.key}
                             </span>
                         )}
                     </div>
 
-                    <div className="flex items-center">
+                    <div className="flex items-center mt-2">
                         <button className="btn btn-primary"
                             onClick={handleSave} >
                             Save tags
                         </button>
-                        <button className="ml-4 btn btn-outline"
-                            onClick={handleSave} >
+                        <a className="btn btn-outline"
+                            href="/tags/new"
+                        >
                             Add new
-                        </button>
+                        </a>
                         <button
                             className=" p-2 rounded"
                             disabled={!selectedTag}
@@ -165,7 +188,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     )
                                 );
                                 setSelectedTag("");
-                                setTagValue("");
                                 setSuggestions([]);
                             }}
                         >
@@ -173,7 +195,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         </button>
 
                         <button className="btn pl-4 border-0! ">
-                            {loadingSuggestions ? "Loading..." : ""}
+                            {message ? message : ""}
                         </button>
                     </div>
                 </div>

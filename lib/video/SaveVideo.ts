@@ -1,6 +1,5 @@
 // lib/saveVideo.ts
 import { auth } from "@/lib/client/firebaseKM.client";
-import { knowmusiqAdminAuth } from "../server/knowmusiqAdmin";
 
 export async function SaveVideo(videoId: string, data: any) {
     const user = auth.currentUser;

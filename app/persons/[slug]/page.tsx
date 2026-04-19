@@ -13,6 +13,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     const { slug } = await params;
 
     const slugy = slugify(slug);
+    console.log("Loading profile for slug:", slug, "slugified:", slugy);
 
     // Fetch person by slug
     const snap = await knowmusiqAdminDB
@@ -38,7 +39,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     return (
         <ClientWrap >
             <div className="section-mid px-2 sm:px-0">
-                <BackButton />
+                <BackButton url={`/persons/type/${xRef(person.type)}s`} />
                 <div className="px-4 flex flex-col sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-sm">
                     <div className="flex flex-col ">
                         <Accordion title={person.name}>

@@ -3,6 +3,7 @@
 import { auth } from "@/lib/client/firebaseKM.client";
 import GetWikiName from "./GetWikiName"
 import { useRouter } from "next/navigation";
+import getHeader from "@/lib/client/getHearder";
 
 interface PersonsClientProps {
     src: string;
@@ -13,14 +14,11 @@ export default function PersonsClient({ src, doc_id, onSuccess }: PersonsClientP
     const router = useRouter();
 
     const handleName = async (name: string) => {
-        // Get ID token for authenticated requests
-        const token = await auth.currentUser?.getIdToken(true);
-        const header = token ? { Authorization: `Bearer ${token}` } : {};
 
         // Add to list, send to API, etc.
         await fetch("/api/update", {
             method: "POST",
-            headers: { "Content-Type": "application/json", ...header },
+            headers: { "Content-Type": "application/json", ...await getHeader() },
             body: JSON.stringify({
                 db: src,
                 doc_id: doc_id,
