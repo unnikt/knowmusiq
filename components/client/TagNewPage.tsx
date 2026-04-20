@@ -6,6 +6,8 @@ import { use, useState } from "react";
 import GetWikiName from "../GetWikiName";
 import { Accordion } from "./Accordion";
 import getHeader from "@/lib/client/getHearder";
+import { usePersonLookup } from "@/hooks/usePersonLookup";
+import { Button } from "@headlessui/react";
 
 const TAG_TYPES = [
     "Composer",
@@ -24,6 +26,7 @@ export default function TagNewPage() {
     const [gender, setGender] = useState("Male");
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState("");
+    const { results, loading, search } = usePersonLookup();
 
     async function handleSave() {
         setMessage("");
@@ -99,13 +102,6 @@ export default function TagNewPage() {
                 ))}
             </select>
 
-            <Accordion title="Grab from Wikipedia?">
-                <label className="block text-sm font-medium">
-                    People tags only, e.g. composers, singers, lyricists
-                </label>
-                <GetWikiName onName={(name) => setTagValue(name)} pic={true} />
-            </Accordion>
-
             {/* Tag Value Input */}
             <label className="block text-sm font-medium">
                 Tag Value
@@ -113,9 +109,23 @@ export default function TagNewPage() {
             <input
                 className="w-full mt-1 border border-gray-400 rounded p-2"
                 placeholder="Enter value"
-                value={tagValue}
+                // value={tagValue}
                 onChange={(e) => setTagValue(e.target.value)}
             />
+            <Button
+                onClick={() => { search(tagValue).then(res => console.log("Results:", results)).catch(err => console.log(err)) }}
+                disabled={loading}
+                className="mt-2 btn"
+            >
+                {loading ? "Searching..." : "Search Wikipedia"}
+            </Button>
+            <Accordion title="Grab from Wikipedia?">
+                <label className="block text-sm font-medium">
+                    People tags only, e.g. composers, singers, lyricists
+                </label>
+                <GetWikiName onName={(name) => setTagValue(name)} pic={true} />
+            </Accordion>
+
 
             <div className="flex items-center gap-6 mt-4 p-2 rounded">
                 {["Male", "Female", "Other"].map((g) => (

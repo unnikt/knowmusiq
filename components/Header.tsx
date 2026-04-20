@@ -5,7 +5,7 @@ import { useUser } from "@/hooks/useUser"
 import MainMenu from "@/components/client/MainMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
-import { Bars3Icon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { Bars3Icon, CursorArrowRaysIcon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
@@ -64,7 +64,7 @@ export default function Header() {
                     className="absolute inset-0 -z-10 size-full object-cover object-right opacity-20 md:object-center"
                     priority
                 />
-                <div className="mb-2 px-2 flex justify-between items-center  ">
+                <div className="mb-2 px-2 flex justify-between items-center">
                     <div ref={menuRef} className="relative">
                         <Bars3Icon className="w-7 h-7 text-white"
                             onClick={() => setOpen(prev => !prev)} />
@@ -79,14 +79,17 @@ export default function Header() {
                         <ThemeToggle />
                         <div>
                             <MagnifyingGlassIcon
-                                className="w-7 h-7 text-white mt-2"
+                                className="w-7 h-7 text-white"
                                 onClick={() => { setMinimise(prev => !prev) }} />
                         </div>
                     </div>
                 </div>
             </section>
-            <div className={minimise ? "hidden" : "" + "bg-(--surface) p-4 border-b-2 border-my-secondary section-mid"} >
+            <div className={minimise ? "hidden" : "" + "bg-(--surface) p-4!  flex mx-auto max-w-4xl items-center gap-4"} >
                 <SearchBox />
+                <XMarkIcon
+                    className="w-7 h-7 text-gray-500"
+                    onClick={() => setMinimise(true)} />
             </div>
 
             {/* <div

@@ -30,18 +30,18 @@ export default function SignInPage() {
 
     return (
         <ClientWrap >
-            <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
+            <div className="section-mid">
                 <BackButton />
 
-                <div className="bg-white p-8 rounded shadow-md w-80 space-y-4">
-                    <h2 className="font-semibold text-xl text-slate-600">Sign In</h2>
+                <div className="mx-auto mt-4 bg-(--surface) p-8 rounded shadow-md w-80 space-y-4">
+                    <h2 className="font-semibold text-xl">Sign In</h2>
 
                     {error && <p className="text-red-600 text-sm">{error}</p>}
 
                     {/* Google Sign-In */}
                     <GoogleSignInButton />
 
-                    <div className="text-center text-gray-400 text-sm">or</div>
+                    <div className="text-center text-sm">or</div>
 
                     {/* Email Sign-In */}
                     <form onSubmit={handleEmailSignIn} className="space-y-3">

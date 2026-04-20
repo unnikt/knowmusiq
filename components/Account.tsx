@@ -14,11 +14,11 @@ export default function AccountPage() {
     else
         return (
             <ClientWrap >
-                <div className="section-mid">
-                    {loading && <p className="text-my-primary p-2">{loading}</p>}
+                <div className="bg-(--surface) mt-4 rounded p-4">
+                    {loading && <p className="p-2">{loading}</p>}
                     {user && (
                         <div>
-                            <h2 className="text-slate-700 py-2 font-semibold border-b-2 border-b-my-secondary">{toCamelCase(user.displayName)}</h2>
+                            <h2 className=" py-2 font-semibold border-b-2 border-b-my-secondary">{toCamelCase(user.displayName)}</h2>
                             <h4 className="mt-4 font-semibold">Rights:</h4>
                             <div className="flex flex-col">
                                 {rights.map((r, i) => (

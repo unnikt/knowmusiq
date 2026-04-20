@@ -6,17 +6,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const legends = [
-    "K. J. Yesudas",
-    "Mohammed Rafi",
-    "Kishore Kumar",
-    "S. P. Balasubrahmanyam",
-    "S. Janaki",
-    "Lata Mangeshkar",
-    "Asha Bhosle",
-    "R. D. Burman",
-    "Salil Chowdhury",
-    "Devarajan Master",
-    "Ilaiyaraaja",
+    { "name": "K. J. Yesudas", "slug": "Yesudas K J" },
+    { "name": "Mohammed Rafi", "slug": "Mohammed_Rafi" },
+    { "name": "Kishore Kumar", "slug": "Kishore_Kumar" },
+    { "name": "S. P. Balasubrahmanyam", "slug": "S._P._Balasubrahmanyam" },
+    { "name": "S. Janaki", "slug": "Janaki S" },
+    { "name": "Lata Mangeshkar", "slug": "Lata_Mangeshkar" },
+    { "name": "Asha Bhosle", "slug": "Asha_Bhosle" },
+    { "name": "R. D. Burman", "slug": "R._D._Burman" },
+    { "name": "Salil Chowdhury", "slug": "Salil_Chowdhury" },
+    { "name": "Devarajan Master", "slug": "Devarajan_Master" },
+    { "name": "Ilaiyaraaja", "slug": "Ilaiyaraaja" },
 ];
 
 type WikiData = {
@@ -34,14 +34,14 @@ export default function LegendsPage() {
         async function fetchAll() {
             const results: Record<string, WikiData> = {};
 
-            for (const name of legends) {
+            for (const leg of legends) {
                 const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
-                    name
+                    leg.name
                 )}`;
                 const res = await fetch(url);
                 if (res.ok) {
                     const json = await res.json();
-                    results[name] = json;
+                    results[leg.name] = json;
                 }
             }
 
@@ -69,32 +69,40 @@ export default function LegendsPage() {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-                    {!loading && legends.map((name) => {
-                        const legend = data[name];
+                    {!loading && legends.map((leg) => {
+                        const legend = data[leg.name];
                         const img =
                             legend?.originalimage?.source ||
                             legend?.thumbnail?.source ||
                             "/placeholder.png";
 
                         return (
-                            <div
-                                key={name}
+
+                            <Link
+                                key={leg.name}
+                                href={`/persons/${leg.slug}`}
                                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform"
                             >
-                                <img
-                                    src={img}
-                                    alt={name}
-                                    className="w-full h-64 object-cover"
-                                />
-                                <div className="p-4">
-                                    <h2 className="text-lg font-semibold text-amber-800">
-                                        {legend?.title || name}
-                                    </h2>
-                                    <p className="text-sm text-gray-700 mt-2 line-clamp-4">
-                                        {legend?.extract || "No summary available."}
-                                    </p>
+                                <div
+                                    key={leg.name}
+                                    className="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition-transform"
+                                >
+                                    <img
+                                        src={img}
+                                        alt={leg.name}
+                                        className="w-full h-64 object-cover"
+                                    />
+                                    <div className="p-4">
+                                        <h2 className="text-lg font-semibold text-amber-800">
+                                            {legend?.title || leg.name}
+                                        </h2>
+                                        <p className="text-sm text-gray-700 mt-2 line-clamp-4">
+                                            {legend?.extract || "No summary available."}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+
+                            </Link>
                         );
                     })}
                 </div>

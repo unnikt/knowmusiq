@@ -32,8 +32,6 @@ export default function MainMenu({ onClose }) {
                         Account
                     </Link>
                 </div>
-                <ThemeToggle />
-
             </div>
         )
     );

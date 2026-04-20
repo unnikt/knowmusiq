@@ -3,6 +3,8 @@ import AccountPage from "@/components/Account";
 export default function UserPage() {
 
     return (
-        <AccountPage />
+        <div className="section-mid">
+            <AccountPage />
+        </div>
     )
 }

@@ -48,8 +48,7 @@
   --button: linear-gradient(90deg, #ffca28, #f57c00);
 } */
 .dark {
-  --bg: #04040a;
-  /*#0d0d0f;*/
+  --bg: #030303;
   --surface: #3f3f51;
   /* #141436; */
   --surface-hover: #1d1d22;
@@ -387,8 +386,6 @@ h1,
   @apply text-xl font-bold mb-4 text-gray-600;
 }
 
-
-
 .icn-sm {
   @apply h-9 w-9 text-indigo-600 drop-shadow-md drop-shadow-slate-300 m-auto;
 }
@@ -427,7 +424,7 @@ input {
 }
 
 .section-mid {
-  @apply max-w-4xl mx-auto flex flex-col gap-1;
+  @apply max-w-4xl mx-auto flex flex-col gap-1 px-2 sm:px-0;
 }
 
 .title {

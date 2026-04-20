@@ -1,4 +1,5 @@
 "use client";
+import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
@@ -12,9 +13,9 @@ export default function ThemeToggle() {
 
         <button
             onClick={() => setDark(!dark)}
-            className="px-2 py-1 w-full mt-2  bg-(--surface) text-(--text) rounded"
+            className="p-2 w-full  text-white rounded"
         >
-            {dark ? "Light" : "Dark"}
+            {dark ? <SunIcon className="w-7 h-7 inline" /> : <MoonIcon className="w-7 h-7 inline" />}
         </button>
     );
 }

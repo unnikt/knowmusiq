@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
+import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { slugify } from "@/lib/string/slugify";
+import Link from "next/link";
 
 interface TagFormProps {
     vid: string;
@@ -43,6 +44,12 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
 
                 const snaps = await getDocs(q);
                 setVideo(!snaps.empty ? snaps.docs[0].data() : null);
+                setTags(prev => {
+                    const v = !snaps.empty ? snaps.docs[0].data() : null;
+                    if (!v) return prev;
+                    return prev.map(t => ({ key: t.key, value: v[t.key.slice(0, 4).toLowerCase()] || "" }))
+                })
+
             } catch (err) {
                 console.error("Error loading video:", err);
             } finally {
@@ -132,7 +139,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     )}
                 </div>
 
-                <div className="p-2 w-full lg:ml-2 ">
+                <div className="w-full lg:ml-2 ">
                     {suggestions.length > 0 && (
                         <div className="absolute mt-1 menu min-h-10 min-w-50 rounded shadow right-5">
                             <input className=" m-2 rounded p-0"
@@ -168,36 +175,46 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         )}
                     </div>
 
-                    <div className="flex items-center mt-2">
-                        <button className="btn btn-primary"
-                            onClick={handleSave} >
-                            Save tags
-                        </button>
-                        <a className="btn btn-outline"
-                            href="/tags/new"
-                        >
-                            Add new
-                        </a>
-                        <button
-                            className=" p-2 rounded"
-                            disabled={!selectedTag}
-                            onClick={() => {
-                                setTags(prev =>
-                                    prev.map(tag =>
-                                        tag.key === selectedTag ? { ...tag, value: "" } : tag
-                                    )
-                                );
-                                setSelectedTag("");
-                                setSuggestions([]);
-                            }}
-                        >
-                            <TrashIcon className="w-5 h-5" />
-                        </button>
+                    {auth.currentUser &&
+                        <div>
+                            <div className="flex items-center mt-2">
+                                <button className="btn btn-primary"
+                                    onClick={handleSave} >
+                                    Save tags
+                                </button>
+                                <a className="btn btn-outline"
+                                    href="/tags/new"
+                                >
+                                    Add new
+                                </a>
+                                <button
+                                    className=" p-2 rounded"
+                                    disabled={!selectedTag}
+                                    onClick={() => {
+                                        setTags(prev =>
+                                            prev.map(tag =>
+                                                tag.key === selectedTag ? { ...tag, value: "" } : tag
+                                            )
+                                        );
+                                        setSelectedTag("");
+                                        setSuggestions([]);
+                                    }}
+                                >
+                                    <TrashIcon className="w-5 h-5" />
+                                </button>
 
-                        <button className="btn pl-4 border-0! ">
-                            {message ? message : ""}
-                        </button>
-                    </div>
+                                <button className="btn pl-4 border-0! ">
+                                    {message ? message : ""}
+                                </button>
+                            </div>
+                            <p className="p-2">Updates will be linked to: {auth.currentUser?.email || "unknown"}</p>
+                        </div>
+                    }
+                    {!auth.currentUser &&
+                        <Link href="/user" className="p-2 mx-auto text-center rounded text-(--primary) block w-max" >
+                            Login to update tags
+                        </Link>
+                    }
                 </div>
             </div>
         </div >
