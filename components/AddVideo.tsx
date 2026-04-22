@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
+import { useUser } from "@/context/UserContext";
 
 interface AddVideo {
     name: string;
@@ -18,6 +19,7 @@ interface AddVideo {
 }
 
 export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
+    const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [videoId, setVideoId] = useState("");
@@ -102,7 +104,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
         <div >
             <button
                 onClick={() => {
-                    if (!auth.currentUser) {
+                    if (!user) {
                         router.push("/auth/signin");
                         return;
                     }

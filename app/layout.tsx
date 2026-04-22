@@ -1,6 +1,7 @@
 import "./globals.css"
 import Header from "../components/Header"
 import { AppProvider } from "../context/AppContext"
+import {  UserProvider } from "@/context/UserContext"
 import { Suspense } from "react"
 export const metadata = {
   title: 'musiq me',
@@ -13,12 +14,14 @@ export default function RootLayout({ children }: {
   return (
     <html lang="en">
       <body>
-        <AppProvider>
-          {<Header />}
-          <Suspense fallback={null}>
-            {children}
-          </Suspense>
-        </AppProvider>
+        <UserProvider>
+          <AppProvider>
+            {<Header />}
+            <Suspense fallback={null}>
+              {children}
+            </Suspense>
+          </AppProvider>
+        </UserProvider>
       </body>
     </html>
   )

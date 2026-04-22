@@ -1,13 +1,13 @@
 "use client";
 
-import { auth } from "@/lib/client/firebaseKM.client";
 import { slugify } from "@/lib/string/slugify";
-import { use, useState } from "react";
+import { useState } from "react";
 import GetWikiName from "../GetWikiName";
 import { Accordion } from "./Accordion";
 import getHeader from "@/lib/client/getHearder";
 import { usePersonLookup } from "@/hooks/usePersonLookup";
 import { Button } from "@headlessui/react";
+import { useUser } from "@/context/UserContext";
 
 const TAG_TYPES = [
     "Composer",
@@ -21,12 +21,22 @@ const TAG_TYPES = [
 ];
 
 export default function TagNewPage() {
+    const { user, verifying } = useUser();
     const [tagType, setTagType] = useState("Composer");
     const [tagValue, setTagValue] = useState("");
+    const [pageid, setPageid] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
     const [gender, setGender] = useState("Male");
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState("");
     const { results, loading, search } = usePersonLookup();
+
+    function saveInfo(pageid: string, name: string, thumbnail?: string) {
+        setPageid(pageid);
+        setTagValue(name);
+        setThumbnail(thumbnail);
+        setMessage("");
+    }
 
     async function handleSave() {
         setMessage("");
@@ -51,9 +61,11 @@ export default function TagNewPage() {
                 idx: tagValue.toUpperCase().slice(0, 3), // first 3 letters for indexing
                 slug: doc_id,
                 gender: gender,
-                wiki: tagValue,
+                wiki: tagValue, // Wikipedia title 
+                pageid: pageid, // Wikipedia pageid
+                thumbnail: thumbnail, // Wikipedia thumbnail
                 updatedAt: new Date().toISOString(),
-                user: auth.currentUser?.email || "unknown",
+                user: user?.email || "Guest",
             },
         };
 
@@ -69,7 +81,7 @@ export default function TagNewPage() {
                 throw new Error("Failed to save video");
             }
             else {
-                setMessage(`${tagType}: ${tagValue} saved successfully`);
+                setMessage(`${tagType}: ${tagValue} saved`);
             }
         }).catch((err) => {
             console.error(err);
@@ -83,10 +95,29 @@ export default function TagNewPage() {
 
     return (
         <div className="max-w-lg mx-2 sm:mx-auto p-4 bg-(--surface) rounded">
-            <h2 className="title mb-2 ">Add New Tag</h2>
+            <h2 className="title">Add New Tag</h2>
+
+            <Accordion title="Grab from Wikipedia?">
+                <label className="block text-sm font-medium">
+                    People tags only, e.g. composers, singers, lyricists
+                </label>
+                <GetWikiName
+                    onPageInfo={(pageid, name, thumbnail) => { saveInfo(pageid, name, thumbnail) }} pic={true} />
+            </Accordion>
+
+            {/* Tag Value Input */}
+            <label className="block text-sm font-medium">
+                Tag Value
+            </label>
+            <input
+                className="w-full mt-1 border border-gray-400 rounded p-2"
+                placeholder="Enter value"
+                value={tagValue}
+                onChange={(e) => setTagValue(e.target.value)}
+            />
 
             {/* Tag Type Dropdown */}
-            <label className="block text-sm font-medium ">
+            <label className="block text-sm mt-2 font-medium ">
                 Tag Type
             </label>
             <select
@@ -102,32 +133,15 @@ export default function TagNewPage() {
                 ))}
             </select>
 
-            {/* Tag Value Input */}
-            <label className="block text-sm font-medium">
-                Tag Value
-            </label>
-            <input
-                className="w-full mt-1 border border-gray-400 rounded p-2"
-                placeholder="Enter value"
-                // value={tagValue}
-                onChange={(e) => setTagValue(e.target.value)}
-            />
             <Button
                 onClick={() => { search(tagValue).then(res => console.log("Results:", results)).catch(err => console.log(err)) }}
                 disabled={loading}
-                className="mt-2 btn"
+                className="mt-2 btn hidden"
             >
                 {loading ? "Searching..." : "Search Wikipedia"}
             </Button>
-            <Accordion title="Grab from Wikipedia?">
-                <label className="block text-sm font-medium">
-                    People tags only, e.g. composers, singers, lyricists
-                </label>
-                <GetWikiName onName={(name) => setTagValue(name)} pic={true} />
-            </Accordion>
 
-
-            <div className="flex items-center gap-6 mt-4 p-2 rounded">
+            <div className="flex items-center gap-6 my-1 p-2 rounded">
                 {["Male", "Female", "Other"].map((g) => (
                     <label key={g} className="flex items-center gap-2 cursor-pointer text-(--text) ">
                         <input
@@ -144,18 +158,18 @@ export default function TagNewPage() {
             </div>
 
             {/* Save Button */}
-            <div className="flex ">
+            <div className="flex items-center ">
                 <button
                     onClick={handleSave}
                     disabled={saving || !tagType || !tagValue}
-                    className="btn bg-my-primary text-white mt-4 disabled:bg-gray-400"
+                    className="btn bg-my-primary w-1/3 text-white  disabled:bg-gray-400"
                 >
                     {saving ? "Saving..." : "Save Tag"}
                 </button>
                 {message && <p className="text-green-600">{message} </p>}
             </div>
 
-            <p className="mt-2">!! Your email id {auth.currentUser?.email || "unknown"} will be saved with the tag</p>
+            {!verifying && <p className="mt-2 italic">Your email id {user?.email || "Guest"} will be saved with the tag</p>}
         </div >
     );
 }

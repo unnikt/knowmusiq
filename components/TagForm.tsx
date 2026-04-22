@@ -5,14 +5,15 @@ import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { slugify } from "@/lib/string/slugify";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 
 interface TagFormProps {
     vid: string;
     onLoad?: (flag: boolean) => void;
 }
 export default function TagForm({ vid, onLoad }: TagFormProps) {
+    const { user, verifying } = useUser();
     const [video, setVideo] = useState<any>(null);
     const [selectedTag, setSelectedTag] = useState<string | null>("")
     const [suggestions, setSuggestions] = useState<{ name: string; slug: string }[]>([]);
@@ -63,7 +64,8 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     async function handleTagChange(tagKey: string) {
         setSelectedTag(tagKey);
         setSuggestions([]);
-        if (PERSON_TAGS.includes(tagKey)) {
+
+        if (user && PERSON_TAGS.includes(tagKey)) {
             setMessage("Loading ...");
 
             const tagType = tagKey.slice(0, 4).toLowerCase();
@@ -94,7 +96,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     }
 
     async function filterSuggestions(query: string) {
-        console.log("Filtering suggestions for query:", slugify(query));
 
         if (query.length < 2) {
             // Get from cache if available
@@ -127,7 +128,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     }
 
     return (
-        <div className="mx-4 p-2 bg-(--surface) rounded-md sm:mx-0 ">
+        <div className="mx-4 p-2 bg-(--surface) rounded-md sm:mx-0 sm:p-6 ">
             <div className="flex flex-col sm:flex-row gap-1 w-full">
                 <div className="w-full max-w-200 aspect-video">
                     <YouTubePlayer key={vid} videoId={vid} />
@@ -165,17 +166,17 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                             ))}
                         </div>
                     )}
-                    <div className="flex flex-col  gap-1 ">
+                    <div className="flex flex-col gap-1">
                         {tags.map(t =>
                             <span key={t.key}
-                                className={`p-1 cursor-pointer  ${selectedTag === t.key ? "bg-(--primary)/20" : "text-slate-700 bg-slate-200"}`}
+                                className={`p-1 cursor-pointer  ${selectedTag === t.key ? "" : ""}`}
                                 onClick={() => { handleTagChange(t.key) }}
                             > {t.value ? `${t.key}: ${t.value}` : t.key}
                             </span>
                         )}
                     </div>
 
-                    {auth.currentUser &&
+                    {user &&
                         <div>
                             <div className="flex items-center mt-2">
                                 <button className="btn btn-primary"
@@ -207,12 +208,12 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     {message ? message : ""}
                                 </button>
                             </div>
-                            <p className="p-2">Updates will be linked to: {auth.currentUser?.email || "unknown"}</p>
+                            {!verifying && <p className="p-2 italic">Updates will be linked to {user.email || "Guest"}</p>}
                         </div>
                     }
-                    {!auth.currentUser &&
+                    {!user &&
                         <Link href="/user" className="p-2 mx-auto text-center rounded text-(--primary) block w-max" >
-                            Login to update tags
+                            Login to edit tags
                         </Link>
                     }
                 </div>

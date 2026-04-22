@@ -43,7 +43,7 @@ export default function PersonsClient({ src, doc_id, onSuccess }: PersonsClientP
 
     return (
         <div>
-            <GetWikiName onName={handleName} />
+            <GetWikiName onPageInfo={handleName} />
         </div>
 
     )

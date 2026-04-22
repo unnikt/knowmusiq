@@ -4,12 +4,12 @@
 import { useState } from "react";
 
 interface GetWikiProps {
-    onName: (name: string) => void;
+    onPageInfo: (pageid: string, name: string, thumbnail?: string) => void;
     pic?: boolean;
     className?: string;
 }
 
-export default function GetWikiName({ onName, pic = false, className }: GetWikiProps) {
+export default function GetWikiName({ onPageInfo: onName, pic = false, className }: GetWikiProps) {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -54,7 +54,8 @@ export default function GetWikiName({ onName, pic = false, className }: GetWikiP
                 setThumbnail(data.thumbnail.source);
                 setShowPic(true);
             }
-            onName(data.title); // send clean title back to parent
+
+            onName(data.pageid, data.title, data.thumbnail?.source || undefined); // send page ID, clean title, and thumbnail back to parent
         } catch {
             setError("Could not fetch Wikipedia page");
         }
