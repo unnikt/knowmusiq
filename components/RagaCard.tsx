@@ -29,7 +29,6 @@ export default function RagaCard({
     avarohana,
     parent,
     display,
-    onSaved
 }: RagaCardProps) {
 
     const slug = slugify(name); // or use slugify(name)
@@ -105,7 +104,6 @@ export default function RagaCard({
                         >
                             Chords
                         </Link>}
-                    <AddVideo slug={slug} onSaved={onSaved} name={name} type={"raga"} />
                 </div>
             </div>
         </div>

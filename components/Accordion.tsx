@@ -5,15 +5,15 @@ export function Accordion({ title, children }: { title: string; children: React.
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="">
+        <div >
             <button
                 onClick={() => setOpen(!open)}
-                className="w-full flex items-center justify-between py-4 text-left"
+                className="w-full flex items-center justify-between  text-left"
             >
                 <span className="text-lg font-medium ">{title}</span>
 
                 <svg
-                    className={`h-5 w-5  transform transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"
+                    className={`h-5 w-5 transform transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"
                         }`}
                     fill="none"
                     stroke="currentColor"

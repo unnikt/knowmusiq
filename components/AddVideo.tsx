@@ -10,6 +10,7 @@ import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
+import Message from "./Message";
 
 interface AddVideo {
     name: string;
@@ -21,6 +22,7 @@ interface AddVideo {
 export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [videoId, setVideoId] = useState("");
     const [title, setTitle] = useState("");
@@ -76,32 +78,37 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 videoId: videoId,
                 data: {
                     title: title,
-                    [type]: slug,
+                    [type]: slug.replace(/%20/g, " "),
                 },
             }),
         }).then((res) => {
             if (!res.ok) {
+                setMessage(`Error:${res.status} ${res.statusText}`);
                 throw new Error("Failed to save video");
             }
             else {
-                cleanup();
-                if (onSaved) onSaved("Video added successfully!");
+                cleanup(true);
+                setMessage("Success:Video added successfully!");
+                if (onSaved) {
+                    onSaved("Video added successfully!");
+                }
             }
         }).catch((err) => {
             console.error(err);
-            alert("Error saving video: " + err.message);
+            setMessage("Error:Error saving video: " + err.message);
         });
     }
-    function cleanup() {
-        setOpen(false);
+    function cleanup(open = false) {
+        setOpen(open);
         setYoutubeUrl("");
         setVideoId("");
         setTitle("");
+        setMessage("");
         setApiStatus({ status: 0, text: "" });
     }
 
     return (
-        <div >
+        <div>
             <button
                 onClick={() => {
                     if (!user) {
@@ -110,10 +117,10 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                     }
                     setOpen(true);
                 }}
-                className="flex items-center gap-2 px-4 py-1 bg-my-secondary text-white rounded hover:bg-my-primary/80 transition"
+                className="flex items-center gap-2 px-2 py-1 bg-my-accent text-white rounded hover:bg-my-primary/80 transition"
             >
                 <PlusIcon className="h-5 w-5 font-bold" />
-                <p>Add video</p>
+                <p>Video</p>
             </button>
 
             <Modal
@@ -121,12 +128,12 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 onClose={() => { cleanup() }}
                 children={
                     <div className="p-4 scroll-auto min-h-60">
-                        <h2 className="text-xl font-semibold text-gray-600 mb-2">Add a video</h2>
+                        <h2 className="text-xl font-semibold mb-2">Add a video</h2>
                         <p className=" bg-my-accent/20 p-2 ">{type} : {name}</p>
 
                         {/* YouTube URL */}
                         <p className="text-sm min-h-6 px-1 pl-1 ">
-                            <span className="text-gray-500"> {videoId && `Video ID: ${videoId}`}</span>
+                            <span > {videoId && `Video ID: ${videoId}`}</span>
                         </p>
                         <div>
                             <input
@@ -148,17 +155,22 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                                 </div>
                                 {title && (
                                     <p className="mt-1">
-                                        <span className="font-semibold text-gray-600">{title}</span>
+                                        <span className="font-semibold">{title}</span>
                                     </p>
                                 )}
-                                <button
-                                    onClick={() => handleSave()}
-                                    className="mt-4 px-4 py-2 bg-my-primary text-white rounded hover:bg-my-primary/80 transition"
-                                >
-                                    Save & Close
-                                </button>
+                                <div className="flex">
+                                    <button
+                                        onClick={() => handleSave()}
+                                        className="mt-4 px-4 py-2 bg-my-primary text-white rounded hover:bg-my-primary/80 transition"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
                             </div>
                         )}
+                        <div className="py-2">
+                            {message && <Message message={message} />}
+                        </div>
                     </div>
                 }
             />

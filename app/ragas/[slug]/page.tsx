@@ -8,6 +8,7 @@ import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import RagaCard from "@/components/RagaCard";
 import ItemList from "@/components/ItemList";
 import RagaClient from "@/components/RagaClient";
+import AddVideo from "@/components/AddVideo";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
@@ -45,7 +46,6 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     return (
         <ClientWrap >
             <div className="section-mid mb-0">
-                <BackButton />
                 <RagaClient
                     slug={slugy} name={displayName} type={raga.type}
                     displayName={displayName}

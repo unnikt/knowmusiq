@@ -33,22 +33,22 @@ export default function SignInPage() {
             <div className="section-mid">
                 <BackButton />
 
-                <div className="mx-auto mt-4 bg-(--surface) p-8 rounded shadow-md w-80 space-y-4">
-                    <h2 className="font-semibold text-xl">Sign In</h2>
+                <div className="mx-auto mt-4 bg-(--surface) p-8 rounded border border-slate-300 w-80 space-y-4">
+                    <h2 className="font-semibold text-xl text-center">Sign In</h2>
 
                     {error && <p className="text-red-600 text-sm">{error}</p>}
 
                     {/* Google Sign-In */}
                     <GoogleSignInButton />
 
-                    <div className="text-center text-sm">or</div>
+                    <p className="text-center ">or</p>
 
                     {/* Email Sign-In */}
                     <form onSubmit={handleEmailSignIn} className="space-y-3">
                         <input
                             type="email"
                             placeholder="Email"
-                            className="w-full border p-2 rounded"
+                            className="w-full border border-gray-400 p-2 rounded"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             autoComplete="email"
@@ -57,7 +57,7 @@ export default function SignInPage() {
                         <input
                             type="password"
                             placeholder="Password"
-                            className="w-full border p-2 rounded"
+                            className="w-full border border-gray-400 p-2 rounded"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="current-password"

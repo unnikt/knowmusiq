@@ -7,6 +7,8 @@ import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
 import { toCamelCase } from "@/lib/string/camelcase";
+import AddButton from "@/components/AddButton";
+import TopBar from "@/components/TopBar";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -29,18 +31,16 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
         load();
     }, [currentPage]);
 
-    function handleClick(p) {
-        router.push(`/persons/type/${p}`);
-    }
-
     return (
         <ClientWrap >
             <div className="section-mid">
-                <BackButton />
+                <TopBar>
+                    <AddButton text="Person" href="/client/AddPerson" />
+                </TopBar>
                 <Paginate
                     currentPage={currentPage}
                     pages={["Composers", "Singers", "Lyricists"]}
-                    onPageChange={(p) => handleClick(p)}
+                    onPageChange={(p) => router.push(`/persons/type/${p}`)}
                 />
 
                 <ItemList

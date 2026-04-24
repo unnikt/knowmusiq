@@ -6,6 +6,9 @@ import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import RagaCard from "./RagaCard";
 import { slugify } from "@/lib/string/slugify";
+import BackButton from "./BackButton";
+import AddVideo from "./AddVideo";
+import Message from "./Message";
 
 interface RagaClientProps {
     slug: string;
@@ -23,7 +26,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
     const [videos, setVideos] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
     const [loading, setLoading] = useState("Loading...");
-    const [message, setMessage] = useState(null);
+    const [message, setMessage] = useState("");
 
     async function loadVideos() {
 
@@ -45,6 +48,11 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
 
     return (
         <div className="px-2 sm:px-0">
+            <div className="topbar">
+                <BackButton />
+                <AddVideo slug={slug} name={displayName} type={"raga"} onSaved={refresh} />
+            </div>
+
             <RagaCard
                 name={displayName}
                 type={type}
@@ -55,7 +63,6 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                 arohana={arohana}
                 avarohana={avarohana}
                 display={"videos"}
-                onSaved={refresh}
             />
 
             {loading && <p className="text-my-primary p-2">{loading}</p>}

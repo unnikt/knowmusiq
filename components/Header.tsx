@@ -64,7 +64,7 @@ export default function Header() {
                     className="absolute inset-0 -z-10 size-full object-cover object-right opacity-20 md:object-center"
                     priority
                 />
-                <div className="mb-2 px-2 flex justify-between items-center">
+                <div className="px-2 flex justify-between items-center">
                     <div ref={menuRef} className="relative">
                         <Bars3Icon className="w-7 h-7 text-white"
                             onClick={() => setOpen(prev => !prev)} />
@@ -88,7 +88,7 @@ export default function Header() {
             <div className={minimise ? "hidden" : "" + "bg-(--surface) p-4!  flex mx-auto max-w-4xl items-center gap-4"} >
                 <SearchBox />
                 <XMarkIcon
-                    className="w-7 h-7 text-gray-500"
+                    className="w-7 h-7"
                     onClick={() => setMinimise(true)} />
             </div>
 

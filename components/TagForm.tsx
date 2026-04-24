@@ -183,11 +183,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     onClick={handleSave} >
                                     Save tags
                                 </button>
-                                <a className="btn btn-outline"
-                                    href="/tags/new"
-                                >
-                                    Add new
-                                </a>
                                 <button
                                     className=" p-2 rounded"
                                     disabled={!selectedTag}

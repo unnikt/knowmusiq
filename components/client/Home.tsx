@@ -20,7 +20,9 @@ export default function HomePage({ videos }: HomeProps) {
                 </h2>
                 <VideoSlider>
                     {videos.map((v) => (
-                        <VideoTile link="raga" target="_self" key={v.id} video={v} url={`/ragas/${v.raga}`} width="min-w-80" />
+                        v.raga && (
+                            <VideoTile link="raga" target="_self" key={v.id} video={v} url={`/ragas/${v.raga}`} width="min-w-70" />
+                        )
                     ))}
                 </VideoSlider>
                 <h2 className="title">

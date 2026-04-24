@@ -451,6 +451,10 @@ input {
   @apply border-slate-300 text-my-primary hover:bg-my-secondary/80 hover:text-white transition;
 }
 
+.topbar {
+  @apply flex justify-center gap-4 items-center m-1;
+}
+
 @layer components {
   .card-new {
     @apply mb-6 p-5 rounded-sm border border-sky-200 bg-white shadow-sm hover:shadow-md transition min-w-[320px];
