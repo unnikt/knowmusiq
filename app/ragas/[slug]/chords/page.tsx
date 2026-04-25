@@ -53,7 +53,7 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
                     avarohana={raga.avarohana}
                     display={"chords"}
                 />
-                <div className="card-new">
+                <div className="bg-(--surface) rounded-lg mt-4 p-4">
                     <ChordsClient scale={chords.scale} chords={chords.chords} />
                 </div>
             </div>

@@ -3,19 +3,29 @@ import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-    const [dark, setDark] = useState(false);
+    const [dark, setDark] = useState<boolean | null>(null);
 
+    // Sync initial state with DOM (prevents auto‑firing)
     useEffect(() => {
+        const isDark = document.documentElement.classList.contains("dark");
+        setDark(isDark);
+    }, []);
+
+    // Apply theme when user toggles
+    useEffect(() => {
+        if (dark === null) return; // prevent first-run flicker
         document.documentElement.classList.toggle("dark", dark);
     }, [dark]);
 
-    return (
+    if (dark === null) return null; // avoid hydration mismatch
 
+    return (
         <button
             onClick={() => setDark(!dark)}
-            className="p-2 w-full  text-white rounded"
+            className="py-4 flex justify-items-start items-center gap-2 w-full text-white rounded"
         >
-            {dark ? <SunIcon className="w-7 h-7 inline" /> : <MoonIcon className="w-7 h-7 inline" />}
+            {dark ? <SunIcon className="w-5 h-5 " /> : <MoonIcon className="w-5 h-5 inline" />}
+            {dark ? "Light mode" : "Dark mode"}
         </button>
     );
 }

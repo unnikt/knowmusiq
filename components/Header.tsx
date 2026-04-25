@@ -27,19 +27,11 @@ export default function Header() {
     const { minimiseHeader } = useApp();
     const [minimise, setMinimise] = useState(minimiseHeader);
     const [open, setOpen] = useState(false)
-    const [userName, setName] = useState(null);
-
-    const { user, rights, loading } = useUser();
 
     useEffect(() => {
         setMinimise(minimiseHeader);
     }, [minimiseHeader]);
 
-    useEffect(() => {
-        if (!loading) {
-            setName(user?.displayName ?? null);
-        }
-    }, [loading, user]);
 
     const menuRef = useRef(null);
 
@@ -76,7 +68,6 @@ export default function Header() {
                         musiq me
                     </h2>
                     <div className="flex justify-between items-center gap-2">
-                        <ThemeToggle />
                         <div>
                             <MagnifyingGlassIcon
                                 className="w-7 h-7 text-white"

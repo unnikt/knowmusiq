@@ -9,6 +9,7 @@ import { slugify } from "@/lib/string/slugify";
 import BackButton from "./BackButton";
 import AddVideo from "./AddVideo";
 import Message from "./Message";
+import Link from "next/link";
 
 interface RagaClientProps {
     slug: string;
@@ -26,6 +27,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
     const [videos, setVideos] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
     const [loading, setLoading] = useState("Loading...");
+    const [display, setDisplay] = useState("videos");
     const [message, setMessage] = useState("");
 
     async function loadVideos() {
@@ -62,11 +64,43 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                 parent={{ name: parent, slug: slugify(parent) }} // { name, slug }
                 arohana={arohana}
                 avarohana={avarohana}
-                display={"videos"}
             />
 
             {loading && <p className="text-my-primary p-2">{loading}</p>}
-
+            {/* 🎵 Tabs Section */}
+            <div className=" mt-2 border-t-2 pt-4 border-my-secondary">
+                <div className="flex gap-4 justify-start align-middle text-sm font-medium">
+                    {display != "videos" &&
+                        <Link
+                            href={`/ragas/${slug}`}
+                            className="px-3 py-1 rounded-md border border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+                        >
+                            Videos
+                        </Link>
+                    }
+                    {display != "krithis" &&
+                        <Link
+                            href={`/ragas/${slug}/krithis`}
+                            className="px-3 py-1 rounded-md border border-sky-300 text-sky-700 hover:bg-sky-50"
+                        >
+                            Krithis
+                        </Link>}
+                    {type == "Janaka" && display != "janya" &&
+                        <Link
+                            href={`/ragas/${slug}/janya`}
+                            className="px-3 py-1 rounded-md border border-purple-300 text-purple-700 hover:bg-purple-50"
+                        >
+                            Janya
+                        </Link>}
+                    {display != "chords" &&
+                        <Link
+                            href={`/ragas/${slug}/chords`}
+                            className="px-3 py-1 rounded-md border border-amber-300 text-amber-700 hover:bg-amber-50"
+                        >
+                            Chords
+                        </Link>}
+                </div>
+            </div>
             {videos.length > 0 ? (
                 <div key={refreshKey} className="videoGrid mt-4">
                     {videos.map((video: any) => (

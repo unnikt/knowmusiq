@@ -28,7 +28,6 @@ export default function RagaCard({
     arohana,
     avarohana,
     parent,
-    display,
 }: RagaCardProps) {
 
     const slug = slugify(name); // or use slugify(name)
@@ -79,33 +78,6 @@ export default function RagaCard({
                 their specific arrangement, ornamentation and emotional expression
                 create the unique character of a particular raga.
             </p>
-            {/* 🎵 Tabs Section */}
-            <div className=" mt-2 border-t-2 pt-4 border-my-secondary">
-                <div className="flex gap-4 justify-between align-middle text-sm font-medium">
-                    {display != "videos" &&
-                        <Link
-                            href={`/ragas/${slug}`}
-                            className="px-3 py-1 rounded-md border border-emerald-300 text-emerald-700 hover:bg-emerald-50"
-                        >
-                            Videos
-                        </Link>
-                    }
-                    {display != "krithis" &&
-                        <Link
-                            href={`/ragas/${slug}/krithis`}
-                            className="px-3 py-1 rounded-md border border-sky-300 text-sky-700 hover:bg-sky-50"
-                        >
-                            Krithis
-                        </Link>}
-                    {display != "chords" &&
-                        <Link
-                            href={`/ragas/${slug}/chords`}
-                            className="px-3 py-1 rounded-md border border-amber-300 text-amber-700 hover:bg-amber-50"
-                        >
-                            Chords
-                        </Link>}
-                </div>
-            </div>
         </div>
     );
 }

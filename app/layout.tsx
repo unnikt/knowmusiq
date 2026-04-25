@@ -1,7 +1,7 @@
 import "./globals.css"
 import Header from "../components/Header"
 import { AppProvider } from "../context/AppContext"
-import {  UserProvider } from "@/context/UserContext"
+import { UserProvider } from "@/context/UserContext"
 import { Suspense } from "react"
 export const metadata = {
   title: 'musiq me',
@@ -12,7 +12,7 @@ export default function RootLayout({ children }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body>
         <UserProvider>
           <AppProvider>
