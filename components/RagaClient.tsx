@@ -69,11 +69,11 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
             {loading && <p className="text-my-primary p-2">{loading}</p>}
             {/* 🎵 Tabs Section */}
             <div className=" mt-2 border-t-2 pt-4 border-my-secondary">
-                <div className="flex gap-4 justify-start align-middle text-sm font-medium">
+                <div className="flex gap-4 justify-start align-middle text-sm font-medium bg-gray-100 p-2 rounded-md">
                     {display != "videos" &&
                         <Link
                             href={`/ragas/${slug}`}
-                            className="px-3 py-1 rounded-md border border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+                            className="px-3 py-1 rounded-md   text-emerald-700 hover:bg-emerald-50"
                         >
                             Videos
                         </Link>
@@ -81,21 +81,21 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                     {display != "krithis" &&
                         <Link
                             href={`/ragas/${slug}/krithis`}
-                            className="px-3 py-1 rounded-md border border-sky-300 text-sky-700 hover:bg-sky-50"
+                            className="px-3 py-1 rounded-md  text-sky-700 hover:bg-sky-50"
                         >
                             Krithis
                         </Link>}
                     {type == "Janaka" && display != "janya" &&
                         <Link
                             href={`/ragas/${slug}/janya`}
-                            className="px-3 py-1 rounded-md border border-purple-300 text-purple-700 hover:bg-purple-50"
+                            className="px-3 py-1 rounded-md  text-purple-700 hover:bg-purple-50"
                         >
                             Janya
                         </Link>}
                     {display != "chords" &&
                         <Link
                             href={`/ragas/${slug}/chords`}
-                            className="px-3 py-1 rounded-md border border-amber-300 text-amber-700 hover:bg-amber-50"
+                            className="px-3 py-1 rounded-md  text-amber-700 hover:bg-amber-50"
                         >
                             Chords
                         </Link>}

@@ -35,7 +35,7 @@ export default function RagaCard({
 
 
     return (
-        <div className="card-new mb-0">
+        <div >
             <div className="flex items-start justify-between">
                 <div>
                     <h2 className="text-xl font-bold text-gray-600">{name}</h2>
