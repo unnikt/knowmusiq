@@ -5,7 +5,6 @@ import { collection, query, where, orderBy, getDocs, addDoc } from "firebase/fir
 import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import VideoTile from "@/components/VideoTile";
 import { useApp } from "@/context/AppContext";
-import TagVideoButton from "@/components/TagButton";
 
 export default function SearchVideosClient() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -204,7 +203,6 @@ export default function SearchVideosClient() {
                 {results.map((video) => (
                     <div key={video.id ? video.id : video.videoId}>
                         <VideoTile video={video} url={`videos/tag?url=${video.videoId}`} target={"_self"} link="raga" width="" key={video.id} />
-                        <TagVideoButton videoId={video.videoId} />
                     </div>
                 ))}
             </div>

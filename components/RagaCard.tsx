@@ -35,11 +35,11 @@ export default function RagaCard({
 
 
     return (
-        <div >
+        <div className="bg-(--surface) p-4 rounded" >
             <div className="flex items-start justify-between">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-600">{name}</h2>
-                    <p className="text-sm text-gray-500">{type == "Janaka" ?
+                    <h2 className="text-xl font-bold ">{name}</h2>
+                    <p className="text-sm">{type == "Janaka" ?
                         `${ordinalString(rid)} Melakarta raga`
                         : `Janya raga`}</p>
                 </div>
@@ -50,20 +50,20 @@ export default function RagaCard({
                 <div className={`mt-2 ${minRaga ? "hidden" : ""}`}>
                     <Link
                         href={type == "Janaka" ? `/chakras/${parent.name}` : `/ragas/${parent.slug.toLowerCase()}`}
-                        className="text-my-accent hover:text-my-hilite text-sm font-medium"
+                        className="text-(--primary) hover:text-my-hilite text-sm font-medium"
                     >
                         {type == "Janaka" ? "Chakra" : "Melakarta raga"} - {parent.name}
                     </Link>
                 </div>
             )}
             {description && (
-                <p className={`mt-3 text-sm text-gray-700 leading-relaxed h-6 ${minRaga ? "hidden" : ""}`}>
+                <p className={`mt-3 text-sm  leading-relaxed h-6 ${minRaga ? "hidden" : ""}`}>
                     {description}
                 </p>
             )}
 
             {arohana !== "" && (
-                <div className={`mt-4 space-y-2 text-sm text-gray-700 ${minRaga ? "hidden" : ""}`}>
+                <div className={`mt-4 space-y-2 text-sm  ${minRaga ? "hidden" : ""}`}>
                     <p>
                         <span className="font-medium">Aarohana:</span> {arohana}
                     </p>
@@ -73,7 +73,7 @@ export default function RagaCard({
                 </div>
             )}
 
-            <p className={`text-sm mt-2 text-slate-600 text-justify ${minRaga ? "hidden" : ""}`}>
+            <p className={`text-sm mt-2  text-justify ${minRaga ? "hidden" : ""}`}>
                 Note: While the swaras and notes are fundamental to the raga,
                 their specific arrangement, ornamentation and emotional expression
                 create the unique character of a particular raga.
