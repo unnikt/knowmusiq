@@ -11,12 +11,12 @@ export const metadata = {
   openGraph: {
     type: "website",
     siteName: "musiq-me.com",
-    images: ["https://musiq-me.com/legends.png"],
+    images: ["https://musiq-me.com/og-default.png"],
   },
   twitter: {
     card: "summary_large_image",
     site: "@musiq-me",
-    images: ["https://musiq-me.com/legends.png"],
+    images: ["https://musiq-me.com/og-default.png"],
   },
 };
 
