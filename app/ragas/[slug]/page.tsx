@@ -73,13 +73,13 @@ export async function generateMetadata({ params }) {
         openGraph: {
             title: raga.name,
             description: raga.description || `Learn about the raga ${raga.name}.`,
-            images: ["https://musiq-me.com/og-default-04.png"],
+            images: ["https://musiq-me.com/og-default.png"],
             url: `https://musiq-me.com/ragas/${params.slug}`,
             type: "article",
         },
         twitter: {
             card: "summary_large_image",
-            images: ["https://musiq-me.com/og-default-04.png"],
+            images: ["https://musiq-me.com/og-default.png"],
         },
     };
 }
