@@ -4,9 +4,21 @@ import { AppProvider } from "../context/AppContext"
 import { UserProvider } from "@/context/UserContext"
 import { Suspense } from "react"
 export const metadata = {
-  title: 'musiq me',
-  description: 'For those who think Music is life',
-}
+  title: {
+    default: "musiq-me.com",
+    template: "%s | musiq-me.com",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "musiq-me.com",
+    images: ["https://musiq-me.com/legends.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@musiq-me",
+    images: ["https://musiq-me.com/legends.png"],
+  },
+};
 
 export default function RootLayout({ children }: {
   children: React.ReactNode
