@@ -1,7 +1,6 @@
 
 "use client"
 import { use, useEffect, useState } from "react";
-import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
@@ -42,10 +41,7 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
                 onPageChange={(p) => router.push(`/persons/type/${p}`)}
             />
 
-            <ItemList
-                title={""}
-                items={items}
-            />
+            <ItemList title={""} items={items} pageSize={10} />
         </ClientWrap>
     );
 }
