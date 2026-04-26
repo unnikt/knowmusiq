@@ -1,12 +1,12 @@
 // app/raga/[slug]/page.tsx
 import { slugify } from "@/lib/string/slugify";
 import { toCamelCase } from "@/lib/string/camelcase";
-import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ItemList from "@/components/ItemList";
 import RagaClient from "@/components/RagaClient";
 import TopBar from "@/components/TopBar";
+import { getRaga } from "@/lib/ragaLookup";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
@@ -48,4 +48,38 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
             parent={raga.parent}
         />
     );
+}
+
+export async function generateMetadata({ params }) {
+    const { slug } = await params;
+    const slugy = slugify(slug);
+
+    const snapRagas = await knowmusiqAdminDB.collection("ragas")
+        .where("slug", "==", slugy)
+        .limit(1)
+        .get();
+
+    if (snapRagas.empty) {
+        return {
+            title: "Raga not found",
+            description: "The requested raga could not be found.",
+        };
+    }
+    const raga = snapRagas.docs[0].data();
+
+    return {
+        title: raga.name,
+        description: raga.description || `Learn about the raga ${raga.name}.`,
+        openGraph: {
+            title: raga.name,
+            description: raga.description || `Learn about the raga ${raga.name}.`,
+            images: ["https://musiq-me.com/og-default.png"],
+            url: `https://musiq-me.com/ragas/${params.slug}`,
+            type: "article",
+        },
+        twitter: {
+            card: "summary_large_image",
+            images: ["https://musiq-me.com/og-default.png"],
+        },
+    };
 }
