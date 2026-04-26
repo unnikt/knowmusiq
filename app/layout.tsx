@@ -3,7 +3,6 @@ import Header from "../components/Header"
 import { AppProvider } from "../context/AppContext"
 import { UserProvider } from "@/context/UserContext"
 import { Suspense } from "react"
-import { Description } from "@headlessui/react"
 export const metadata = {
   title: {
     default: "musiq-me.com",
@@ -14,6 +13,7 @@ export const metadata = {
     siteName: "musiq-me.com",
     images: ["https://musiq-me.com/og-default.png"],
     description: "Learn aboutCarnatic and Hindustani ragas by exploring their use in India movies!!",
+    url: "https://musiq-me.com/",
   },
   twitter: {
     card: "summary_large_image",

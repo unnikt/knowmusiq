@@ -6,7 +6,6 @@ import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ItemList from "@/components/ItemList";
 import RagaClient from "@/components/RagaClient";
 import TopBar from "@/components/TopBar";
-import { getRaga } from "@/lib/ragaLookup";
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
