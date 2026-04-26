@@ -6,9 +6,8 @@ import { toCamelCase } from "@/lib/string/camelcase";
 import { getRaga } from "@/lib/ragaLookup";
 import { slugify } from "@/lib/string/slugify";
 import { getChords } from "@/lib/GenerateChords";
-import NotesTray from "@/components/NotesTray";
-import ChordsTray from "@/components/ChordsTray";
 import ChordsClient from "@/components/ChordsClient";
+import TopBar from "@/components/TopBar";
 
 export default async function ChordsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -40,22 +39,20 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
 
     return (
         <ClientWrap >
-            <div className="section-mid">
-                <BackButton />
-                <RagaCard
-                    name={displayName}
-                    type={raga.type}
-                    rid={raga.rid}
-                    pid={raga.pid}
-                    description={"A beautiful raga for every occasion.."}
-                    parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
-                    arohana={raga.arohana}
-                    avarohana={raga.avarohana}
-                    display={"chords"}
-                />
-                <div className="bg-(--surface) rounded-lg mt-4 p-4">
-                    <ChordsClient scale={chords.scale} chords={chords.chords} />
-                </div>
+            <TopBar children={null} />
+            <RagaCard
+                name={displayName}
+                type={raga.type}
+                rid={raga.rid}
+                pid={raga.pid}
+                description={"A beautiful raga for every occasion.."}
+                parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
+                arohana={raga.arohana}
+                avarohana={raga.avarohana}
+                display={"chords"}
+            />
+            <div className="bg-(--surface) rounded-lg">
+                <ChordsClient scale={chords.scale} chords={chords.chords} />
             </div>
         </ClientWrap>
     );

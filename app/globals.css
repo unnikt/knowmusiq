@@ -452,7 +452,7 @@ input {
 }
 
 .topbar {
-  @apply flex justify-center gap-4 items-center m-1;
+  @apply flex justify-center gap-4 items-center m-1 h-10;
 }
 
 @layer components {

@@ -18,7 +18,9 @@ export default function RootLayout({ children }: {
           <AppProvider>
             {<Header />}
             <Suspense fallback={null}>
-              {children}
+              <div className="section-mid" >
+                {children}
+              </div>
             </Suspense>
           </AppProvider>
         </UserProvider>

@@ -18,19 +18,17 @@ export default function TagVideoPage() {
 
     return (
         <ClientWrap >
-            <div className="section-mid mb-0">
-                <TopBar>
-                    <AddButton text="Person" href="/client/AddPerson" />
-                </TopBar>
-                <div className={`bg-(--surface) ${videoId ? "hidden" : ""} p-4 rounded-md`}>
-                    <VideoURL onChange={(id) => setVideoId(id)} />
-                </div>
-
-                <TagForm vid={videoId} onLoad={setLoading} />
-
-                {loading && <p className="text-(--primary)">Loading video…</p>}
-
+            <TopBar>
+                <AddButton text="Person" href="/client/AddPerson" />
+            </TopBar>
+            <div className={`bg-(--surface) ${videoId ? "hidden" : ""} p-4 rounded-md`}>
+                <VideoURL onChange={(id) => setVideoId(id)} />
             </div>
+
+            <TagForm vid={videoId} onLoad={setLoading} />
+
+            {loading && <p className="text-(--primary)">Loading video…</p>}
+
         </ClientWrap>
     );
 }

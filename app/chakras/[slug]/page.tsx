@@ -37,10 +37,7 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
                     onPageChange={(p) => handleClick(p)}
                 />
 
-                <ItemList
-                    title={""}
-                    items={items}
-                />
+                <ItemList title={""} items={items} />
             </div>
         </ClientWrap>
     );

@@ -40,54 +40,51 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
 
     return (
         <ClientWrap >
-            <div className="section-mid px-2 sm:px-0">
-                <div className="flex justify-center gap-4 items-center m-1">
-                    <BackButton url={`/persons/type/${xRef(person.type)}s`} />
-                    <AddVideo slug={slug} name={person.name} type={"comp"} />
-                </div>
+            <div className="flex justify-center gap-4 items-center m-1">
+                <BackButton url={`/persons/type/${xRef(person.type)}s`} />
+                <AddVideo slug={slug} name={person.name} type={"comp"} />
+            </div>
 
-                <Accordion title={person.name}>
-                    <div className="p-4 flex flex-col sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-sm">
-                        {/* Profile Picture */}
-                        <Image
-                            src={person.image || wiki.pic || "/no_profile_pic.jpg"}
-                            alt={person.name}
-                            width={180}
-                            height={180}
-                            className=" rounded-sm object-cover shadow-md mb-4 sm:w-70 sm:h-70"
-                        />
+            <Accordion title={person.name}>
+                <div className="p-4 flex flex-col sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-b ">
+                    {/* Profile Picture */}
+                    <Image
+                        src={person.image || wiki.pic || "/no_profile_pic.jpg"}
+                        alt={person.name}
+                        width={180}
+                        height={180}
+                        className=" rounded-sm object-cover shadow-md mb-4 sm:w-70 sm:h-70"
+                    />
 
-                        {/* Name */}
-                        <div className="flex flex-col justify-start ">
-                            {/* Profession */}
-                            <Link
-                                href={`/persons/type/${xRef(person.type)}s`}
-                                className="text-(--primary) tracking-wide mt-1"
-                            >
-                                {xRef(person.type) || "Musician"}
-                            </Link>
-                        </div>
-                        {/* Bio */}
-                        <p className="mt-4 text-gray-600 text-left max-w-xl">
-                            {bio || "No biography available."}
-                        </p>
-                        {person.wiki && <Link
-                            href={`https://en.wikipedia.org/wiki/${person.wiki}`}
-                            className=" text-(--primary) hover:text-my-hilite">
-                            Source: Wikipedia
-                        </Link>}
+                    {/* Name */}
+                    <div className="flex flex-col justify-start ">
+                        {/* Profession */}
+                        <Link
+                            href={`/persons/type/${xRef(person.type)}s`}
+                            className="text-(--primary) tracking-wide mt-1"
+                        >
+                            {xRef(person.type) || "Musician"}
+                        </Link>
                     </div>
-                </Accordion>
-                <div className="videoGrid">
-                    {videos.map((video) => (
-                        <VideoTile key={video.id} video={video} width=""
-                            url={`/videos/tag/?v=${video.videoId}`}
-                            target={"_self"}
-                            link="raga" />
-                    ))}
+                    {/* Bio */}
+                    <p className="mt-4 text-gray-600 text-left max-w-xl">
+                        {bio || "No biography available."}
+                    </p>
+                    {person.wiki && <Link
+                        href={`https://en.wikipedia.org/wiki/${person.wiki}`}
+                        className=" text-(--primary) hover:text-my-hilite">
+                        Source: Wikipedia
+                    </Link>}
                 </div>
-
-            </div >
+            </Accordion>
+            <div className="videoGrid">
+                {videos.map((video) => (
+                    <VideoTile key={video.id} video={video} width=""
+                        url={`/videos/tag/?v=${video.videoId}`}
+                        target={"_self"}
+                        link="raga" />
+                ))}
+            </div>
         </ClientWrap>
     );
 }

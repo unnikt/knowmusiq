@@ -128,7 +128,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     }
 
     return (
-        <div className="mx-4 p-2 bg-(--surface) rounded-md sm:mx-0 sm:p-6 ">
+        <div className="p-4 bg-(--surface) rounded-md sm:mx-0 sm:p-6 ">
             <div className="flex flex-col sm:flex-row gap-1 w-full">
                 <div className="w-full max-w-200 aspect-video">
                     <YouTubePlayer key={vid} videoId={vid} />

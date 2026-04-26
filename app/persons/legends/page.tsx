@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const legends = [
     { "name": "K. J. Yesudas", "slug": "Yesudas K J" },
-    { "name": "Mohammed Rafi", "slug": "Mohammed_Rafi" },
+    { "name": "Mohammed Rafi", "slug": "Mohammed Rafi" },
     { "name": "Kishore Kumar", "slug": "Kishore_Kumar" },
     { "name": "S. P. Balasubrahmanyam", "slug": "S._P._Balasubrahmanyam" },
     { "name": "S. Janaki", "slug": "Janaki S" },
@@ -54,7 +54,6 @@ export default function LegendsPage() {
 
     return (
         <ClientWrap >
-
             <main className="min-h-screen bg-linear-to-b from-sky-50 via-sky-100/60 to-orange-100 p-8! bg-fixed section-mid">
                 <div className="flex flex-col align-middle">
                     <h2 className="text-4xl font-bold text-slate-700">

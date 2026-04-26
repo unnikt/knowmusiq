@@ -33,21 +33,19 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
 
     return (
         <ClientWrap >
-            <div className="section-mid">
-                <TopBar>
-                    <AddButton text="Person" href="/client/AddPerson" />
-                </TopBar>
-                <Paginate
-                    currentPage={currentPage}
-                    pages={["Composers", "Singers", "Lyricists"]}
-                    onPageChange={(p) => router.push(`/persons/type/${p}`)}
-                />
+            <TopBar>
+                <AddButton text="Person" href="/client/AddPerson" />
+            </TopBar>
+            <Paginate
+                currentPage={currentPage}
+                pages={["Composers", "Singers", "Lyricists"]}
+                onPageChange={(p) => router.push(`/persons/type/${p}`)}
+            />
 
-                <ItemList
-                    title={""}
-                    items={items}
-                />
-            </div>
+            <ItemList
+                title={""}
+                items={items}
+            />
         </ClientWrap>
     );
 }

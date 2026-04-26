@@ -8,7 +8,7 @@ export default function RagaExplorer({ scale, chords }) {
     const [selectedNote, setSelectedNote] = useState<string | null>(null);
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 p-2">
             <NotesTray
                 scale={scale}
                 selectedNote={selectedNote}

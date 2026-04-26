@@ -11,6 +11,7 @@ import { useUser } from "@/context/UserContext";
 import ClientWrap from "@/components/ClientWrap";
 import RequestSignIn from "@/components/RequestSignIn";
 import BackButton from "@/components/BackButton";
+import TopBar from "@/components/TopBar";
 
 const TAG_TYPES = [
     "Composer",
@@ -110,85 +111,83 @@ export default function AddPerson() {
 
     return (
         <ClientWrap >
-            <div className="section-mid bg-(--surface) rounded">
-                <BackButton />
-                <div className="p-4">
-                    <h2 className="title">Add New Tag</h2>
-                    {!verifying && <p className="mb-4 italic">Your email id {user?.email || "Guest"} will be saved with the tag</p>}
+            <TopBar children={""} />
+            <div className="p-4 bg-(--surface) rounded-md sm:mx-0 sm:p-6 ">
+                <h2 className="title">Add New Tag</h2>
+                {!verifying && <p className="mb-4 italic">Your email id {user?.email || "Guest"} will be saved with the tag</p>}
 
-                    <Accordion title="Grab from Wikipedia?">
-                        <label className="block text-sm font-medium">
-                            People tags only, e.g. composers, singers, lyricists
-                        </label>
-                        <GetWikiName
-                            onPageInfo={(pageid, name, thumbnail) => { saveInfo(pageid, name, thumbnail) }} pic={true} />
-                    </Accordion>
-
-                    {/* Tag Value Input */}
+                <Accordion title="Grab from Wikipedia?">
                     <label className="block text-sm font-medium">
-                        Tag Value
+                        People tags only, e.g. composers, singers, lyricists
                     </label>
-                    <input
-                        className="w-full mt-1 border border-gray-400 rounded p-2"
-                        placeholder="Enter value"
-                        value={tagValue}
-                        onChange={(e) => setTagValue(e.target.value)}
-                    />
+                    <GetWikiName
+                        onPageInfo={(pageid, name, thumbnail) => { saveInfo(pageid, name, thumbnail) }} pic={true} />
+                </Accordion>
 
-                    {/* Tag Type Dropdown */}
-                    <label className="block text-sm mt-2 font-medium ">
-                        Tag Type
-                    </label>
-                    <select
-                        className="w-full mt-1 outline-0 border border-gray-400 rounded p-2 bg-white text-slate-800"
-                        value={tagType}
-                        onChange={(e) => setTagType(e.target.value)}
-                    >
-                        <option value="">Select tag type</option>
-                        {TAG_TYPES.map((t) => (
-                            <option key={t} value={t}>
-                                {t}
-                            </option>
-                        ))}
-                    </select>
+                {/* Tag Value Input */}
+                <label className="block text-sm font-medium">
+                    Tag Value
+                </label>
+                <input
+                    className="w-full mt-1 border border-gray-400 rounded p-2"
+                    placeholder="Enter value"
+                    value={tagValue}
+                    onChange={(e) => setTagValue(e.target.value)}
+                />
 
-                    <Button
-                        onClick={() => { search(tagValue).then(res => console.log("Results:", results)).catch(err => console.log(err)) }}
-                        disabled={loading}
-                        className="mt-2 btn hidden"
-                    >
-                        {loading ? "Searching..." : "Search Wikipedia"}
-                    </Button>
+                {/* Tag Type Dropdown */}
+                <label className="block text-sm mt-2 font-medium ">
+                    Tag Type
+                </label>
+                <select
+                    className="w-full mt-1 outline-0 border border-gray-400 rounded p-2 bg-white text-slate-800"
+                    value={tagType}
+                    onChange={(e) => setTagType(e.target.value)}
+                >
+                    <option value="">Select tag type</option>
+                    {TAG_TYPES.map((t) => (
+                        <option key={t} value={t}>
+                            {t}
+                        </option>
+                    ))}
+                </select>
 
-                    <div className="flex items-center gap-6 my-1 p-2 rounded">
-                        {["Male", "Female", "Other"].map((g) => (
-                            <label key={g} className="flex items-center gap-2 cursor-pointer text-(--text) ">
-                                <input
-                                    type="radio"
-                                    name="gender"
-                                    value={g}
-                                    checked={gender === g}
-                                    onChange={(e) => setGender(e.target.value)}
-                                    className="h-4 w-4 text-(--primary) focus:ring-(--primary)"
-                                />
-                                <span >{g}</span>
-                            </label>
-                        ))}
-                    </div>
+                <Button
+                    onClick={() => { search(tagValue).then(res => console.log("Results:", results)).catch(err => console.log(err)) }}
+                    disabled={loading}
+                    className="mt-2 btn hidden"
+                >
+                    {loading ? "Searching..." : "Search Wikipedia"}
+                </Button>
 
-                    {/* Save Button */}
-                    <div className="flex items-center ">
-                        <button
-                            onClick={handleSave}
-                            disabled={saving || !tagType || !tagValue}
-                            className="btn bg-my-primary w-1/3 text-white  disabled:bg-gray-400"
-                        >
-                            {saving ? "Saving..." : "Save Tag"}
-                        </button>
-                        {message && <p className="text-green-600">{message} </p>}
-                    </div>
+                <div className="flex items-center gap-6 my-1 p-2 rounded">
+                    {["Male", "Female", "Other"].map((g) => (
+                        <label key={g} className="flex items-center gap-2 cursor-pointer text-(--text) ">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value={g}
+                                checked={gender === g}
+                                onChange={(e) => setGender(e.target.value)}
+                                className="h-4 w-4 text-(--primary) focus:ring-(--primary)"
+                            />
+                            <span >{g}</span>
+                        </label>
+                    ))}
                 </div>
-            </div >
+
+                {/* Save Button */}
+                <div className="flex items-center ">
+                    <button
+                        onClick={handleSave}
+                        disabled={saving || !tagType || !tagValue}
+                        className="btn bg-my-primary w-1/3 text-white  disabled:bg-gray-400"
+                    >
+                        {saving ? "Saving..." : "Save Tag"}
+                    </button>
+                    {message && <p className="text-green-600">{message} </p>}
+                </div>
+            </div>
         </ClientWrap>
     );
 }

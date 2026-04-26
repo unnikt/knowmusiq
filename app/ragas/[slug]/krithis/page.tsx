@@ -5,6 +5,7 @@ import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
+import TopBar from "@/components/TopBar";
 
 export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -24,13 +25,11 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
         return (
             <ClientWrap >
-                <div className="section-mid">
-                    <BackButton />
-                    <ItemList
-                        title="Did you mean?"
-                        items={items}
-                    />
-                </div>
+                <TopBar children />
+                <ItemList
+                    title="Did you mean?"
+                    items={items}
+                />
             </ClientWrap>
         )
     }
@@ -49,26 +48,21 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
 
     return (
         <ClientWrap >
-            <div className="section-mid">
-                <BackButton />
-                <RagaCard
-                    name={displayName}
-                    type={raga.type}
-                    rid={raga.rid}
-                    pid={raga.pid}
-                    description={"A beautiful raga for every occasion.."}
-                    parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
-                    arohana={raga.arohana}
-                    avarohana={raga.avarohana}
-                    display={"krithis"}
-                />
-                {items.length > 0 &&
-                    <div>
-                        <h2 className=" my-4 text-gray-600">Krithis in <span className="font-bold text-xl text-my-accent">{displayName}</span> </h2>
-                        <ItemList items={items} />
-                    </div>
-                    || <p className="text-gray-500">No krithis available for this raga.</p>}
-            </div>
+            <TopBar children />
+            <RagaCard
+                name={displayName}
+                type={raga.type}
+                rid={raga.rid}
+                pid={raga.pid}
+                description={"A beautiful raga for every occasion.."}
+                parent={{ name: raga.parent, slug: slugify(raga.parent) }} // { name, slug }
+                arohana={raga.arohana}
+                avarohana={raga.avarohana}
+                display={"krithis"}
+            />
+            {items.length > 0 &&
+                <ItemList items={items} title={`Krithis in ${displayName}`} pageSize={10} />
+                || <p className="bg-(--surface) p-4 rounded">No krithis available for this raga.</p>}
         </ClientWrap>
     );
 }
