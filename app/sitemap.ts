@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = "https://knowmusic.web.app";
+    const baseUrl = "https://musiq-me.com";
 
     // Fetch dynamic pages (ragas, krithis, artists, etc.)
     const ragasSnap = await knowmusiqAdminDB.collection("ragas").get();

@@ -68,12 +68,12 @@ export async function generateMetadata({ params }) {
 
     return {
         title: raga.name,
-        description: raga.description || `Learn about the raga ${raga.name}.`,
+        description: `Learn about ${raga.name} by exploring songs composed in this raga`,
         openGraph: {
             title: raga.name,
-            description: raga.description || `Learn about the raga ${raga.name}.`,
+            description: `Learn about ${raga.name} by exploring songs composed in this raga`,
             images: ["https://musiq-me.com/og-default.png"],
-            url: `https://musiq-me.com/ragas/${params.slug}`,
+            url: `https://musiq-me.com/ragas/${slug}`,
             type: "article",
         },
         twitter: {
