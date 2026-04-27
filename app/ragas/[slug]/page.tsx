@@ -26,6 +26,8 @@ import TopBar from "@/components/TopBar";
 //     },
 // };
 
+export const dynamic = 'force-static'; // or 'force-dynamic'
+export const revalidate = 0; // optional
 
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
