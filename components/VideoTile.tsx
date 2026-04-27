@@ -4,6 +4,7 @@ import { toCamelCase } from "../lib/string/camelcase";
 import Image from "next/image";
 import Link from "next/link";
 import { SquaresPlusIcon } from "@heroicons/react/20/solid";
+import ShareButton from "./ShareButton";
 
 interface videoTileProps {
     video: any;
@@ -14,12 +15,11 @@ interface videoTileProps {
 }
 export default function VideoTile({ video, url, target = "_self", link = "raga", width = "" }: videoTileProps) {
     const thumbnail = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
-    // const url = `https://www.youtube.com/watch?v=${video.videoId}`;
 
-    const base = ["comp", "sing", "lyri"].includes(link) ? "/persons/" : "/ragas/";
+    const links = link.split("|").map(l => l.trim());
+    const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/ragas/${video[l]}` : null);
 
     return (
-        // <div className={`p-2 my-2 rounded-sm  border border-gray-200 bg-white shadow-sm hover:shadow-md transition ${width}`}>
         <div className={`pt-4 px-4 my-2 bg-(--surface) text-(--text) border border-(--border) rounded-md ${width}`}>
             <Link
                 href={url}
@@ -46,15 +46,26 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     {toCamelCase(video.title)}
                 </h3>
                 <div className="flex justify-between items-center pt-2">
-                    <Link href={`${base}${video[link]}`} >
-                        {(video[link]) &&
-                            <p className="mt-1 text-sm text-(--primary)">{toCamelCase(video[link].replace(/-/g, " "))}</p>
-                        }
-                    </Link>
-                    <Link href={`/videos/tag?v=${video.videoId}`}>
-                        <SquaresPlusIcon className="w-5 h-5 text-(--primary)" />
-                    </Link>
+                    {urls.map((url, i) => (
+                        url && (
+                            <Link href={`${url}`} key={i}>
+                                {(video[links[i]]) &&
+                                    <p className="mt-1 text-sm text-(--primary)">{toCamelCase(video[links[i]].replace(/-/g, " "))}</p>
+                                }
+                            </Link>
+                        )
+                    ))}
                 </div>
+            </div>
+            <div className="w-full flex justify-end align-middle mb-2 gap-2 border-t pt-2 border-slate-400">
+                <ShareButton
+                    url={`https://musiq-me.com/videos/tag?v=${video.videoId}`}
+                    title={video.title}
+                    text={""}
+                />
+                <Link href={`/videos/tag?v=${video.videoId}`} className="py-2">
+                    <SquaresPlusIcon className="w-5 h-5 text-(--primary)" />
+                </Link>
             </div>
         </div>
     );

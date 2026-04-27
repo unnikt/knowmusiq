@@ -1,6 +1,6 @@
 import "./globals.css"
-import Header from "../components/Header"
-import { AppProvider } from "../context/AppContext"
+import Header from "@/components/Header"
+import { AppProvider } from "@/context/AppContext"
 import { UserProvider } from "@/context/UserContext"
 import { Suspense } from "react"
 export const metadata = {
@@ -12,7 +12,7 @@ export const metadata = {
     type: "website",
     siteName: "musiq-me.com",
     images: ["https://musiq-me.com/og-default.png"],
-    description: "Learn aboutCarnatic and Hindustani ragas by exploring their use in India movies!!",
+    description: "Learn about Carnatic and Hindustani ragas by exploring their use in movie songs!!",
     url: "https://musiq-me.com/",
   },
   twitter: {

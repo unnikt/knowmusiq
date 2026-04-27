@@ -12,9 +12,7 @@ import AddVideo from "@/components/AddVideo";
 
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-
     const slugy = slugify(slug);
-    console.log("Loading profile for slug:", slug, "slugified:", slugy);
 
     // Fetch person by slug
     const snap = await knowmusiqAdminDB
@@ -31,8 +29,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     // Fetch Wikipedia summary
     const wiki = await getWikiSummary(person.wiki);
     const bio = person.bio || wiki.summary || "No biography available.";
-
-    console.log("Person data:", person);
 
     const snapshot = await knowmusiqAdminDB.collection("videos").where(person.type, "==", person.name).limit(20).get();
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
@@ -82,7 +78,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
                     <VideoTile key={video.id} video={video} width=""
                         url={`/videos/tag/?v=${video.videoId}`}
                         target={"_self"}
-                        link="raga" />
+                        link={`${person.type === "comp" ? "lyri" : "comp"}|raga`} />
                 ))}
             </div>
         </ClientWrap>
