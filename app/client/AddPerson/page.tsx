@@ -10,7 +10,6 @@ import { Button } from "@headlessui/react";
 import { useUser } from "@/context/UserContext";
 import ClientWrap from "@/components/ClientWrap";
 import RequestSignIn from "@/components/RequestSignIn";
-import BackButton from "@/components/BackButton";
 import TopBar from "@/components/TopBar";
 
 const TAG_TYPES = [

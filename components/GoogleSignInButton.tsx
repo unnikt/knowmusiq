@@ -11,8 +11,20 @@ export default function GoogleSignInButton() {
     async function handleGoogleSignIn() {
         setLoading(true);
         try {
-            await signInWithPopup(auth, googleProvider);
+            const cred = await signInWithPopup(auth, googleProvider);
+
+            // 2️⃣ Get ID token from Firebase client user
+            const idToken = await cred.user.getIdToken();
+
+            // 3️⃣ Send ID token to server to create session cookie
+            await fetch("/api/auth/session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idToken }),
+            });
+            // 4️⃣ Redirect
             window.location.href = "/";
+
         } catch (err) {
             console.error("Google sign-in error:", err);
         } finally {

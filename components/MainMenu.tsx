@@ -27,7 +27,7 @@ export default function MainMenu({ onClose }) {
                 </div>
                 <div className="border-t border-t-white text-white w-full py-2 mt-2">
                     <Link href="/user" onClick={onClose}>
-                        Account
+                        Your Account
                     </Link>
                 </div>
 

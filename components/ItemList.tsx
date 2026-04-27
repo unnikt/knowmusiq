@@ -9,20 +9,20 @@ interface ItemListProps {
     showIndex?: boolean; // whether to show index numbers before items
 }
 export default function ItemList({ title, items, pageSize, className, showIndex = false }: ItemListProps) {
-    pageSize = pageSize || items.length; // default to all items if pageSize is not provided
-    const totalPages = Math.ceil(items.length / pageSize);
+    const effectivePageSize = pageSize || items.length; // default to all items if pageSize is not provided
+    const totalPages = Math.ceil(items.length / effectivePageSize);
     const [paginatedItems, setPaginatedItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        setPaginatedItems(items.slice(0, pageSize));
-    }, [items, pageSize]);
+        setPaginatedItems(items.slice(0, effectivePageSize));
+    }, [items, effectivePageSize]);
 
 
     function handlePageChange(page: number) {
         setCurrentPage(page);
         // Logic to fetch new items based on page can be added here if needed
-        setPaginatedItems(items.slice((page - 1) * pageSize, page * pageSize));
+        setPaginatedItems(items.slice((page - 1) * effectivePageSize, page * effectivePageSize));
     }
 
     return (
@@ -52,23 +52,25 @@ export default function ItemList({ title, items, pageSize, className, showIndex 
                 )}
             </div>
 
-            <ul key={currentPage} className="space-y-2 min-h-80 max-h-120 overflow-y-auto">
+            <ul key={currentPage} className="space-y-2 overflow-y-auto">
                 {paginatedItems && paginatedItems.map((item, idx) => (
                     <li
                         key={idx}
-                        className=" flex items-center justify-between"
+                        className=" flex items-center justify-between pl-2"
                     >
                         {item.href ? (
                             <a
                                 href={item.href}
                                 className="text-(--primary) hover:text-my-hilite "
                             >
-                                {showIndex && `${pageSize * (currentPage - 1) + idx + 1}. `}
+                                {showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}
                                 {item.label}
                             </a>
                         ) : (
-                            <span>{item.label}</span>
-                        )}
+                            <span>
+                                {showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}
+                                {item.label}
+                            </span>)}
                     </li>
                 ))}
             </ul>

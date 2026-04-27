@@ -1,5 +1,3 @@
-"use client";
-
 import ClientWrap from "@/components/ClientWrap";
 import { useEffect, useState } from "react";
 

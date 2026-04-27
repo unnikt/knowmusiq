@@ -41,7 +41,7 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
                 onPageChange={(p) => router.push(`/persons/type/${p}`)}
             />
 
-            <ItemList title={""} items={items} pageSize={10} />
+            <ItemList title={""} items={items} pageSize={10} showIndex={true} />
         </ClientWrap>
     );
 }
