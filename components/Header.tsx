@@ -1,12 +1,11 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
-import { useUser } from "@/hooks/useUser"
-import MainMenu from "@/components/client/MainMenu";
+import MainMenu from "@/components/MainMenu";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
-import { Bars3Icon, CursorArrowRaysIcon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import ThemeToggle from "./ThemeToggle";
+import { Bars3Icon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const links = [
     // { name: 'Home', href: '/' },
@@ -48,7 +47,7 @@ export default function Header() {
 
     return (
         <div>
-            <section className="py-1! bg-slate-800  relative  section-mid rounded-t-lg" >
+            <section className="py-2 bg-slate-800  relative  section-mid rounded-t-lg" >
                 <Image
                     alt=""
                     src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
@@ -61,12 +60,12 @@ export default function Header() {
                         <Bars3Icon className="w-7 h-7 text-white"
                             onClick={() => setOpen(prev => !prev)} />
                         {open && <MainMenu onClose={() => setOpen(false)} />}
-
                     </div>
-
-                    <h2 className="text-2xl font-semibold tracking-tight text-white">
-                        musiq me
-                    </h2>
+                    <Link href="/">
+                        <h2 className="text-2xl font-semibold tracking-tight text-(--link)">
+                            musiq me
+                        </h2>
+                    </Link>
                     <div className="flex justify-between items-center gap-2">
                         <div>
                             <MagnifyingGlassIcon

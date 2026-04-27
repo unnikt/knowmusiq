@@ -1,10 +1,8 @@
 // app/page.tsx
 
-import HomePage from "@/components/client/Home";
+import HomePage from "@/components/Home";
 import ClientWrap from "@/components/ClientWrap";
-import VideoSlider from "@/components/VideoSlider";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
-import { ArrowsPointingOutIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 
@@ -39,7 +37,7 @@ export default async function Home() {
 
   return (
     <ClientWrap >
-      <main className="section-mid px-4 md:px-0">
+      <main className="px-4 md:px-0">
         {/* <p className="p-4 text-gray-400">{message}</p> */}
 
         <HomePage videos={videos}></HomePage>
@@ -60,7 +58,7 @@ export default async function Home() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-3">
+                <div className="p-3 w-fit">
                   <h3 className="text-lg  tracking-wider line-clamp-2">
                     {item.title}
                   </h3>

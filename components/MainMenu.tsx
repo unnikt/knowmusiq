@@ -4,7 +4,6 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function MainMenu({ onClose }) {
 
     const links = [
-        { name: "Home", href: "/" },
         { name: "Videos", href: "/videos" },
         { name: "Personalities", href: "/persons/type/composers" },
         { name: "Legends", href: "/persons/legends" },
@@ -13,7 +12,7 @@ export default function MainMenu({ onClose }) {
 
     return (
         open && (
-            <div className="bg-slate-600  px-4 py-2 absolute shadow min-w-40 rounded-sm z-50">
+            <div className="bg-slate-600 mt-1 px-4 py-2 absolute shadow min-w-40 rounded-sm z-50">
                 <div className="flex flex-col gap-2 pt-2">
                     {links.map(link => (
                         <Link

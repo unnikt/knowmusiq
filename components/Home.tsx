@@ -1,7 +1,8 @@
 "use client"
-import ClientWrap from "../ClientWrap";
-import VideoSlider from "../VideoSlider"
-import VideoTile from "../VideoTile";
+
+import ClientWrap from "./ClientWrap";
+import VideoSlider from "./VideoSlider";
+import VideoTile from "./VideoTile";
 
 interface HomeProps {
     videos: any;
