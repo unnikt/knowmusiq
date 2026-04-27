@@ -72,13 +72,22 @@ export async function generateMetadata({ params }) {
         openGraph: {
             title: raga.name,
             description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-            images: ["https://musiq-me.com/og-default.png"],
             url: `https://musiq-me.com/ragas/${slug}`,
             type: "article",
+            images: [
+                {
+                    url: "https://musiq-me.com/og-default.png",
+                    width: 1200,
+                    height: 630,
+                    alt: `${raga.name} raga OG image`,
+                }
+            ]
         },
         twitter: {
             card: "summary_large_image",
-            images: ["https://musiq-me.com/og-default.png"],
-        },
+            title: raga.name,
+            description: `Learn about ${raga.name} by exploring songs composed in this raga`,
+            images: ["https://musiq-me.com/og-default.png"]
+        }
     };
 }

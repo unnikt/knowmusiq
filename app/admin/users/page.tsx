@@ -14,44 +14,42 @@ export default function UsersPage() {
 
     return (
         <ClientWrap >
-            <div className="section-mid">
-                <h2 className="text-2xl font-semibold mb-4">User Roles</h2>
+            <h2 className="text-2xl font-semibold mb-4">User Roles</h2>
 
-                <table className="table-auto w-full border">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="p-2 border">Email</th>
-                            <th className="p-2 border">UID</th>
-                            <th className="p-2 border">Roles</th>
-                            <th className="p-2 border">Actions</th>
+            <table className="table-auto w-full border">
+                <thead>
+                    <tr className="bg-gray-100">
+                        <th className="p-2 border">Email</th>
+                        <th className="p-2 border">UID</th>
+                        <th className="p-2 border">Roles</th>
+                        <th className="p-2 border">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {users.map((u: any) => (
+                        <tr key={u.uid}>
+                            <td className="p-2 border">{u.email}</td>
+                            <td className="p-2 border">{u.uid}</td>
+                            <td className="p-2 border">
+                                {Object.keys(u.claims).length === 0
+                                    ? "None"
+                                    : Object.keys(u.claims).join(", ")}
+                            </td>
+                            <td className="p-2 border">
+                                <button
+                                    className="px-3 py-1 bg-blue-600 text-white rounded"
+                                    onClick={() => setEditing(u)}
+                                >
+                                    Edit Roles
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
+                    ))}
+                </tbody>
+            </table>
 
-                    <tbody>
-                        {users.map((u: any) => (
-                            <tr key={u.uid}>
-                                <td className="p-2 border">{u.email}</td>
-                                <td className="p-2 border">{u.uid}</td>
-                                <td className="p-2 border">
-                                    {Object.keys(u.claims).length === 0
-                                        ? "None"
-                                        : Object.keys(u.claims).join(", ")}
-                                </td>
-                                <td className="p-2 border">
-                                    <button
-                                        className="px-3 py-1 bg-blue-600 text-white rounded"
-                                        onClick={() => setEditing(u)}
-                                    >
-                                        Edit Roles
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-
-                {editing && <EditRolesModal user={editing} onClose={() => setEditing(null)} />}
-            </div>
+            {editing && <EditRolesModal user={editing} onClose={() => setEditing(null)} />}
         </ClientWrap>
     );
 }
