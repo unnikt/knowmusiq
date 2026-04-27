@@ -4,6 +4,7 @@ import MinimiseButton from "@/components/MinimiseButton";
 import { ordinalString } from "@/lib/string/ordinalstring";
 import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
+import ShareButton from "./ShareButton";
 
 interface RagaCardProps {
     name: string;
@@ -43,7 +44,14 @@ export default function RagaCard({
                         `${ordinalString(rid)} Melakarta raga`
                         : `Janya raga`}</p>
                 </div>
-                <MinimiseButton isMinimised={minRaga} setIsMinimised={setMinRaga} />
+                <div className="flex gap-1 align-middle text-my-secondary">
+                    <ShareButton
+                        title="Check out this raga"
+                        text="Explore this raga on musiq-me.com"
+                        url={`https://musiq-me.com/ragas/${name}`}
+                    />
+                    <MinimiseButton isMinimised={minRaga} setIsMinimised={setMinRaga} />
+                </div>
             </div>
 
             {parent && (
@@ -78,7 +86,6 @@ export default function RagaCard({
                 their specific arrangement, ornamentation and emotional expression
                 create the unique character of a particular raga.
             </p>
-
             {/* 🎵 Tabs Section */}
             <div className=" mt-2 border-t-2 pt-2 border-my-secondary">
                 <div className="flex gap-4 justify-start align-middle  font-medium  rounded-md">
