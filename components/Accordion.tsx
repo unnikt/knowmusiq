@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 
-export function Accordion({ title, children }: { title: string; children: React.ReactNode }) {
-    const [open, setOpen] = useState(false);
+export function Accordion({ title, children, state = false }: { title: string; children: React.ReactNode; state?: boolean }) {
+    const [open, setOpen] = useState(state);
 
     return (
         <div >

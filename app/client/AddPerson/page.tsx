@@ -116,7 +116,7 @@ export default function AddPerson() {
                 <h2 className="title">Add New Tag</h2>
                 {!verifying && <p className="mb-4 italic">Your email id {user?.email || "Guest"} will be saved with the tag</p>}
 
-                <Accordion title="Grab from Wikipedia?">
+                <Accordion title="Grab from Wikipedia?" state={true}>
                     <label className="block text-sm py-2">
                         People tags only, e.g. composers, singers, lyricists
                     </label>
