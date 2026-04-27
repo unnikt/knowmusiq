@@ -7,48 +7,70 @@ import ItemList from "@/components/ItemList";
 import RagaClient from "@/components/RagaClient";
 import TopBar from "@/components/TopBar";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
-    const slugy = slugify(slug);
+export const metadata = {
+    title: {
+        default: "musiq-me.com",
+        template: "%s | musiq-me.com",
+    },
+    openGraph: {
+        type: "website",
+        siteName: "musiq-me.com",
+        images: ["https://musiq-me.com/og-default.png"],
+        description: "Learn about Carnatic and Hindustani ragas by exploring their use in movie songs!!",
+        url: "https://musiq-me.com/",
+    },
+    twitter: {
+        card: "summary_large_image",
+        site: "@musiq-me",
+        images: ["https://musiq-me.com/og-default.png"],
+    },
+};
 
-    const snapRagas = await knowmusiqAdminDB.collection("ragas")
-        .where("slug", "==", slugy)
-        .limit(1)
-        .get();
 
-    if (snapRagas.empty) {
-        return {
-            title: "Raga not found",
-            description: "The requested raga could not be found.",
-        };
-    }
-    const raga = snapRagas.docs[0].data();
 
-    return {
-        title: raga.name,
-        description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-        openGraph: {
-            title: raga.name,
-            description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-            url: `https://musiq-me.com/ragas/${slug}`,
-            type: "article",
-            images: [
-                {
-                    url: "https://musiq-me.com/og-default.png",
-                    width: 1200,
-                    height: 630,
-                    alt: `${raga.name} raga OG image`,
-                }
-            ]
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: raga.name,
-            description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-            images: ["https://musiq-me.com/og-default.png"]
-        }
-    };
-}
+// export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+//     const { slug } = await params;
+//     const slugy = slugify(slug);
+
+//     const snapRagas = await knowmusiqAdminDB.collection("ragas")
+//         .where("slug", "==", slugy)
+//         .limit(1)
+//         .get();
+
+//     if (snapRagas.empty) {
+//         return {
+//             title: "Raga not found",
+//             description: "The requested raga could not be found.",
+//         };
+//     }
+//     const raga = snapRagas.docs[0].data();
+//     console.log(raga)
+
+//     return {
+//         title: raga.name,
+//         description: `Learn about ${raga.name} by exploring songs composed in this raga`,
+//         openGraph: {
+//             title: raga.name,
+//             description: `Learn about ${raga.name} by exploring songs composed in this raga`,
+//             url: `https://musiq-me.com/ragas/${slug}`,
+//             type: "article",
+//             images: [
+//                 {
+//                     url: "https://musiq-me.com/og-default.png",
+//                     width: 1200,
+//                     height: 630,
+//                     alt: `${raga.name} raga OG image`,
+//                 }
+//             ]
+//         },
+//         twitter: {
+//             card: "summary_large_image",
+//             title: raga.name,
+//             description: `Learn about ${raga.name} by exploring songs composed in this raga`,
+//             images: ["https://musiq-me.com/og-default.png"]
+//         }
+//     };
+// }
 
 export default async function RagaPage({ params }: { params: Promise<{ slug: string }> }) {
 
