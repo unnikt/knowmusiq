@@ -11,7 +11,7 @@ export default function SearchBox() {
     function handleSearch() {
         const trimmed = query.trim();
         if (!trimmed) return;
-        router.push(`/ragas/${encodeURIComponent(trimmed)}`);
+        router.push(`/raga/${encodeURIComponent(trimmed)}`);
     }
 
     return (

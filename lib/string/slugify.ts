@@ -1,4 +1,5 @@
 export function slugify(name: string) {
+    if (!name) return null;
     return name
         .toLowerCase()
         .normalize("NFD")

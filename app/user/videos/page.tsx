@@ -1,6 +1,7 @@
 "use client"
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
+import TopBar from "@/components/TopBar";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 
@@ -24,7 +25,7 @@ export default function UserUpload() {
                 setVideos(
                     data.videos.map(v => ({
                         label: v.title,
-                        href: `/videos/tag?v=${v.videoId}`
+                        href: `/videos/${v.videoId}`
                     }))
                 );
             })
@@ -39,7 +40,8 @@ export default function UserUpload() {
 
     return (
         <ClientWrap>
-            <ItemList items={videos} pageSize={10} showIndex={true} />
+            <TopBar children={""} ret={"/user"} />
+            <ItemList items={videos} pageSize={15} showIndex={true} />
         </ClientWrap>
     )
 

@@ -32,7 +32,7 @@ export default function SignInPage() {
                 body: JSON.stringify({ idToken }),
             });
             // 4️⃣ Redirect
-            window.location.href = "/";
+            window.location.href = "/user";
         } catch (err: any) {
             setError(err.message || "Failed to sign in");
         } finally {

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SquaresPlusIcon } from "@heroicons/react/20/solid";
 import ShareButton from "./ShareButton";
+import { Button } from "@headlessui/react";
+import ButtonTag from "./TagVideoButton";
 
 interface videoTileProps {
     video: any;
@@ -17,7 +19,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
     const thumbnail = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
 
     const links = link.split("|").map(l => l.trim());
-    const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/ragas/${video[l]}` : null);
+    const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
         <div className={`pt-4 px-4 my-2 bg-(--surface) text-(--text) border border-(--border) rounded-md ${width}`}>
@@ -59,13 +61,11 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
             </div>
             <div className="w-full flex justify-end align-middle mb-2 gap-2 border-t pt-2 border-slate-400">
                 <ShareButton
-                    url={`https://musiq-me.com/videos/tag?v=${video.videoId}`}
+                    url={`https://musiq-me.com/videos/${video.videoId}`}
                     title={video.title}
                     text={""}
                 />
-                <Link href={`/videos/tag?v=${video.videoId}`} className="py-2">
-                    <SquaresPlusIcon className="w-5 h-5 text-(--primary)" />
-                </Link>
+                <ButtonTag videoId={video.videoId} />
             </div>
         </div>
     );

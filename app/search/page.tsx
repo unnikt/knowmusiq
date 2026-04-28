@@ -30,7 +30,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <ul className="list">
                 {results.map((raga: any) => (
                     <li key={raga.RID} className="p-1">
-                        <Link href={`/ragas/${raga.slug}`}>{raga.Name}</Link>
+                        <Link href={`/raga/${raga.slug}`}>{raga.Name}</Link>
                     </li>
                 ))}
             </ul>

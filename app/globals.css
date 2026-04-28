@@ -241,12 +241,7 @@ h1,
 }
 
 .card {
-  @apply p-8 shadow-lg border-gray-200 border-2;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-width: 360px;
-  border-radius: 5px;
+  @apply p-3 bg-(--surface) flex flex-col align-middle gap-1 w-full rounded-sm;
 }
 
 
@@ -260,7 +255,6 @@ h1,
 .card p {
   @apply text-xl;
   line-height: 1.5;
-  color: var(--color-gray-900);
   letter-spacing: -1%;
 }
 
@@ -303,8 +297,7 @@ h1,
   display: flex;
 }
 
-.links a::before,
-.card::before {
+.links a::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -318,7 +311,6 @@ h1,
   pointer-events: none;
 }
 
-.card:not(:first-child)::after,
 .links a:not(:first-child)::after {
   content: "";
   top: 0;
@@ -328,12 +320,7 @@ h1,
   pointer-events: none;
 }
 
-.card:not(:first-child)::after {
-  width: 10px;
-  left: -10px;
-  mask: url("/between-cards.svg") no-repeat center / contain;
-  -webkit-mask: url("/between-cards.svg") no-repeat center / contain;
-}
+
 
 .links a:not(:first-child)::after {
   width: 30px;
@@ -358,7 +345,6 @@ h1,
   }
 
   .top-gradient,
-  .card::after,
   .links a::after {
     display: none;
   }
@@ -456,11 +442,7 @@ input {
   @apply flex justify-center gap-4 items-center m-1 h-10;
 }
 
-@layer components {
-  .card-new {
-    @apply mb-6 p-5 rounded-sm border border-sky-200 bg-white shadow-sm hover:shadow-md transition min-w-[320px];
-  }
-}
+@layer components {}
 
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide::-webkit-scrollbar {

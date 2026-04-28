@@ -48,7 +48,7 @@ export default function RagaCard({
                     <ShareButton
                         title="Check out this raga"
                         text="Explore this raga on musiq-me.com"
-                        url={`https://musiq-me.com/ragas/${name}`}
+                        url={`https://musiq-me.com/raga/${name}`}
                     />
                     <MinimiseButton isMinimised={minRaga} setIsMinimised={setMinRaga} />
                 </div>
@@ -57,7 +57,7 @@ export default function RagaCard({
             {parent && (
                 <div className={`mt-2 ${minRaga ? "hidden" : ""}`}>
                     <Link
-                        href={type == "Janaka" ? `/chakras/${parent.name}` : `/ragas/${parent.slug.toLowerCase()}`}
+                        href={type == "Janaka" ? `/chakras/${parent.name}` : `/raga/${parent.slug.toLowerCase()}`}
                         className="text-(--primary) hover:text-my-hilite border-b font-medium"
                     >
                         {type == "Janaka" ? "Chakra" : "Melakarta raga"} - {parent.name}
@@ -88,29 +88,29 @@ export default function RagaCard({
             </p>
             {/* 🎵 Tabs Section */}
             <div className=" mt-2 border-t-2 pt-2 border-my-secondary">
-                <div className="flex gap-4 justify-start align-middle  font-medium  rounded-md">
+                <div className="flex flex-wrap gap-1 justify-start align-middle  font-medium  rounded-md">
                     <Link
-                        href={`/ragas/${slug}`}
+                        href={`/raga/${slug}`}
                         className={`${display == "videos" ? "bg-slate-100" : ""} px-3 py-1 rounded-md   text-emerald-700 hover:bg-emerald-50`}
                     >
                         Videos
                     </Link>
                     <Link
-                        href={`/ragas/${slug}/krithis`}
+                        href={`/raga/${slug}/krithis`}
                         className={`${display == "krithis" ? "bg-slate-100" : ""} px-3 py-1 rounded-md   text-sky-700 hover:bg-sky-50`}
                     >
                         Krithis
                     </Link>
                     {type === "Janaka" &&
                         <Link
-                            href={`/ragas/${slug}/janya`}
+                            href={`/raga/${slug}/janya`}
                             className={`${display == "janya" ? "bg-slate-100" : ""} px-3 py-1 rounded-md   text-purple-700 hover:bg-purple-50`}
                         >
                             Janya
                         </Link>
                     }
                     <Link
-                        href={`/ragas/${slug}/chords`}
+                        href={`/raga/${slug}/chords`}
                         className={`${display == "chords" ? "bg-slate-100" : ""} px-3 py-1 rounded-md   text-amber-700 hover:bg-amber-50`}
                     >
                         Chords

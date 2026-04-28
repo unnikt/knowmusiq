@@ -26,7 +26,7 @@ export default function ItemList({ title, items, pageSize, className, showIndex 
     }
 
     return (
-        <div className={`${className || "p-4 bg-(--surface) rounded-md"}`}>
+        <div className={`${className || "card"}`}>
             {title && (
                 <h3 className="text-lg font-semibold mb-3">
                     {title}
@@ -61,16 +61,17 @@ export default function ItemList({ title, items, pageSize, className, showIndex 
                         {item.href ? (
                             <a
                                 href={item.href}
-                                className="text-(--primary) hover:text-my-hilite "
+                                className="flex gap-2 text-(--primary) hover:text-my-hilite w-full "
                             >
-                                {showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}
-                                {item.label}
+                                <span>{showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}</span>
+                                <span className="truncate ">{item.label}</span>
                             </a>
                         ) : (
-                            <span>
-                                {showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}
-                                {item.label}
-                            </span>)}
+                            <div className="flex gap-2  w-full">
+                                <span>{showIndex && `${effectivePageSize * (currentPage - 1) + idx + 1}. `}</span>
+                                <span className="truncate ">{item.label}</span>
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>

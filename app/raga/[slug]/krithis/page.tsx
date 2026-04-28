@@ -22,10 +22,10 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
         const snapRagas = await knowmusiqAdminDB.collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
-        const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
+        const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
         return (
             <ClientWrap >
-                <TopBar children />
+                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={items}

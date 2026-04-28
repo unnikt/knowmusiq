@@ -48,7 +48,7 @@ export default function AccountPage() {
                 <div className="border-t mt-2 pt-4 border-t-slate-300">
                     <Link
                         href={"/auth/signout"}
-                        className=" text-my-primary btn btn-outline ">
+                        className=" p-4">
                         Sign out
                     </Link>
                 </div>

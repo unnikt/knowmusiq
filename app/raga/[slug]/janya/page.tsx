@@ -32,11 +32,11 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     }
     const raga = snapRagas.docs[0].data();
 
-    const janyaItems = janyaRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
+    const janyaItems = janyaRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
 
     return (
         <ClientWrap>
-            <TopBar children={""} />
+            <TopBar />
             <RagaCard
                 name={displayName}
                 type={raga.type}

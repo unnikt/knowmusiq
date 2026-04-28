@@ -76,7 +76,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
             <div className="videoGrid">
                 {videos.map((video) => (
                     <VideoTile key={video.id} video={video} width=""
-                        url={`/videos/tag/?v=${video.videoId}`}
+                        url={`/videos/${video.videoId}`}
                         target={"_self"}
                         link={`${person.type === "comp" ? "lyri" : "comp"}|raga`} />
                 ))}

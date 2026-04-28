@@ -46,7 +46,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         };
     }
     const raga = snapRagas.docs[0].data();
-    console.log(raga)
 
     return {
         title: raga.name,
@@ -54,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         openGraph: {
             title: raga.name,
             description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-            url: `https://musiq-me.com/ragas/${slug}`,
+            url: `https://musiq-me.com/raga/${slug}`,
             type: "article",
             images: [
                 {
@@ -90,10 +89,10 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
         const snapRagas = await knowmusiqAdminDB.collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
-        const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/ragas/${doc.data().slug}` }));
+        const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
         return (
             <ClientWrap>
-                <TopBar children={""} />
+                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={items}

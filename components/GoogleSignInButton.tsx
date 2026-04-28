@@ -23,7 +23,7 @@ export default function GoogleSignInButton() {
                 body: JSON.stringify({ idToken }),
             });
             // 4️⃣ Redirect
-            window.location.href = "/";
+            window.location.href = "/user";
 
         } catch (err) {
             console.error("Google sign-in error:", err);

@@ -27,7 +27,7 @@ export async function getRaga(slug: string) {
 
     const suggestions = snapByIdx.docs.map((doc) => ({
         label: doc.data().name,
-        href: `/ragas/${doc.data().slug}`,
+        href: `/raga/${doc.data().slug}`,
     }));
 
     return {

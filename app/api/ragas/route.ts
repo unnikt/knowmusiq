@@ -14,7 +14,7 @@ export async function GET(req: Request) {
 
     const items = snap.docs.map((doc) => ({
         label: `${doc.data().rid} - ${doc.data().name}`,
-        href: `/ragas/${doc.data().slug}`,
+        href: `/raga/${doc.data().slug}`,
     }));
 
     return NextResponse.json({ items });

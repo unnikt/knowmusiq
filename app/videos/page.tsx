@@ -17,7 +17,7 @@ export default async function Page() {
                 <div className="videoGrid">
                     {videos.map((video) => (
                         <VideoTile key={video.id} video={video} width=""
-                            url={`/videos/tag/?v=${video.videoId}`}
+                            url={`/videos/${video.videoId}`}
                             target={"_self"}
                             link="raga" />
                     ))}

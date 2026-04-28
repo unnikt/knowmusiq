@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch dynamic pages (ragas, krithis, artists, etc.)
     const ragasSnap = await knowmusiqAdminDB.collection("ragas").get();
     const ragas = ragasSnap.docs.map((doc) => ({
-        url: `${baseUrl}/ragas/${doc.id}`,
+        url: `${baseUrl}/raga/${doc.id}`,
         lastModified: new Date(),
     }));
 

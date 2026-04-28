@@ -1,9 +1,13 @@
 import BackButton from "./BackButton";
 
-export default function TopBar({ children = null }: { children: React.ReactNode }) {
+interface TopBarProps {
+    children?: React.ReactNode;
+    ret?: string | null;
+}
+export default function TopBar({ children, ret }: TopBarProps) {
     return (
         <div className="topbar">
-            <BackButton />
+            <BackButton url={ret} />
             {children}
         </div>
     );
