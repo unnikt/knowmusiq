@@ -40,7 +40,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
                 <AddVideo slug={slug} name={person.name} type={"comp"} />
             </TopBar>
             <Accordion title={person.name}>
-                <div className="p-4 flex flex-col sm:gap-4 sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-b ">
+                <div className="p-2 flex flex-col sm:gap-4 sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-b ">
                     <div className="flex flex-col justify-start ">
                         {/* Profile Picture */}
                         <Image

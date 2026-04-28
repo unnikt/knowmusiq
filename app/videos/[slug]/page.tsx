@@ -83,7 +83,7 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
             <TopBar>
                 <AddButton text="Tags" href={`/videos/tag?v=${slug}`} />
             </TopBar>
-            <div className="card p-6!">
+            <div className="card p-1">
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate">{video["title"]}</p>
                 <div className="flex gap-2 text-(--primary)">

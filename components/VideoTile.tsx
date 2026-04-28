@@ -22,7 +22,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
     const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
-        <div className={`pt-4 px-4 my-2 bg-(--surface) text-(--text) border border-(--border) rounded-md ${width}`}>
+        <div className={`p-1 my-2 bg-(--surface) text-(--text)  rounded-md ${width}`}>
             <Link
                 href={url}
                 target={target}
