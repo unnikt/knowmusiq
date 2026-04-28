@@ -50,10 +50,10 @@
 } */
 .dark {
   --bg: #030303;
-  --surface: #3f3f51;
-  /* #141436; */
+  --surface: #151519;
   --surface-hover: #1d1d22;
   --text: #e6e6e9;
+  --text: white;
   --text-muted: #a1a1aa;
   --accent: #f5c242;
   --accent-soft: #f5c24222;

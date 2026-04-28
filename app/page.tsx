@@ -55,7 +55,7 @@ export default async function Home() {
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover bg-white rounded-lg"
                   />
                 </div>
                 <div className="p-3 w-fit">
