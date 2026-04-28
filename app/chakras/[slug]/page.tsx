@@ -1,11 +1,11 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
+import TopBar from "@/components/TopBar";
 
 export default function ChakraPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params); // "Indu%20Madhyama" or "Agni" or "Veda"
@@ -30,7 +30,7 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
     return (
         <ClientWrap >
             <div className="section-mid">
-                <BackButton />
+                <TopBar />
                 <Paginate
                     currentPage={currentPage}
                     pages={["Indu", "Netra", "Agni", "Veda", "Bana", "Rutu", "Rishi", "Vasu", "Brahma", "Disi", "Rudra", "Aditya"]}

@@ -1,13 +1,13 @@
 // /app/BrowseVideos/page.tsx
-import BackButton from "@/components/BackButton";
-import BrowseVideosClient from "./SearchVideosClient";
 import SearchVideosClient from "./SearchVideosClient";
+import ClientWrap from "@/components/ClientWrap";
+import TopBar from "@/components/TopBar";
 
 export default function SearchVideosPage() {
     return (
-        <div className="section-mid">
-            <BackButton />
+        <ClientWrap>
+            <TopBar />
             <SearchVideosClient />
-        </div>
+        </ClientWrap>
     );
 }

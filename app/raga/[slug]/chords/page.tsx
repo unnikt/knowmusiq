@@ -1,4 +1,3 @@
-import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
@@ -21,15 +20,11 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
     if (results.type === "suggestions") {
         return (
             <ClientWrap >
-                <div className="section-mid">
-                    <div className="flex justify-between align-middle items-center">
-                        <BackButton />
-                    </div>
-                    <ItemList
-                        title="Did you mean?"
-                        items={results.items}
-                    />
-                </div>
+                <TopBar />
+                <ItemList
+                    title="Did you mean?"
+                    items={results.items}
+                />
             </ClientWrap>
         )
     }

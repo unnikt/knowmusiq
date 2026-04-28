@@ -1,4 +1,3 @@
-import BackButton from "@/components/BackButton";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { xRef } from "@/lib/MapValues";
 import { slugify } from "@/lib/string/slugify";
@@ -9,6 +8,7 @@ import ClientWrap from "@/components/ClientWrap";
 import { Accordion } from "@/components/Accordion";
 import VideoTile from "@/components/VideoTile";
 import AddVideo from "@/components/AddVideo";
+import TopBar from "@/components/TopBar";
 
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -36,11 +36,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
 
     return (
         <ClientWrap >
-            <div className="flex justify-center gap-4 items-center m-1">
-                <BackButton url={`/persons/type/${xRef(person.type)}s`} />
+            <TopBar>
                 <AddVideo slug={slug} name={person.name} type={"comp"} />
-            </div>
-
+            </TopBar>
             <Accordion title={person.name}>
                 <div className="p-4 flex flex-col sm:gap-4 sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-b ">
                     <div className="flex flex-col justify-start ">

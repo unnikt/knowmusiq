@@ -1,14 +1,20 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useState } from "react";
 
 export default function MainMenu({ onClose }) {
-
+    const [open, setOpen] = useState(true);
     const links = [
         { name: "Videos", href: "/videos" },
         { name: "Personalities", href: "/persons/type/composers" },
         { name: "Legends", href: "/persons/legends" },
         { name: "Chakras", href: "/chakras/Indu chakra" },
     ];
+
+    function handleClick() {
+        setOpen(false);
+        if (onClose) onClose;
+    }
 
     return (
         open && (
@@ -18,7 +24,7 @@ export default function MainMenu({ onClose }) {
                         <Link
                             key={link.name}
                             href={link.href}
-                            onClick={onClose}
+                            onClick={handleClick}
                             className="py-2 text-white"
                         >
                             {link.name}
@@ -26,7 +32,7 @@ export default function MainMenu({ onClose }) {
                     ))}
                 </div>
                 <div className="border-t border-t-white text-white w-full py-2 mt-2">
-                    <Link href="/user" onClick={onClose}>
+                    <Link href="/user" onClick={handleClick}>
                         Your Account
                     </Link>
                 </div>

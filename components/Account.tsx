@@ -36,7 +36,7 @@ export default function AccountPage() {
     return (
         <ClientWrap>
 
-            <div className="bg-(--surface) mt-4 rounded p-4">
+            <div className="card bg-(--surface) mt-4 rounded p-4">
                 {loading && <p className="p-2">{loading}</p>}
                 {user && (
                     <div>

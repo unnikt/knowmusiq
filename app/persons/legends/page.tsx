@@ -1,6 +1,5 @@
 "use client";
 
-import BackButton from "@/components/BackButton";
 import ClientWrap from "@/components/ClientWrap";
 import Link from "next/link";
 import { useEffect, useState } from "react";

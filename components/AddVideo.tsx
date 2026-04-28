@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
 import Message from "./Message";
+import AddButton from "./AddButton";
 
 interface AddVideo {
     name: string;
@@ -109,7 +110,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
 
     return (
         <div>
-            <button
+            <AddButton text="Video"
                 onClick={() => {
                     if (!user) {
                         router.push("/auth/signin");
@@ -117,11 +118,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                     }
                     setOpen(true);
                 }}
-                className="flex items-center gap-2 px-2 py-1 bg-my-accent text-white rounded hover:bg-my-primary/80 transition"
-            >
-                <PlusIcon className="h-5 w-5 font-bold" />
-                <p>Video</p>
-            </button>
+            />
 
             <Modal
                 isOpen={open}
