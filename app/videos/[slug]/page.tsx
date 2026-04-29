@@ -36,7 +36,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                     width: 1200,
                     height: 630,
                     alt: `${data.title} raga OG image`,
-                }
+                },
+                {
+                    url: `https://musiq-me.com/og-default-new.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: `${data.title} raga OG image`,
+                },
             ]
         },
         twitter: {
