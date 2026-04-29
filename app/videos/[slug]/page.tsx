@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             type: "article",
             images: [
                 {
-                    url: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+                    url: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
                     width: 1200,
                     height: 630,
                     alt: `${data.title} raga OG image`,
