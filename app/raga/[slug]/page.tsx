@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             type: "article",
             images: [
                 {
-                    url: "https://musiq-me.com/og-default.png",
+                    url: "https://musiq-me.com/og-default-new.png",
                     width: 1200,
                     height: 630,
                     alt: `${raga.name} raga OG image`,
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             card: "summary_large_image",
             title: raga.name,
             description: `Learn about ${raga.name} by exploring songs composed in this raga`,
-            images: ["https://musiq-me.com/og-default.png"]
+            images: ["https://musiq-me.com/og-default-new.png"]
         }
     };
 }
@@ -78,7 +78,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const slugy = slugify(slug);
 
-    const displayName = toCamelCase(slug.replace(/%20/g, " "))
+    const displayName = toCamelCase(slug.replaceAll(/%20/g, " ").replaceAll(/-/g, " "))
 
     const snapRagas = await knowmusiqAdminDB.collection("ragas")
         .where("slug", "==", slugy)
