@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { auth, dbKnowMusic } from "@/lib/client/firebaseKM.client";
+import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
-import { TrashIcon } from "@heroicons/react/20/solid";
+import { TrashIcon, UserPlusIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
 
@@ -179,25 +179,31 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     {user &&
                         <div>
                             <div className="flex items-center mt-2">
-                                <button className="btn btn-primary"
-                                    onClick={handleSave} >
-                                    Save tags
-                                </button>
-                                <button
-                                    className=" p-2 rounded"
-                                    disabled={!selectedTag}
-                                    onClick={() => {
-                                        setTags(prev =>
-                                            prev.map(tag =>
-                                                tag.key === selectedTag ? { ...tag, value: "" } : tag
-                                            )
-                                        );
-                                        setSelectedTag("");
-                                        setSuggestions([]);
-                                    }}
-                                >
-                                    <TrashIcon className="w-5 h-5" />
-                                </button>
+                                <div className="flex items-center gap-2">
+                                    <button className="btn btn-primary"
+                                        onClick={handleSave} >
+                                        Save tags
+                                    </button>
+                                    <Link
+                                        href={"/client/AddPerson"}>
+                                        <UserPlusIcon className="w-9 h-9 text-(--primary)" />
+                                    </Link>
+                                    <button
+                                        className=" p-2 rounded text-slate-500"
+                                        disabled={!selectedTag}
+                                        onClick={() => {
+                                            setTags(prev =>
+                                                prev.map(tag =>
+                                                    tag.key === selectedTag ? { ...tag, value: "" } : tag
+                                                )
+                                            );
+                                            setSelectedTag("");
+                                            setSuggestions([]);
+                                        }}
+                                    >
+                                        <TrashIcon className="w-7 h-7" />
+                                    </button>
+                                </div>
 
                                 <button className="btn pl-4 border-0! ">
                                     {message ? message : ""}

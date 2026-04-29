@@ -37,7 +37,7 @@ export default async function Home() {
 
   return (
     <ClientWrap >
-      <main className="px-4 md:px-0">
+      <main className="px-0">
         {/* <p className="p-4 text-gray-400">{message}</p> */}
 
         <HomePage videos={videos}></HomePage>

@@ -1,11 +1,11 @@
 import ClientWrap from "@/components/ClientWrap";
-import AddButton from "@/components/AddButton";
 import TopBar from "@/components/TopBar";
 import YouTubePlayer from "@/components/YTPlayer";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ButtonTag from "@/components/TagVideoButton";
 import ShareButton from "@/components/ShareButton";
 import Link from "next/link";
+import IconsTray from "@/components/IconsTray";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -62,9 +62,7 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
     if (!snaps.exists)
         return (
             <ClientWrap>
-                <TopBar>
-                    <AddButton text="Person" href="/client/AddPerson" />
-                </TopBar>
+                <TopBar />
                 <div className="card">
                     <p>Video not found!</p>
                 </div>
@@ -86,10 +84,8 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
 
     return (
         <ClientWrap >
-            <TopBar>
-                <AddButton text="Tags" href={`/videos/tag?v=${slug}`} />
-            </TopBar>
-            <div className="card p-1">
+            <TopBar />
+            <div className="card mb-4">
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate">{video["title"]}</p>
                 <div className="flex gap-2 text-(--primary)">
@@ -102,10 +98,10 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
                         </Link>
                     )}
                 </div>
-                <div className="flex border-t py-2 mt-2">
+                <IconsTray justify="end">
                     <ShareButton text={video["title"]} url={`/videos/${video.id}`} title={video["title"]} />
                     <ButtonTag videoId={video.id} />
-                </div>
+                </IconsTray>
             </div>
         </ClientWrap>
     );

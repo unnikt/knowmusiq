@@ -31,6 +31,11 @@
   --bg: white;
   --bg: #c9cacd;
   --surface: white;
+  --bg: #d4d5d8;
+  /* slightly brighter, less muddy */
+  --surface: #ffffff;
+  /* keep pure white for crisp surfaces */
+
   --text: var(--color-gray-800);
   --primary: var(--color-my-primary);
   --link: #6ed3f7;
@@ -242,7 +247,7 @@ h1,
 }
 
 .card {
-  @apply bg-(--surface) flex flex-col align-middle gap-1 w-full rounded-sm;
+  @apply bg-(--surface) p-1 flex flex-col align-middle gap-1 w-full rounded-sm;
 }
 
 

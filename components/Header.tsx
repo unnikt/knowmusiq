@@ -28,6 +28,7 @@ export default function Header() {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
+        document.documentElement.classList.add(localStorage.getItem("theme"));
         setMinimise(minimiseHeader);
     }, [minimiseHeader]);
 

@@ -19,9 +19,7 @@ export default function TagVideoPage() {
 
     return (
         <ClientWrap >
-            <TopBar>
-                <AddButton text="Person" href="/client/AddPerson" />
-            </TopBar>
+            <TopBar />
             <div className={`bg-(--surface) ${videoId ? "hidden" : ""} p-4 rounded-md`}>
                 <VideoURL onChange={(id) => setVideoId(id)} />
             </div>
