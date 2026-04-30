@@ -1,3 +1,45 @@
+// app/videos/[slug]/page.tsx
+import { getVideoData } from '@/lib/getVideoData';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const data = await getVideoData(slug);
+
+    if (!data) {
+        return {
+            title: "Raga not found",
+            description: "The requested raga could not be found.",
+        };
+    }
+
+    const description = `Check out this song in ${data.raga}`;
+
+    return {
+        title: data.title,
+        description,
+        openGraph: {
+            title: data.title,
+            description,
+            url: `https://musiq-me.com/videos/${slug}`,
+            type: "article",
+            images: [
+                {
+                    url: `https://img.youtube.com/vi/${slug}/sddefault.jpg`,
+                    width: 640,
+                    height: 480,
+                    alt: `${data.title} raga OG image`,
+                }
+            ]
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: data.title,
+            description,
+            images: [`https://img.youtube.com/vi/${slug}/sddefault.jpg`]
+        }
+    };
+}
+
 import ClientWrap from "@/components/ClientWrap";
 import TopBar from "@/components/TopBar";
 import YouTubePlayer from "@/components/YTPlayer";
@@ -7,59 +49,11 @@ import ShareButton from "@/components/ShareButton";
 import Link from "next/link";
 import IconsTray from "@/components/IconsTray";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
-    const videoId = slug;
-
-    const doc = await knowmusiqAdminDB.collection('videos').doc(videoId).get();
-
-    if (!doc.exists) {
-        return {
-            title: "Raga not found",
-            description: "The requested raga could not be found.",
-        };
-    }
-    const data = doc.data();
-    const description = `Check out this song in ${data.raga}`;
-
-    return {
-        title: data.title,
-        description: description,
-        openGraph: {
-            title: data.title,
-            description: description,
-            url: `https://musiq-me.com/videos/${videoId}`,
-            type: "article",
-            images: [
-                {
-                    url: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
-                    width: 1200,
-                    height: 630,
-                    alt: `${data.title} raga OG image`,
-                },
-                {
-                    url: `https://musiq-me.com/og-default-new.png`,
-                    width: 1200,
-                    height: 630,
-                    alt: `${data.title} raga OG image`,
-                },
-            ]
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: data.title,
-            description: description,
-            images: ["https://musiq-me.com/og-default.png"]
-        }
-    };
-}
-
-
 export default async function VideoPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const snaps = await knowmusiqAdminDB.collection("videos").doc(slug).get();
+    const data = await getVideoData(slug);
 
-    if (!snaps.exists)
+    if (!data)
         return (
             <ClientWrap>
                 <TopBar />
@@ -69,7 +63,7 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
             </ClientWrap>
         )
 
-    const video = { id: snaps.id, ...snaps.data() };
+    const video = { id: data.videoId, ...data };
 
     const tags = [
         { key: "comp", label: "Composer", base: "/persons/" },
