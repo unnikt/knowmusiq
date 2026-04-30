@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             type: "article",
             images: [
                 {
-                    url: `https://img.youtube.com/vi/${slug}/sddefault.jpg`,
+                    url: data.img,
                     width: 640,
                     height: 480,
                     alt: `${data.title} raga OG image`,
