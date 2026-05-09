@@ -2,10 +2,10 @@ import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
-import { getRaga } from "@/lib/ragaLookup";
 import { slugify } from "@/lib/string/slugify";
-import { getChords } from "@/lib/GenerateChords";
 import TopBar from "@/components/TopBar";
+import { getChords } from "@/lib/music/GenerateChords";
+import { getRaga } from "@/lib/database/ragaLookup";
 
 export default async function KrithiPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;

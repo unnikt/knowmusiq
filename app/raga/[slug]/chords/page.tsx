@@ -2,11 +2,11 @@ import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
-import { getRaga } from "@/lib/ragaLookup";
 import { slugify } from "@/lib/string/slugify";
-import { getChords } from "@/lib/GenerateChords";
 import TopBar from "@/components/TopBar";
 import ChordsClient from "@/app/client/ChordsClient";
+import { getRaga } from "@/lib/database/ragaLookup";
+import { getChords } from "@/lib/music/GenerateChords";
 
 export default async function ChordsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
