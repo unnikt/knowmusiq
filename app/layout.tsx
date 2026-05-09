@@ -1,4 +1,5 @@
 import "./globals.css"
+import { inter } from '@/app/ui/fonts';
 import Header from "@/components/Header"
 import { AppProvider } from "@/context/AppContext"
 import { UserProvider } from "@/context/UserContext"
@@ -27,12 +28,12 @@ export default function RootLayout({ children }: {
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.className} antialiased`}>
         <UserProvider>
           <AppProvider>
             {<Header />}
             <Suspense fallback={null}>
-              <div className="section-mid" >
+              <div className="wrapper px-4" >
                 {children}
               </div>
             </Suspense>

@@ -19,7 +19,7 @@ export default function Paginate({
                 <button
                     key={p}
                     onClick={() => onPageChange(p)}
-                    className={`mb-1 px-3 py-1 text-my-secondary/80  rounded  min-w-10 transition 
+                    className={`mb-1 px-3 py-1 text-(--primary)  rounded  min-w-10 transition 
                         ${p === currentPage
                             ? "bg-my-secondary text-white font-semibold  "
                             : "hover:bg-gray-100 hover:text-my-secondary"

@@ -35,20 +35,19 @@ export default function AccountPage() {
 
     return (
         <ClientWrap>
-
-            <div className="card bg-(--surface) mt-4 rounded p-4">
+            <div className="card bg-(--surface) mt-4 rounded-lg p-8!">
                 {loading && <p className="p-2">{loading}</p>}
                 {user && (
                     <div>
-                        <h2 className=" py-2 font-semibold border-b-2 border-b-my-secondary">{toCamelCase(user.displayName)}</h2>
+                        <h2 className="subtitle border-b-my-secondary border-b py-2">{toCamelCase(user.displayName)}</h2>
                         <ItemList title="Rights" items={itmRights} showIndex={true} />
                         <ItemList title="My activity" items={links} />
                     </div>
                 )}
-                <div className="border-t mt-2 pt-4 border-t-slate-300">
+                <div className="flex py-4 border-t  border-t-my-secondary">
                     <Link
                         href={"/auth/signout"}
-                        className=" p-4">
+                        className=" btn btn-accent">
                         Sign out
                     </Link>
                 </div>

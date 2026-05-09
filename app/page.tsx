@@ -1,7 +1,9 @@
 // app/page.tsx
 
-import HomePage from "@/components/Home";
+import HomePage from "@/app/client/Home";
+import AddVideo from "@/components/AddVideo";
 import ClientWrap from "@/components/ClientWrap";
+import TopBar from "@/components/TopBar";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import Link from "next/link";
 
@@ -37,37 +39,33 @@ export default async function Home() {
 
   return (
     <ClientWrap >
-      <main className="px-0">
-        {/* <p className="p-4 text-gray-400">{message}</p> */}
-
-        <HomePage videos={videos}></HomePage>
-
-        <section className="flex flex-col">
-          {/* <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(180px,1fr))]"> */}
-          <div className="grid gap-1 grid-cols-1 sm:grid-cols-3">
-            {items.map((item) => (
-              <Link
-                key={item.id}
-                href={item.redirect}
-                className="sm:max-w-100 p-4 rounded mt-2 border-b-4 bg-(--surface)  border-b-my-secondary hover:border-b-my-accent/80  hover:shadow-md transition block"
-              >
-                <div className="aspect-video">
-                  <img
-                    src={item.thumbnail}
-                    alt={item.title}
-                    className="w-full h-full object-cover bg-white rounded-lg"
-                  />
-                </div>
-                <div className="p-3 w-fit">
-                  <h3 className="text-lg  tracking-wider line-clamp-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs ">{item.subtitle}</p>
-                </div>
-              </Link>))}
-          </div>
-        </section>
-      </main>
+      <TopBar wipe={true}
+        children={<AddVideo />}
+      />
+      <HomePage videos={videos}></HomePage>
+      <h2 className="subtitle ">Topics</h2>
+      <div className="grid gap-1 grid-cols-1 sm:grid-cols-3">
+        {items.map((item) => (
+          <Link
+            key={item.id}
+            href={item.redirect}
+            className="sm:max-w-100 p-4 rounded mt-2 border-b-4 bg-(--surface)  border-b-my-secondary hover:border-b-my-accent/80  hover:shadow-md transition block"
+          >
+            <div className="aspect-video">
+              <img
+                src={item.thumbnail}
+                alt={item.title}
+                className="w-full h-full object-cover bg-white rounded-lg"
+              />
+            </div>
+            <div className="p-3 w-fit">
+              <h3 className="text-lg  tracking-wider line-clamp-2">
+                {item.title}
+              </h3>
+              <p className="text-xs ">{item.subtitle}</p>
+            </div>
+          </Link>))}
+      </div>
     </ClientWrap>
   );
 }

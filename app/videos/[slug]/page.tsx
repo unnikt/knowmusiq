@@ -1,5 +1,5 @@
 // app/videos/[slug]/page.tsx
-import { getVideoData } from '@/lib/getVideoData';
+import { getVideoData } from '@/lib/database/getVideoData';
 
 // export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
 //     const { slug } = await params;
@@ -48,11 +48,12 @@ import { getVideoData } from '@/lib/getVideoData';
 import ClientWrap from "@/components/ClientWrap";
 import TopBar from "@/components/TopBar";
 import YouTubePlayer from "@/components/YTPlayer";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
-import ButtonTag from "@/components/TagVideoButton";
-import ShareButton from "@/components/ShareButton";
+import ButtonTag from "@/components/ButtonTagVideo";
+import ShareButton from "@/components/ButtonShare";
 import Link from "next/link";
 import IconsTray from "@/components/IconsTray";
+import { deSlug } from '@/lib/string/deSlugify';
+import { Tags } from '@/lib/const/Tags';
 
 export default async function VideoPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -70,17 +71,6 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
 
     const video = { id: data.videoId, ...data };
 
-    const tags = [
-        { key: "comp", label: "Composer", base: "/persons/" },
-        { key: "lyri", label: "Lyricist", base: "/persons/" },
-        { key: "sing", label: "Singer", base: "/persons/" },
-        { key: "movi", label: "Movie", base: "/movie/" },
-        { key: "lang", label: "Language", base: "/language/" },
-        { key: "raga", label: "Raga", base: "/raga/" },
-        { key: "tala", label: "Tala", base: "/tala/" },
-    ];
-
-
     return (
         <ClientWrap >
             <TopBar />
@@ -88,12 +78,12 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate">{video["title"]}</p>
                 <div className="flex gap-2 text-(--primary)">
-                    {video && tags.map(tag =>
+                    {video && Tags.map(tag =>
                         video[tag.key] &&
                         <Link
                             key={tag.key}
                             href={`${tag.base}/${video[tag.key]}`}>
-                            {video[tag.key]}
+                            {deSlug(video[tag.key])}
                         </Link>
                     )}
                 </div>

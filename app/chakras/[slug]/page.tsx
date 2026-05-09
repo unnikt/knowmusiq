@@ -3,9 +3,11 @@
 import { use, useEffect, useState } from "react";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
-import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
 import TopBar from "@/components/TopBar";
+import DropDownMenu from "@/components/MenuDrop";
+import { deSlug } from "@/lib/string/deSlugify";
+import { malayalam } from "@/app/ui/fonts";
 
 export default function ChakraPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params); // "Indu%20Madhyama" or "Agni" or "Veda"
@@ -13,6 +15,7 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
 
     const [items, setItems] = useState([]);
     const router = useRouter();
+    const Chakras = ["Indu", "Netra", "Agni", "Veda", "Bana", "Rutu", "Rishi", "Vasu", "Brahma", "Disi", "Rudra", "Aditya"];
 
     useEffect(() => {
         async function load() {
@@ -29,16 +32,11 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
 
     return (
         <ClientWrap >
-            <div className="section-mid">
-                <TopBar />
-                <Paginate
-                    currentPage={currentPage}
-                    pages={["Indu", "Netra", "Agni", "Veda", "Bana", "Rutu", "Rishi", "Vasu", "Brahma", "Disi", "Rudra", "Aditya"]}
-                    onPageChange={(p) => handleClick(p)}
-                />
+            <TopBar />
+            <DropDownMenu label={deSlug(slug)} items={Chakras} onSelect={(p) => handleClick(p)} />
+            <ItemList title={""} items={items} />
+            <p className={`${malayalam.className}`}></p>
 
-                <ItemList title={""} items={items} />
-            </div>
         </ClientWrap>
     );
 }

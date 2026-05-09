@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import MinimiseButton from "@/components/MinimiseButton";
+import MinimiseButton from "@/components/ButtonMinimise";
 import { ordinalString } from "@/lib/string/ordinalstring";
 import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
-import ShareButton from "./ShareButton";
+import ShareButton from "./ButtonShare";
+import { BarsArrowUpIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 
 interface RagaCardProps {
     name: string;
@@ -36,15 +37,20 @@ export default function RagaCard({
 
 
     return (
-        <div className="bg-(--surface) p-4 rounded" >
+        <div className="bg-(--surface) p-6 rounded-xl" >
             <div className="flex items-start justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold ">{name}</h2>
+                    <h2 className="title">{name}</h2>
                     <p className="text-sm">{type == "Janaka" ?
                         `${ordinalString(rid)} Melakarta raga`
                         : `Janya raga`}</p>
                 </div>
-                <div className="flex gap-1 align-middle text-my-secondary">
+                <div className="flex gap-1 items-center text-my-secondary">
+                    <Link
+                        href={`/raga/${slug}/edit`}
+                        className="p-2">
+                        <PencilSquareIcon className="w-5 text-(--primary)" />
+                    </Link>
                     <ShareButton
                         title="Check out this raga"
                         text="Explore this raga on musiq-me.com"
@@ -60,12 +66,12 @@ export default function RagaCard({
                         href={type == "Janaka" ? `/chakras/${parent.name}` : `/raga/${parent.slug.toLowerCase()}`}
                         className="text-(--primary) hover:text-my-hilite border-b font-medium"
                     >
-                        {type == "Janaka" ? "Chakra" : "Melakarta raga"} - {parent.name}
+                        <div className="flex items-center"><BarsArrowUpIcon className="w-7 h-7 mr-2" /> {parent.name}</div>
                     </Link>
                 </div>
             )}
             {description && (
-                <p className={`mt-3 text-sm  leading-relaxed h-6 ${minRaga ? "hidden" : ""}`}>
+                <p className={`mt-3 text-sm  leading-relaxed ${minRaga ? "hidden" : ""}`}>
                     {description}
                 </p>
             )}
@@ -81,10 +87,8 @@ export default function RagaCard({
                 </div>
             )}
 
-            <p className={`text-sm mt-2  text-justify ${minRaga ? "hidden" : ""}`}>
-                Note: While the swaras and notes are fundamental to the raga,
-                their specific arrangement, ornamentation and emotional expression
-                create the unique character of a particular raga.
+            <p className={` mt-3 text-sm italic text-justify  ${minRaga ? "hidden" : ""}`}>
+                Note: While the swaras and notes are fundamental to the raga, their specific arrangement, ornamentation and emotional expression create the unique character of a particular raga
             </p>
             {/* 🎵 Tabs Section */}
             <div className=" mt-2 border-t-2 pt-2 border-my-secondary">

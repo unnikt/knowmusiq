@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
-import MainMenu from "@/components/MainMenu";
+import MainMenu from "@/components/MenuMain";
 import Image from "next/image";
 import SearchBox from "./SearchBox"
 import { Bars3Icon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
@@ -24,14 +24,12 @@ const stats = [
 
 export default function Header() {
     const { minimiseHeader } = useApp();
-    const [minimise, setMinimise] = useState(minimiseHeader);
+    const [search, setSearch] = useState(false);
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         document.documentElement.classList.add(localStorage.getItem("theme"));
-        setMinimise(minimiseHeader);
     }, [minimiseHeader]);
-
 
     const menuRef = useRef(null);
 
@@ -47,7 +45,7 @@ export default function Header() {
     }, []);
 
     return (
-        <div>
+        <div className="wrapper">
             <section className="py-2 bg-slate-800  relative  section-mid rounded-t-lg" >
                 <Image
                     alt=""
@@ -71,17 +69,14 @@ export default function Header() {
                         <div>
                             <MagnifyingGlassIcon
                                 className="w-7 h-7 text-white"
-                                onClick={() => { setMinimise(prev => !prev) }} />
+                                onClick={() => { setSearch(true) }} />
                         </div>
                     </div>
                 </div>
             </section>
-            <div className={minimise ? "hidden" : "" + "bg-(--surface) p-4!  flex mx-auto max-w-4xl items-center gap-4"} >
-                <SearchBox />
-                <XMarkIcon
-                    className="w-7 h-7"
-                    onClick={() => setMinimise(true)} />
-            </div>
+            {/* <div className={search ? "hidden" : "" + "bg-(--surface) p-4!  flex mx-auto max-w-4xl items-center gap-4"} > */}
+            {search && <SearchBox onClose={() => { setSearch(false); }} />}
+            {/* </div> */}
 
             {/* <div
                 aria-hidden="true"

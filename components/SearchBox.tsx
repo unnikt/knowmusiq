@@ -1,38 +1,52 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Modal from "./Modal";
 
+interface Props {
+    onClose?: () => void;
+}
 
-export default function SearchBox() {
+export default function SearchBox({ onClose }: Props) {
+    const [open, setOpen] = useState(true);
     const [query, setQuery] = useState("");
     const router = useRouter();
+
+    useEffect(() => {
+        setOpen(true);
+    }, []); // <-- FIXED
 
     function handleSearch() {
         const trimmed = query.trim();
         if (!trimmed) return;
         router.push(`/raga/${encodeURIComponent(trimmed)}`);
+        setOpen(false); // optional: close after search
     }
 
     return (
-        <div className="w-full flex flex-col justify-center gap-1 sm:flex-row sm:gap-0 sm:max-w-md ">
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") handleSearch();
-                }}
-                placeholder="Search ragas..."
-                className="flex-1 px-4 py-2 bg-slate-200! text-slate-800 rounded-md sm:rounded-r-none focus:outline-none focus:ring-1 focus:ring-my-primary/80"
-            />
-
-            <button
-                onClick={handleSearch}
-                className="px-5 py-2 bg-pink-500 text-white rounded-md sm:rounded-l-none hover:bg-pink-600 transition"
-            >
-                Search
-            </button>
-        </div>
+        <Modal
+            isOpen={open}
+            key="search"
+            onClose={() => { setOpen(false); if (onClose) onClose() }}
+        >
+            <div className="bg-(--surface)  p-8 flex flex-col justify-center gap-0 sm:flex-col sm:gap-0 sm:max-w-md">
+                <h2 className="subtitle mb-2 ">Search ragas</h2>
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                    placeholder="Search ragas..."
+                    className=" px-4 py-2 bg-slate-400 rounded-md focus:outline-none focus:ring-1 focus:ring-my-primary/80"
+                />
+                <button
+                    className="btn btn-accent mt-2"
+                    onClick={handleSearch}
+                >
+                    Search
+                </button>
+            </div>
+        </Modal>
     );
 }

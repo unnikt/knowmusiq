@@ -1,18 +1,19 @@
 import React from "react";
 
 interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
+    isOpen?: boolean;
+    onClose?: () => void;
+    children?: React.ReactNode;
+    width?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center">
-            <div className="bg-(--surface) w-[90vw] max-h-[90vh] overflow-y-auto max-w-200 
-            rounded-md shadow-lg relative animate-[fadeIn_0.2s_ease-out]">
+            <div className={`${width ? width : "w-[80vw]"} bg-(--surface) max-h-[90vh] overflow-y-auto max-w-200 
+            rounded-md shadow-lg relative animate-[fadeIn_0.2s_ease-out]`}>
                 {/* Close Button */}
                 <button
                     onClick={onClose}
@@ -23,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
                 {children}
             </div>
-        </div>
+        </div >
     );
 };
 

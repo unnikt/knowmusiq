@@ -1,8 +1,11 @@
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/ButtonThemeToggle";
 import { useState } from "react";
 
-export default function MainMenu({ onClose }) {
+interface Props {
+    onClose?: () => void;
+}
+export default function MainMenu({ onClose }: Props) {
     const [open, setOpen] = useState(true);
     const links = [
         { name: "Videos", href: "/videos" },
@@ -13,7 +16,7 @@ export default function MainMenu({ onClose }) {
 
     function handleClick() {
         setOpen(false);
-        if (onClose) onClose;
+        onClose?.();
     }
 
     return (
@@ -37,7 +40,7 @@ export default function MainMenu({ onClose }) {
                     </Link>
                 </div>
 
-                <ThemeToggle />
+                <ThemeToggle onClick={handleClick} />
 
             </div>
         )

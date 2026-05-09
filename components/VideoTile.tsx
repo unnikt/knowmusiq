@@ -1,12 +1,10 @@
 // src/components/YouTubeVideoTile.tsx
-import { xRef } from "@/lib/MapValues";
 import { toCamelCase } from "../lib/string/camelcase";
 import Image from "next/image";
 import Link from "next/link";
-import { SquaresPlusIcon } from "@heroicons/react/20/solid";
-import ShareButton from "./ShareButton";
-import { Button } from "@headlessui/react";
-import ButtonTag from "./TagVideoButton";
+import ShareButton from "./ButtonShare";
+import ButtonTag from "./ButtonTagVideo";
+import { deSlug } from "@/lib/string/deSlugify";
 
 interface videoTileProps {
     video: any;
@@ -22,7 +20,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
     const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
-        <div className={`p-1 my-2 bg-(--surface) text-(--text)  rounded-md ${width}`}>
+        <div className={`my-2 bg-(--surface) text-(--text)  rounded-lg ${width} group-hover:scale-105 transition-transform`}>
             <Link
                 href={url}
                 target={target}
@@ -34,7 +32,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         alt={video.title ?? ""}
                         fill
                         sizes="(max-width: 768px) 100vw, 400px"
-                        className="rounded object-cover group-hover:scale-105 transition-transform"
+                        className="object-cover rounded-t-lg"
                     />
                     {video.duration && (
                         <span className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-xs ">
@@ -43,7 +41,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     )}
                 </div>
             </Link>
-            <div className="flex flex-col justify-around pb-3 min-h-20">
+            <div className="flex flex-col justify-around p-2 min-h-20">
                 <h3 className="line-clamp-2 text-sm font-semibold  min-h-4">
                     {toCamelCase(video.title)}
                 </h3>
@@ -52,7 +50,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         url && (
                             <Link href={`${url}`} key={i}>
                                 {(video[links[i]]) &&
-                                    <p className="mt-1 text-sm text-(--primary)">{toCamelCase(video[links[i]].replace(/-/g, " "))}</p>
+                                    <p className="mt-1 text-sm text-(--primary)">{deSlug(video[links[i]])}</p>
                                 }
                             </Link>
                         )

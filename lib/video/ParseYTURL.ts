@@ -1,4 +1,4 @@
-export function getVideoId(url: string): string | null {
+export function parseYTURL(url: string): string | null {
     try {
         const u = new URL(url);
         return (u.hostname.includes("youtu.be")) ?

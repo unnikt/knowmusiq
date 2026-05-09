@@ -1,22 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PlusIcon } from "@heroicons/react/20/solid";
 import Modal from "./Modal";
 import YouTubePlayer from "./YTPlayer";
-import { getVideoId } from "@/lib/video/getVideoId";
+import { parseYTURL } from "@/lib/video/ParseYTURL";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/client/firebaseKM.client";
 import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
 import Message from "./Message";
-import AddButton from "./AddButton";
+import AddButton from "./ButtonAdd";
+import { VideoCameraIcon } from "@heroicons/react/20/solid";
 
 interface AddVideo {
-    name: string;
-    type: string;
-    slug: string;
+    name?: string;
+    type?: string;
+    slug?: string;
     onSaved?: (msg: string) => void;
 }
 
@@ -45,7 +45,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     useEffect(() => {
         if (!authReady) return;   // ⬅️ Wait for Firebase Auth to load
 
-        const id = getVideoId(youtubeUrl);
+        const id = parseYTURL(youtubeUrl);
         setVideoId(id);
 
         if (!id) { setTitle(null); return };
@@ -110,16 +110,17 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
 
     return (
         <div>
-            <AddButton text="Video"
-                onClick={() => {
-                    if (!user) {
-                        router.push("/auth/signin");
-                        return;
-                    }
-                    setOpen(true);
-                }}
-            />
-
+            <button>
+                <VideoCameraIcon className="w-7 h-7 text-(--primary)"
+                    onClick={() => {
+                        if (!user) {
+                            router.push("/auth/signin");
+                            return;
+                        }
+                        setOpen(true);
+                    }}
+                />
+            </button>
             <Modal
                 isOpen={open}
                 onClose={() => { cleanup() }}

@@ -4,8 +4,8 @@ import { toCamelCase } from "@/lib/string/camelcase";
 import ClientWrap from "@/components/ClientWrap";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ItemList from "@/components/ItemList";
-import RagaClient from "@/components/RagaClient";
 import TopBar from "@/components/TopBar";
+import RagaClient from "@/app/client/RagaClient";
 
 // export const metadata = {
 //     title: {

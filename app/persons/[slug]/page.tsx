@@ -1,7 +1,5 @@
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
-import { xRef } from "@/lib/MapValues";
 import { slugify } from "@/lib/string/slugify";
-import { getWikiSummary } from "@/lib/wiki";
 import Image from "next/image";
 import Link from "next/link";
 import ClientWrap from "@/components/ClientWrap";
@@ -9,6 +7,8 @@ import { Accordion } from "@/components/Accordion";
 import VideoTile from "@/components/VideoTile";
 import AddVideo from "@/components/AddVideo";
 import TopBar from "@/components/TopBar";
+import { getWikiSummary } from "@/lib/wiki/wiki";
+import { xRef } from "@/lib/const/MapValues";
 
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;

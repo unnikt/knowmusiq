@@ -396,7 +396,7 @@ h1,
 }
 
 input {
-  @apply p-2 bg-slate-50 text-gray-800 outline-none;
+  @apply p-2 bg-slate-300 text-gray-800;
 }
 
 .searchBox {
@@ -411,21 +411,8 @@ input {
   @apply px-5 py-2 rounded-r-sm hover:bg-blue-700;
 }
 
-.videoGrid {
-  @apply grid grid-cols-2 md:grid-cols-3 gap-2;
-  z-index: 0;
-}
-
-.section-mid {
-  @apply max-w-4xl mx-auto flex flex-col gap-1 px-2 sm:px-0;
-}
-
-.title {
-  @apply text-lg font-semibold mt-2 tracking-wide inline-block;
-}
-
 .btn {
-  @apply px-4 py-2 mr-2 border rounded;
+  @apply px-4 py-2 mr-2 border rounded w-fit;
 }
 
 .btn-primary {
@@ -444,10 +431,6 @@ input {
   @apply border-slate-300 text-my-primary hover:bg-my-secondary/80 hover:text-white transition;
 }
 
-.topbar {
-  @apply flex justify-center gap-4 items-center m-1 h-10;
-}
-
 @layer components {}
 
 /* Hide scrollbar but keep scroll functionality */
@@ -458,4 +441,34 @@ input {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.title {
+  @apply font-bold text-2xl;
+}
+
+.subtitle {
+  font-weight: bold;
+  padding-top: 10px;
+  letter-spacing: 1px;
+}
+
+.wrapper {
+  @apply max-w-4xl mx-auto flex flex-col gap-1 sm:px-8;
+}
+
+.topbar {
+  @apply flex justify-center gap-4 items-end m-1 h-10;
+}
+
+.topbar > button {
+  @apply text-(--primary)
+}
+
+.edit > input {
+  @apply rounded-lg
+}
+
+.edit > input:focus {
+  @apply bg-my-secondary/10 outline-0;
 }

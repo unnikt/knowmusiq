@@ -5,7 +5,10 @@ import { signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function GoogleSignInButton() {
+interface Props {
+    ret?: string;
+}
+export default function GoogleSignInButton({ ret }: Props) {
     const [loading, setLoading] = useState(false);
 
     async function handleGoogleSignIn() {
@@ -22,8 +25,9 @@ export default function GoogleSignInButton() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idToken }),
             });
+            console.log(ret);
             // 4️⃣ Redirect
-            window.location.href = "/user";
+            window.location.href = ret ? ret : "/user";
 
         } catch (err) {
             console.error("Google sign-in error:", err);

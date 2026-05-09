@@ -1,8 +1,12 @@
 "use client";
-import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
+import { MoonIcon } from "@heroicons/react/20/solid";
+import { SunIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 
-export default function ThemeToggle() {
+interface Props {
+    onClick?: () => void;
+}
+export default function ThemeToggle({ onClick }: Props) {
     const [dark, setDark] = useState<boolean | null>(null);
 
     // Load saved theme OR fallback to DOM state
@@ -10,6 +14,7 @@ export default function ThemeToggle() {
         const saved = localStorage.getItem("theme");
 
         if (saved === "dark") {
+            document.documentElement.classList.remove("light");
             document.documentElement.classList.add("dark");
             setDark(true);
             return;
@@ -17,6 +22,7 @@ export default function ThemeToggle() {
 
         if (saved === "light") {
             document.documentElement.classList.remove("dark");
+            document.documentElement.classList.add("light");
             setDark(false);
             return;
         }
@@ -36,13 +42,21 @@ export default function ThemeToggle() {
 
     if (dark === null) return null; // avoid hydration mismatch
 
+
+    function handleClick() {
+        console.log("Toggle clicked");
+        // onClick?.();
+        setDark(prev => !prev);
+    }
+
+
     return (
         <button
-            onClick={() => setDark(!dark)}
+            onClick={handleClick}
             className="py-4 flex items-center gap-2 w-full text-white rounded"
         >
             {dark ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
-            {dark ? "Light mode" : "Dark mode"}
+            {dark ? "Light" : "Dark"}
         </button>
     );
 }

@@ -1,17 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import GoogleSignInButton from "@/components/GoogleSignInButton";
 import ClientWrap from "@/components/ClientWrap";
 import { auth } from "@/lib/client/firebaseKM.client";
 import TopBar from "@/components/TopBar";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
+    const router = useRouter();
+    const auth = getAuth();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const ret = useSearchParams().get("ret")
+    // AUTH CHECK
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user)
+                router.push("/");
+        });
+    });
+
 
     async function handleEmailSignIn(e: React.FormEvent) {
         e.preventDefault();
@@ -32,7 +46,7 @@ export default function SignInPage() {
                 body: JSON.stringify({ idToken }),
             });
             // 4️⃣ Redirect
-            window.location.href = "/user";
+            window.location.href = ret ? ret : "/user";
         } catch (err: any) {
             setError(err.message || "Failed to sign in");
         } finally {
@@ -49,7 +63,7 @@ export default function SignInPage() {
 
                 {error && <p className="text-red-600 text-sm">{error}</p>}
 
-                <GoogleSignInButton />
+                <GoogleSignInButton ret={ret} />
 
                 <p className="text-center">or</p>
 

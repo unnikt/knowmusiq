@@ -1,7 +1,6 @@
 "use client"
 
-import { auth } from "@/lib/client/firebaseKM.client";
-import GetWikiName from "./GetWikiName"
+import GetWikiName from "../../components/GetWikiName"
 import { useRouter } from "next/navigation";
 import getHeader from "@/lib/client/getHearder";
 
@@ -42,10 +41,7 @@ export default function PersonsClient({ src, doc_id, onSuccess }: PersonsClientP
     };
 
     return (
-        <div>
-            <GetWikiName onPageInfo={handleName} />
-        </div>
-
+        <GetWikiName onPageInfo={handleName} />
     )
 
 }

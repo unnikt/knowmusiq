@@ -2,7 +2,6 @@
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import RagaClient from "@/components/RagaClient";
 import TopBar from "@/components/TopBar";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { toCamelCase } from "@/lib/string/camelcase";

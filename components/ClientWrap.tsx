@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 
-type ClientWrapProps = {
+type Props = {
     children: React.ReactNode;
     minimiseHeader?: boolean;
     restoreOnLeave?: boolean;
@@ -12,7 +12,7 @@ export default function ClientWrap({
     children,
     minimiseHeader = true,
     restoreOnLeave = true,
-}: ClientWrapProps) {
+}: Props) {
     const { setMinimiseHeader } = useApp();
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-export { Arrow } from "./Arrow.jsx";
-export { ArrowBox } from "./ArrowBox.jsx";
-export { Firebase } from "./Firebase.jsx";
+export { Arrow } from "./Arrow";
+export { ArrowBox } from "./ArrowBox";
+export { Firebase } from "./Firebase";
 // export { Header } from "./Header";

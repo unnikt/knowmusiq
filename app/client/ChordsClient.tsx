@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import NotesTray from "./NotesTray";
-import ChordsTray from "./ChordsTray";
+import ClientWrap from "@/components/ClientWrap";
+import NotesTray from "@/components/TrayNotes";
+import ChordsTray from "@/components/TrayChords";
 
 export default function RagaExplorer({ scale, chords }) {
     const [selectedNote, setSelectedNote] = useState<string | null>(null);
 
     return (
-        <div className="p-2">
+        <ClientWrap>
             <NotesTray
                 scale={scale}
                 selectedNote={selectedNote}
@@ -35,6 +36,6 @@ export default function RagaExplorer({ scale, chords }) {
                     selectedNote={selectedNote}
                 />
             }
-        </div>
+        </ClientWrap>
     );
 }

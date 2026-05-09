@@ -6,7 +6,7 @@ import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
 import { toCamelCase } from "@/lib/string/camelcase";
-import AddButton from "@/components/AddButton";
+import AddButton from "@/components/ButtonAdd";
 import TopBar from "@/components/TopBar";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {

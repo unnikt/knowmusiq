@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getVideoId } from "@/lib/video/getVideoId";
+import { parseYTURL } from "@/lib/video/ParseYTURL";
 
 interface VideoURLProps {
     onChange: (videoId: string | null) => void;
@@ -11,7 +11,7 @@ export default function VideoURL({ onChange }: VideoURLProps) {
     const [videoId, setVideoId] = useState<string | null>(null);
 
     function handleChange(value: string) {
-        const id = getVideoId(value);
+        const id = parseYTURL(value);
         const result = id ?? null;
 
         setVideoId(result);
