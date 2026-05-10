@@ -9,7 +9,7 @@ interface HomeProps {
 export default function HomePage({ videos }: HomeProps) {
     return (
         <div className="text-(--text)">
-            <h2 className="subtitle">Browse by raga</h2>
+            <h2 className="subtitle pt-0!">Browse by raga</h2>
             <VideoSlider>
                 {videos.map((v) => (
                     v.raga && (

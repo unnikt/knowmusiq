@@ -18,10 +18,10 @@ export default function SearchBox({ onClose }: Props) {
     }, []); // <-- FIXED
 
     function handleSearch() {
+        setOpen(false); // optional: close after search
         const trimmed = query.trim();
         if (!trimmed) return;
         router.push(`/raga/${encodeURIComponent(trimmed)}`);
-        setOpen(false); // optional: close after search
     }
 
     return (

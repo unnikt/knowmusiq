@@ -5,7 +5,7 @@ import { ordinalString } from "@/lib/string/ordinalstring";
 import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
 import ShareButton from "./ButtonShare";
-import { BarsArrowUpIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import { PencilSquareIcon } from "@heroicons/react/20/solid";
 
 interface RagaCardProps {
     name: string;
@@ -66,7 +66,7 @@ export default function RagaCard({
                         href={type == "Janaka" ? `/chakras/${parent.name}` : `/raga/${parent.slug.toLowerCase()}`}
                         className="text-(--primary) hover:text-my-hilite border-b font-medium"
                     >
-                        <div className="flex items-center"><BarsArrowUpIcon className="w-7 h-7 mr-2" /> {parent.name}</div>
+                        <div className="flex items-center">Parent: {parent.name}</div>
                     </Link>
                 </div>
             )}

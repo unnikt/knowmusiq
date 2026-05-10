@@ -475,6 +475,16 @@ input {
   @apply outline-1 outline-(--primary);
 }
 
+.videoGrid {
+  @apply grid grid-cols-2 gap-2 md:grid-cols-4;
+}
+
+.videoTile {
+  @apply my-2 bg-(--surface) text-(--text) border border-(--surface) rounded-lg group-hover:scale-105 transition-transform;
+}
+
+
+
 /* .edit > input {
   @apply rounded-lg
 }
