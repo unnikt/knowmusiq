@@ -235,6 +235,3 @@ runConfig:
       value: "787388398387"
     - variable: OPENAI_API_KEY
       secret: openai-api-key
-env:
-  - variable: OPENAI_API_KEY
-    secret: openai-api-key
