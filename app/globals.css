@@ -468,7 +468,7 @@ input {
 }
 
 .input-field {
-  @apply rounded-sm bg-slate-200;
+  @apply rounded-sm bg-slate-200 text-slate-800;
 }
 
 .input-field:focus {

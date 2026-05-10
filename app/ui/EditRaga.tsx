@@ -28,7 +28,7 @@ export default function EditRaga({ raga, onEdited }: Props) {
         description: raga.description || "",
         parent: raga.parent,
     });
-
+    console.log(form);
     // AUTH CHECK
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
