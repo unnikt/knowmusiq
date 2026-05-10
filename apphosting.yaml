@@ -71,3 +71,8 @@ runConfig:
     value: "knowmusiq.firebasestorage.app"
   - variable: "NEXT_PUBLIC_KNOWMUSIC_MESSAGING_SENDER_ID"
     value: "787388398387"
+    env:
+  - variable: OPENAI_API_KEY
+    availability:
+      - BUILD
+      - RUNTIME
