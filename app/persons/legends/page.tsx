@@ -1,11 +1,10 @@
 "use client";
 
 import ClientWrap from "@/components/ClientWrap";
+import { Shuffle } from "@/lib/array/Shuffle";
 import { Legends } from "@/lib/const/Legends";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-
 
 type WikiData = {
     title: string;
@@ -17,6 +16,7 @@ type WikiData = {
 export default function LegendsPage() {
     const [data, setData] = useState<Record<string, WikiData>>({});
     const [loading, setLoading] = useState("loading...");
+    const legends = Shuffle(Legends);
 
     useEffect(() => {
         async function fetchAll() {
@@ -43,26 +43,23 @@ export default function LegendsPage() {
     return (
         <ClientWrap >
             <div className="min-h-screen bg-linear-to-b from-sky-50 via-sky-100/60 to-orange-100 p-8! bg-fixed">
-                <div className="flex flex-col align-middle">
-                    <h2 className="text-4xl font-bold text-slate-700">
-                        Legends of Indian Music
-                    </h2>
-                    {loading && <p>Loading...</p>}
-                    <Link
-                        href="/persons/type/Composers"
-                        className="text-my-primary py-2">
-                        Browse personalities
-                    </Link>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <h2 className="text-4xl font-bold text-slate-700">
+                    Legends of Indian Music
+                </h2>
+                <Link
+                    href="/persons/type/Composers"
+                    className="text-my-primary block my-2">
+                    Browse personalities
+                </Link>
+                {loading && <p>Loading...</p>}
 
-                    {!loading && Legends.map((leg) => {
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {!loading && legends.map((leg) => {
                         const legend = data[leg.name];
                         const img =
                             legend?.originalimage?.source ||
                             legend?.thumbnail?.source ||
                             "/placeholder.png";
-
                         return (
                             <Link
                                 key={leg.name}

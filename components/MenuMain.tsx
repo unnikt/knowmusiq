@@ -22,7 +22,7 @@ export default function MainMenu({ onClose }: Props) {
 
     return (
         open && (
-            <div className="bg-slate-600 mt-1 px-4 py-2 absolute shadow min-w-40 rounded-sm z-50">
+            <div className="bg-slate-600 mt-1 px-4 py-2 absolute shadow  min-w-40 rounded-sm z-50 w-[90vw]">
                 <div className="flex flex-col gap-2 pt-2">
                     {links.map(link => (
                         <Link
