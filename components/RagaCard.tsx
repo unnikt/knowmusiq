@@ -34,7 +34,7 @@ export default function RagaCard({
 
     const slug = slugify(name); // or use slugify(name)
     const [minRaga, setMinRaga] = useState(false);
-
+    const [expDescription, setExpDesc] = useState(false);
 
     return (
         <div className="bg-(--surface) p-6 rounded-xl" >
@@ -71,7 +71,9 @@ export default function RagaCard({
                 </div>
             )}
             {description && (
-                <p className={`mt-3 text-sm  leading-relaxed ${minRaga ? "hidden" : ""}`}>
+                <p
+                    className={`mt-3 max-h-90 leading-relaxed text-justify text-(--primary)/60 border-b ${expDescription ? "overflow-y-auto" : "text-sm line-clamp-2"} ${minRaga ? "hidden" : ""}`}
+                    onClick={() => setExpDesc(prev => !prev)}>
                     {description}
                 </p>
             )}
@@ -87,7 +89,7 @@ export default function RagaCard({
                 </div>
             )}
 
-            <p className={` mt-3 text-sm italic text-justify  ${minRaga ? "hidden" : ""}`}>
+            <p className={` mt-3 text-sm italic text-justify text-slate-500   ${minRaga ? "hidden" : ""}`}>
                 Note: While the swaras and notes are fundamental to the raga, their specific arrangement, ornamentation and emotional expression create the unique character of a particular raga
             </p>
             {/* 🎵 Tabs Section */}

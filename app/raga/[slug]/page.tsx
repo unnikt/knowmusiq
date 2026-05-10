@@ -111,6 +111,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
             arohana={raga.arohana || ""}
             avarohana={raga.avarohana || ""}
             parent={raga.parent}
+            description={raga.description || ""}
         />
     );
 }
