@@ -1,73 +1,9 @@
-# Settings for Backend (on Cloud Run).
-# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
-runConfig:
-  minInstances: 0
-  # maxInstances: 100
-  # concurrency: 80
-  # cpu: 1
-  # memoryMiB: 512
-
-  # Environment variables and secrets.
-  # env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
-  # - variable: MESSAGE
-  #   value: Hello world!
-  #   availability:
-  #     - BUILD
-  #     - RUNTIME
-
-  # Grant access to secrets in Cloud Secret Manager.
-  # You can create secrets with the CLI command `firebase apphosting:secrets:set <secretName>`.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  # - variable: MY_SECRET
-  #   secret: mySecretRef
-  env:
-    - variable: "SHRUTHI_API_KEY"
-      value: "AIzaSyCdDr3bC9_-sOjGwg7p8HwsqzW1qO-ZLw0"
-    - variable: "SHRUTHI_AUTH_DOMAIN"
-      value: "shruthi-app.firebaseapp.com"
-    - variable: "SHRUTHI_PROJECT_ID=shruthi-app"
-      value: "SHRUTHI_STORAGE_BUCKET=shruthi-app.appspot.com"
-    - variable: "SHRUTHI_MESSAGING_SENDER_ID=543046158669"
-      value: "SHRUTHI_APP_ID=1:543046158669:web:b9a5e28824c4c6f69bcf04"
-    - variable: "SHRUTHI_PRIVATE_KEY"
-      value: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDxDgxKmVr5/e01\nsUNhx8OTcnwaHkNFd/Tlu0M/yITMnutyJ8JRtf8RCwRc/iLw0NmDsbBk55ISsPCZ\nowCMPX2vTzF6T7txajPNxGGL8VJ2L/v3nJjzFlaX8EGaIA/3OWI+IGfUJCs90x3c\ntT1RNj5lz0df6qqlyef+meYxiZoGWdcNVDC0JJFbDs4SZk6X2KRHEwlVZe7C/JcL\nBb+7StnFIk5tcCEgHNJpY5fXHsdOGnuulcqKqP9Wh7JuqujPE2pcj6qUahZW5bnn\nH5YU53xLkChQKp0mN3Zog1z2efYHHjRXAAca73yVddvFQO9CF41jqk2RQ4juVCbX\nqXQZ18frAgMBAAECggEAJeAwszoEbvpknsajEUabptvavxnZNR2jl8NETk3Z+/LO\niOnRYRhpIwrpnRj7cX5HZydw0XIHZDN0IpfXmrGAwZ5+ZjsH90qaKC8+qof5DoP8\nocvzxmJQqeAA1tBJ4e0c0Ck0V0N1nenBq++4Wj3dMQ8QJnSPaqxebQVOg6Mc1flS\nvJR7roxxFSGsCeFXEPo10qHAk4YSogoy2qQLL4Y8qhiMIAQu4UAcd5xIXRrf7y+c\nMuhl3KoGDhfkZOvUQhsGLQARR7QAFUW3LKzc88hyIdlKxLwFfulnGObGJxzpXnJ+\nOQkTzVPfTh/dw12kYGUpHAMkZHEct3jiiRXqyyisRQKBgQD7Ii7ep8x3sI9GcIEL\nY7zRCtoO7gPeaOiAwA1vuaY3ybz4x0H76QqKL/lFILt1a3w7L7UneSsbbl/aEZRX\nsXIyn9LKwLT1llkKOQK6I9MoAtl9ymU/MW9Qf24nJlsraOTXZ2zFFDNQdudzE5AL\nuqZN1CUZUsk5VpLO9gYYYvTWvwKBgQD1ud3zw6ySmP136Cqf1oPL2wqYi+MJJuhS\nrsl61tXdNCJq1CCGQmVCv93Zm5hPD+NKyZFzLFgFvSxevR5LQndCQKp4fOzh+QzB\nhSqtqRLjskXPNBKNhzl8h2wFeYenMgwmcO3KhlOkusy2QLcZDXbBNzwavDWLCCvl\nEHnucEil1QKBgBciJfkiseYQoJIXiPuYm2sSOdYIPNj/BvPdPR+elV4sOjkcecqP\nxAXIt4iTpFEDrrTxBxn0wnDLcQ7wcZ7GXMOnD07YA5Nf3yHe8I5fAHN+F7TLsRnq\nHtvmcSowEVPlXLcu8skQvE1cNqPWGH3MGseulCBKDPk4LVvdM+CJNQ6XAoGAQS4U\nWdzFof1C/tNuuwdD3oczwFMa3gqcBZKnjxX9lLeHiZ7LIdHq2lHanyZOuGoWeHgP\nROW2U49ifZ7csknnKIPOtDcu/qH5aDvSnk4C3LMlIVlGspP0A7xIQwuBmDAGWQwL\nh3UqKsACHTX9W3/eyFHGd7EE4uRAAHrmXQEbxCECgYEAinr/vtecgk04gpH2yz+V\nKYOrMJtcc30rT39WRA9vXg76zajJCvsOREBCD/2/eu48qucYIbYg0K850NEkspx/\nuo6rsvkiXINUxY/RsCU/m3/Sgi3cWX9yIG5MN2FIJRdbAEipo576a72/bbiBx7Es\nj9CJUPL3qYi4joRSYueoq94=\n-----END PRIVATE KEY-----\n"
-    - variable: "SHRUTHI_CLIENT_EMAIL"
-      value: "firebase-adminsdk-ifqc0@shruthi-app.iam.gserviceaccount.com"
-    - variable: "KNOWMUSIC_PROJECT_ID"
-      value: "knowmusiq"
-    - variable: "KNOWMUSIC_CLIENT_EMAIL"
-      value: "firebase-adminsdk-fbsvc@knowmusiq.iam.gserviceaccount.com"
-    - variable: "KNOWMUSIC_PRIVATE_KEY"
-      value: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCVsxD2I4UyhbEh\nGz4SDgsIBZgj3DLlGlH4nvPXxIwXfPnU7PI2hpz6irNXZTItxVwRU3AkNlMqlX4s\nKOltm7y33pp8BZlXYjmQmhkx49wfcvp2WHr+/9OuoXqf5UdqAsRZ0QcVbSyMz1tR\nvVxyM7HPkvXUp4S8V8ROxQH+8VrR4jG3fFDPtF2Q5qhcOgxFKeF77Ea3z/bSTHhb\nb8bYREHttkVV7CTCAg3e9kdG2Tymhl9L0AxQi3XNa0BcD4oaOGz0dq4HHM2rzL+G\noS//IHIQbFgpYQ9ooRa1U49dXjuxIHVRxsPym/Jcz5x68hqqgPh7Cv77KcH0+4VU\nhrw7MJX5AgMBAAECggEAPnyMa/HPu5MKqOMSOb8a47JSG0XjCLa/2KOg7UPhpjxI\nnJR7Vj9Cb2JOEgDvvSNQlvrZKIR0mqXkENLS/Smw0J9epL5Bj7Q0iyOHuMeALrBz\n08qDLMXkulQ1N2EhOiMFiugxqMP1gKFdYPVGDXV+l0Kk0qtKQMPx8V9SwfRFEK5S\n3ChXVIqmPkdNM3jphs0tz2yqlSnKb0S7FqtpNkZt2U8RhxnGR4ovz+vxKamfdFUw\njMjKSNE1X+NcbgbOXdave2hxYqRZzX5UpaxVfkstdr9qXpO97JA8AVpqPpEjULdW\nuetKQ8WwaCO4I076URNr5cAKv+XRDcVbuBK6MIUdsQKBgQDECi4Qw4tRHG2d8QSr\nW2AmqN6Fh7usxfYiLVb2NF7mJNgPazdKAZwhwydwJBgfIWLdG3LqfwsbyqA0rSTx\n2K/4htLDbzdrt1Hdx7Ctl9p50n4lQ+whnMj33i1l442WPjjz02ho0CBfhwk5TOdl\nND0iEdzNOZbgXL/PkKvxq7YefwKBgQDDfHbBvg7R5u0yvrNKrluF7UVJFm9A8TTj\nMYRvJonMO+OcnGeLMgnYP+64/NjDGkNkhiVxAp4NafzAuw03TNPn9mGnVf+xhNr8\n9YtM0CcNhd4Ef7u1dSsHIYEp9AmZyj8j5qLkmFuRNVavxoyyPgZ6DeIqHtmVAwrr\n9CguIzr/hwKBgCZjG+wablBesbRIurJXPTe0v4YEMyK8zNqaaDnjvWVxd4FlbDko\noYsW7MUPvE10OyiytEjowaMahU5rTR2yYZrXw7OTNpX4GqbD8Hu9jYFnT146s6VN\nTykCL3+RFGuEGaDdF8fWYVBzX8IBphnyJbpjJwpkqX+bic+6M4EqL4o/AoGATBkf\ngbwiuMNUgvSJhwDoz/HVjuYU2QsMs4SLMVmnOsH1kPmxtRX9jxkULR8AorKOmYs+\n+Ac0z7P6mGw4cNaPhzT6PtHTf59gQCi12WkOSs1Z6BZxU+oQne4FAffl5OA+RBN8\nRdCplJVW8YYxLxHGI61T5WGtAbz1e3TIT22XgfECgYEArH+n1uvFErsS3GO831+P\n3r0j+fg6W0L8ijGgojZ++q7SKgOLX+ipyb1AoSKVaAI7WBYA3gQV/oDFkOPwkA7R\nDxJ+xIH3ZQQOP5KYBRzYuX+nPTpxSO5ipHSndzkdyVQ/lfBpfptDxmWgEc/nO24q\nhUqO4WPBxWzlASXDaF312To=\n-----END PRIVATE KEY-----\n"
-    - variable: "NEXT_PUBLIC_SHRUTHI_PROJECT_ID"
-      value: "shruthi-app"
-    - variable: "NEXT_PUBLIC_SHRUTHI_API_KEY"
-      value: "AIzaSyCdDr3bC9_-sOjGwg7p8HwsqzW1qO-ZLw0"
-    - variable: "NEXT_PUBLIC_SHRUTHI_AUTH_DOMAIN"
-      value: "shruthi-app.firebaseapp.com"
-    - variable: "NEXT_PUBLIC_SHRUTHI_APP_ID"
-      value: "1:543046158669:web:b9a5e28824c4c6f69bcf04"
-    - variable: "NEXT_PUBLIC_SHRUTHI_STORAGE_BUCKET"
-      value: "shruthi-app.appspot.com"
-    - variable: "NEXT_PUBLIC_SHRUTHI_MESSAGING_SENDER_ID"
-      value: "543046158669"
-    - variable: "NEXT_PUBLIC_SHRUTHI_PRIVATE_KEY"
-      value: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDxDgxKmVr5/e01\nsUNhx8OTcnwaHkNFd/Tlu0M/yITMnutyJ8JRtf8RCwRc/iLw0NmDsbBk55ISsPCZ\nowCMPX2vTzF6T7txajPNxGGL8VJ2L/v3nJjzFlaX8EGaIA/3OWI+IGfUJCs90x3c\ntT1RNj5lz0df6qqlyef+meYxiZoGWdcNVDC0JJFbDs4SZk6X2KRHEwlVZe7C/JcL\nBb+7StnFIk5tcCEgHNJpY5fXHsdOGnuulcqKqP9Wh7JuqujPE2pcj6qUahZW5bnn\nH5YU53xLkChQKp0mN3Zog1z2efYHHjRXAAca73yVddvFQO9CF41jqk2RQ4juVCbX\nqXQZ18frAgMBAAECggEAJeAwszoEbvpknsajEUabptvavxnZNR2jl8NETk3Z+/LO\niOnRYRhpIwrpnRj7cX5HZydw0XIHZDN0IpfXmrGAwZ5+ZjsH90qaKC8+qof5DoP8\nocvzxmJQqeAA1tBJ4e0c0Ck0V0N1nenBq++4Wj3dMQ8QJnSPaqxebQVOg6Mc1flS\nvJR7roxxFSGsCeFXEPo10qHAk4YSogoy2qQLL4Y8qhiMIAQu4UAcd5xIXRrf7y+c\nMuhl3KoGDhfkZOvUQhsGLQARR7QAFUW3LKzc88hyIdlKxLwFfulnGObGJxzpXnJ+\nOQkTzVPfTh/dw12kYGUpHAMkZHEct3jiiRXqyyisRQKBgQD7Ii7ep8x3sI9GcIEL\nY7zRCtoO7gPeaOiAwA1vuaY3ybz4x0H76QqKL/lFILt1a3w7L7UneSsbbl/aEZRX\nsXIyn9LKwLT1llkKOQK6I9MoAtl9ymU/MW9Qf24nJlsraOTXZ2zFFDNQdudzE5AL\nuqZN1CUZUsk5VpLO9gYYYvTWvwKBgQD1ud3zw6ySmP136Cqf1oPL2wqYi+MJJuhS\nrsl61tXdNCJq1CCGQmVCv93Zm5hPD+NKyZFzLFgFvSxevR5LQndCQKp4fOzh+QzB\nhSqtqRLjskXPNBKNhzl8h2wFeYenMgwmcO3KhlOkusy2QLcZDXbBNzwavDWLCCvl\nEHnucEil1QKBgBciJfkiseYQoJIXiPuYm2sSOdYIPNj/BvPdPR+elV4sOjkcecqP\nxAXIt4iTpFEDrrTxBxn0wnDLcQ7wcZ7GXMOnD07YA5Nf3yHe8I5fAHN+F7TLsRnq\nHtvmcSowEVPlXLcu8skQvE1cNqPWGH3MGseulCBKDPk4LVvdM+CJNQ6XAoGAQS4U\nWdzFof1C/tNuuwdD3oczwFMa3gqcBZKnjxX9lLeHiZ7LIdHq2lHanyZOuGoWeHgP\nROW2U49ifZ7csknnKIPOtDcu/qH5aDvSnk4C3LMlIVlGspP0A7xIQwuBmDAGWQwL\nh3UqKsACHTX9W3/eyFHGd7EE4uRAAHrmXQEbxCECgYEAinr/vtecgk04gpH2yz+V\nKYOrMJtcc30rT39WRA9vXg76zajJCvsOREBCD/2/eu48qucYIbYg0K850NEkspx/\nuo6rsvkiXINUxY/RsCU/m3/Sgi3cWX9yIG5MN2FIJRdbAEipo576a72/bbiBx7Es\nj9CJUPL3qYi4joRSYueoq94=\n-----END PRIVATE KEY-----\n"
-    - variable: "NEXT_PUBLIC_SHRUTHI_CLIENT_EMAIL"
-      value: "firebase-adminsdk-ifqc0@shruthi-app.iam.gserviceaccount.com"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_PROJECT_ID"
-      value: "knowmusiq"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_API_KEY"
-      value: "AIzaSyDi6l4h839lepIClZWVuJnnXOrD3T3Ge24"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_AUTH_DOMAIN"
-      value: "knowmusiq.firebaseapp.com"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_APP_ID"
-      value: "1:787388398387:web:532df7473e202b987d9c46"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_STORAGE_BUCKET"
-      value: "knowmusiq.firebasestorage.app"
-    - variable: "NEXT_PUBLIC_KNOWMUSIC_MESSAGING_SENDER_ID"
-      value: "787388398387"
-    - variable: "OPENAI_API_KEY"
-      secret: "openai-api-key"
+env:
+  - variable: FIREBASE_PROJECT_ID
+    secret: firebase-project-id
+  - variable: FIREBASE_CLIENT_EMAIL
+    secret: firebase-client-email
+  - variable: FIREBASE_PRIVATE_KEY
+    secret: firebase-private-key
+  - variable: OPENAI_API_KEY
+    secret: openai-api-key
