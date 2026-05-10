@@ -72,7 +72,8 @@ export default function RagaCard({
             )}
             {description && (
                 <p
-                    className={`mt-3 max-h-90 leading-relaxed text-justify text-(--primary)/60 border-b ${expDescription ? "overflow-y-auto" : "text-sm line-clamp-2"} ${minRaga ? "hidden" : ""}`}
+                    className={`mt-3 max-h-90 leading-relaxed bg-(--surface) text-justify  border-b 
+                        ${expDescription ? "overflow-y-auto text-(--primary) scale-105 w-[80vw] mx-auto" : "text-sm text-(--primary)/60 line-clamp-2"} ${minRaga ? "hidden" : ""}`}
                     onClick={() => setExpDesc(prev => !prev)}>
                     {description}
                 </p>

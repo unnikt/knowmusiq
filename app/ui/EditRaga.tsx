@@ -93,6 +93,7 @@ export default function EditRaga({ raga, onEdited }: Props) {
 
     }
     async function handleSummarise() {
+        setLoading(true);
         const res = await fetch("/api/summarise", {
             method: "POST",
             body: JSON.stringify({ text: raga.name }),
@@ -100,6 +101,7 @@ export default function EditRaga({ raga, onEdited }: Props) {
 
         const data = await res.json();
         updateField("description", data.summary);
+        setLoading(false);
     }
 
     return (
@@ -141,6 +143,7 @@ export default function EditRaga({ raga, onEdited }: Props) {
                     <div className="flex flex-col gap-1">
                         <div className="flex justify-between">
                             <label className="font-medium">Description</label>
+                            {loading && <p className="text-sm text-my-secondary/60">Generating...</p>}
                             <button onClick={handleSummarise}
                                 className="text-(--primary)" >
                                 <SparklesIcon className="w-5 h-5" />

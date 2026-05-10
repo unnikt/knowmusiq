@@ -72,7 +72,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
 
             {loading && <p className="text-my-primary p-2">{loading}</p>}
             {videos.length > 0 ? (
-                <div key={refreshKey} className={`${styles.videoGrid} mt-4`} >
+                <div key={refreshKey} className={"videoGrid mt-4"} >
                     {
                         videos.map((video: any) => (
                             <VideoTile
