@@ -80,6 +80,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 data: {
                     title: title,
                     [type]: slug.replace(/%20/g, " "),
+                    rdx: Date.now() % 10000
                 },
             }),
         }).then((res) => {

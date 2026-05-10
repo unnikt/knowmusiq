@@ -1,26 +1,31 @@
 "use client";
 
 import TopBar from "@/components/TopBar";
+import getHeader from "@/lib/client/getHearder";
 import { Raga } from "@/lib/Definitions";
+import { ArrowPathIcon, SparklesIcon } from "@heroicons/react/20/solid";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Props {
     raga: Raga;
+    onEdited?: (msg: string) => void;
 }
 
-export default function EditRaga({ raga }: Props) {
+export default function EditRaga({ raga, onEdited }: Props) {
     const router = useRouter();
     const auth = getAuth();
+    const src = "ragas";
 
     const [userId, setUserId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isEdited, setEdited] = useState(false);
 
     const [form, setForm] = useState({
         arohana: raga.arohana,
         avarohana: raga.avarohana,
-        description: raga.description,
+        description: raga.description || "",
         parent: raga.parent,
     });
 
@@ -40,25 +45,77 @@ export default function EditRaga({ raga }: Props) {
 
     function updateField(key: keyof typeof form, value: string) {
         setForm(prev => ({ ...prev, [key]: value }));
+        setEdited(true);
     }
 
-    function handleSave() {
+    function handleReset() {
+        setForm({
+            arohana: raga.arohana,
+            avarohana: raga.avarohana,
+            description: raga.description,
+            parent: raga.parent,
+        });
+        setEdited(false);
+    }
+
+    async function handleSave() {
+        if (!isEdited) return;
+
         const payload = { ...raga, ...form };
-        console.log(payload);
+        const log = {
+            date: new Date().toISOString(),
+            user: auth.currentUser.email,
+            beforeEdit: JSON.stringify(raga)
+        }
+        console.log(payload, log);
+        // Update raga
+        await fetch("/api/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", ...await getHeader() },
+            body: JSON.stringify({
+                db: src,
+                doc_id: raga.slug,
+                data: payload,
+            }),
+        }).then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to save video");
+            }
+            else {
+                if (onEdited) onEdited(`Document ${src}/${raga.slug} updated successfully`);
+                router.push(`/raga/${raga.slug}`)
+            }
+        }).catch((err) => {
+            console.error(err);
+            alert("Error saving video: " + err.message);
+        });
+
+
+    }
+    async function handleSummarise() {
+        const res = await fetch("/api/summarise", {
+            method: "POST",
+            body: JSON.stringify({ text: raga.name }),
+        });
+
+        const data = await res.json();
+        updateField("description", data.summary);
     }
 
     return (
         <div>
             <TopBar />
+            <div className="max-w-xl mx-auto p-6 bg-(--surface) rounded-xl shadow-sm border border-(--border)">
+                <div className="flex justify-between items-end my-2">
+                    <h2 className="title">{raga.name}</h2>
+                    <ArrowPathIcon className="w-7 h-7 text-(--primary)/70"
+                        onClick={handleReset} />
+                </div>
 
-            <div className="max-w-xl mx-auto mt-6 p-6 bg-(--surface) rounded-xl shadow-sm border border-(--border)">
-                <h2 className="title mb-4">{raga.name}</h2>
-
-                <div className="flex flex-col gap-4 edit">
-
+                <div className="flex flex-col gap-2 edit">
                     {/* Arohana */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-(--primary)">Arohana</label>
+                        <label className="font-medium">Arohana</label>
                         <input
                             type="text"
                             value={form.arohana}
@@ -70,7 +127,7 @@ export default function EditRaga({ raga }: Props) {
 
                     {/* Avarohana */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-(--primary)">Avarohana</label>
+                        <label className="font-medium">Avarohana</label>
                         <input
                             type="text"
                             value={form.avarohana}
@@ -82,15 +139,21 @@ export default function EditRaga({ raga }: Props) {
 
                     {/* Description */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-(--primary)">Description</label>
+                        <div className="flex justify-between">
+                            <label className="font-medium">Description</label>
+                            <button onClick={handleSummarise}
+                                className="text-(--primary)" >
+                                <SparklesIcon className="w-5 h-5" />
+                            </button>
+                        </div>
+
                         <textarea
                             value={form.description}
                             onChange={(e) => updateField("description", e.target.value)}
                             placeholder="Describe the raga's mood, usage, and characteristics..."
-                            className="input-field min-h-[120px] resize-none"
+                            className="input-field resize-y! h-50 p-2 border border-slate-400"
                         />
                     </div>
-
                     <button
                         onClick={handleSave}
                         className="mt-4 px-5 py-2 rounded-md bg-my-secondary text-white font-medium hover:bg-my-secondary/90 transition"

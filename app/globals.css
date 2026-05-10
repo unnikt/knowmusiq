@@ -57,6 +57,8 @@
 .dark {
   --bg: #030303;
   --surface: #151519;
+  --surface: #333333;
+  --surface: #252728;
   --surface-hover: #1d1d22;
   --text: #e6e6e9;
   --text: white;
@@ -454,7 +456,7 @@ input {
 }
 
 .wrapper {
-  @apply max-w-4xl mx-auto flex flex-col gap-1 sm:px-8;
+  @apply mx-auto flex flex-col gap-1;
 }
 
 .topbar {
@@ -465,10 +467,18 @@ input {
   @apply text-(--primary)
 }
 
-.edit > input {
+.input-field {
+  @apply rounded-sm bg-slate-200;
+}
+
+.input-field:focus {
+  @apply outline-1 outline-(--primary);
+}
+
+/* .edit > input {
   @apply rounded-lg
 }
 
 .edit > input:focus {
   @apply bg-my-secondary/10 outline-0;
-}
+} */
