@@ -34,15 +34,15 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         sizes="(max-width: 768px) 100vw, 400px"
                         className="object-cover rounded-t-lg"
                     />
-                    {video.duration && (
+                    {/* {video.duration && (
                         <span className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-xs ">
                             {video.duration}
                         </span>
-                    )}
+                    )} */}
                 </div>
             </Link>
             <div className="flex flex-col justify-around p-2 min-h-20">
-                <h3 className="line-clamp-2 text-sm font-semibold  min-h-4">
+                <h3 className="line-clamp-2 text-sm ">
                     {toCamelCase(video.title)}
                 </h3>
                 <div className="flex justify-between items-center pt-2">

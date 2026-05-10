@@ -12,6 +12,7 @@ export default function MainMenu({ onClose }: Props) {
         { name: "Personalities", href: "/persons/type/composers" },
         { name: "Legends", href: "/persons/legends" },
         { name: "Chakras", href: "/chakras/Indu chakra" },
+        { name: "Stats", href: "/stats" },
     ];
 
     function handleClick() {
