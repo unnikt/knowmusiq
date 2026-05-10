@@ -4,9 +4,9 @@ import { getFirestore } from "firebase-admin/firestore";
 const knowmusiqAdminApp = getApps().find(a => a.name === "knowmusiq") ||
     initializeApp({
         credential: cert({
-            projectId: process.env.KNOWMUSIC_PROJECT_ID,
-            clientEmail: process.env.KNOWMUSIC_CLIENT_EMAIL,
-            privateKey: process.env.KNOWMUSIC_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+            projectId: process.env.FIREBASE_PROJECT_ID,
+            clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+            privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
         }),
     }, "knowmusiq");
 export const knowmusiqAdminAuth = getAuth(knowmusiqAdminApp);

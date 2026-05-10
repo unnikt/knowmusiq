@@ -12,11 +12,11 @@ async function main() {
     }
     const uid = process.env.BOOTSTRAP_ADMIN_UID;
     // dynamic import happens AFTER dotenv
-    const { knowmusiqAdminAuth } = await import("../lib/knowmusiqAdmin.js");
+    const { knowmusiqAdminAuth } = await import("../dist/lib/knowmusiqAdmin");
     console.log("Loaded ENV:", {
-        projectId: process.env.KNOWMUSIC_PROJECT_ID,
-        clientEmail: process.env.KNOWMUSIC_CLIENT_EMAIL,
-        privateKey: process.env.KNOWMUSIC_PRIVATE_KEY?.slice(0, 20) + "...",
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.slice(0, 20) + "...",
         uid: process.env.BOOTSTRAP_ADMIN_UID
     });
 
