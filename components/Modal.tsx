@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center">
-            <div className={`${width ? width : "w-[80vw]"} bg-(--surface) max-h-[90vh] overflow-y-auto max-w-200 
+            <div className={`w-[${width ? width : 80}vw] bg-(--surface) max-h-[90vh] overflow-y-auto max-w-200 
             rounded-md shadow-lg relative animate-[fadeIn_0.2s_ease-out]`}>
                 {/* Close Button */}
                 <button

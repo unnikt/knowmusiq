@@ -37,7 +37,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     return (
         <ClientWrap >
             <TopBar>
-                <AddVideo slug={slug} name={person.name} type={"comp"} />
+                <AddVideo slug={slug} name={person.name} type={person.type} />
             </TopBar>
             <Accordion title={person.name}>
                 <div className="p-2 flex flex-col sm:gap-4 sm:flex-row  sm:justify-items-start  bg-linear-90 from-blue-100 to-blue-300 rounded-b ">

@@ -28,6 +28,7 @@ export default function SearchBox({ onClose }: Props) {
         <Modal
             isOpen={open}
             key="search"
+            width="50"
             onClose={() => { setOpen(false); if (onClose) onClose() }}
         >
             <div className="bg-(--surface)  p-8 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">

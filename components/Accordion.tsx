@@ -1,7 +1,12 @@
 "use client";
 import { useState } from "react";
+interface Props {
+    title: string;
+    children: React.ReactNode;
+    state?: boolean
+}
 
-export function Accordion({ title, children, state = false }: { title: string; children: React.ReactNode; state?: boolean }) {
+export function Accordion({ title, children, state = false }: Props) {
     const [open, setOpen] = useState(state);
 
     return (
@@ -23,11 +28,11 @@ export function Accordion({ title, children, state = false }: { title: string; c
                 </svg>
             </button>
 
-            <div
+            {open && <div
                 className={` transition-all duration-300 ${open ? "opacity-100" : "max-h-0 opacity-0"}`}
             >
                 <div className="pb-4 rounded-t-0">{children}</div>
-            </div>
+            </div>}
         </div>
     );
 }

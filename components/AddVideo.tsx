@@ -10,9 +10,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
 import Message from "./Message";
-import AddButton from "./ButtonAdd";
 import { VideoCameraIcon } from "@heroicons/react/20/solid";
-import SearchBox from "./SearchBox";
+import { PersonTypes } from "@/lib/const/PersonTypes";
 
 interface AddVideo {
     name?: string;
@@ -32,6 +31,8 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const router = useRouter();
 
     const [authReady, setAuthReady] = useState(false);
+
+    const displayType = type == "raga" ? "Raga" : PersonTypes[type];
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, () => {
@@ -130,7 +131,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 children={
                     <div className="p-4 scroll-auto min-h-60">
                         <p className="text-xl  mb-2">Add a video</p>
-                        <p className=" bg-my-accent/20 p-2 ">{type} : {name}</p>
+                        <p className=" bg-my-accent/20 p-2 ">{displayType} : {name}</p>
 
                         {/* YouTube URL */}
                         <p className="text-sm min-h-6 px-1 pl-1 ">
