@@ -53,7 +53,7 @@ export default function ThemeToggle({ onClick }: Props) {
     return (
         <button
             onClick={handleClick}
-            className="py-4 flex items-center gap-2 w-full text-white rounded"
+            className="py-4 flex items-center gap-2 w-full text-(--primary) rounded"
         >
             {dark ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
             {dark ? "Light" : "Dark"}

@@ -12,6 +12,7 @@ import { useUser } from "@/context/UserContext";
 import Message from "./Message";
 import AddButton from "./ButtonAdd";
 import { VideoCameraIcon } from "@heroicons/react/20/solid";
+import SearchBox from "./SearchBox";
 
 interface AddVideo {
     name?: string;
@@ -23,6 +24,7 @@ interface AddVideo {
 export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
+    const [search, setSearch] = useState(false);
     const [message, setMessage] = useState("");
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [videoId, setVideoId] = useState("");
@@ -118,10 +120,15 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                             router.push("/auth/signin");
                             return;
                         }
-                        setOpen(true);
+                        if (name)
+                            setOpen(true);
+                        else
+                            setSearch(true);
                     }}
                 />
             </button>
+            {search && <SearchBox onClose={() => { setSearch(false); }} />}
+
             <Modal
                 isOpen={open}
                 onClose={() => { cleanup() }}

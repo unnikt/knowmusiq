@@ -30,8 +30,8 @@ export default function SearchBox({ onClose }: Props) {
             key="search"
             onClose={() => { setOpen(false); if (onClose) onClose() }}
         >
-            <div className="bg-(--surface)  p-8 flex flex-col justify-center gap-0 sm:flex-col sm:gap-0 sm:max-w-md">
-                <h2 className="subtitle mb-2 ">Search ragas</h2>
+            <div className="bg-(--surface)  p-8 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">
+                <p className=" mb-2 text-xl">Find a raga</p>
                 <input
                     type="text"
                     value={query}

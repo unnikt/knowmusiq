@@ -1,19 +1,14 @@
 import Link from "next/link";
-import ThemeToggle from "@/components/ButtonThemeToggle";
+import ThemeToggle from "@/components/ThemeToggle";
 import { useState } from "react";
+import { MenuItems } from "@/lib/const/Menu";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 interface Props {
     onClose?: () => void;
 }
 export default function MainMenu({ onClose }: Props) {
     const [open, setOpen] = useState(true);
-    const links = [
-        { name: "Videos", href: "/videos" },
-        { name: "Personalities", href: "/persons/type/composers" },
-        { name: "Legends", href: "/persons/legends" },
-        { name: "Chakras", href: "/chakras/Indu chakra" },
-        { name: "Stats", href: "/stats" },
-    ];
 
     function handleClick() {
         setOpen(false);
@@ -22,27 +17,30 @@ export default function MainMenu({ onClose }: Props) {
 
     return (
         open && (
-            <div className="bg-slate-600 mt-1 px-4 py-2 absolute shadow  min-w-40 rounded-sm z-50 w-[90vw]">
-                <div className="flex flex-col gap-2 pt-2">
-                    {links.map(link => (
+            <div className="bg-(--surface) px-6 pt-6 fixed top-0 left-0 shadow  min-w-40 rounded-sm z-50 w-[70vw] h-screen overflow-y-auto">
+                <div className="absolute right-3 pr-2">
+                    <XMarkIcon
+                        className="text-(--primary) w-7 h-7"
+                        onClick={handleClick} />
+                </div>
+                <div className="flex flex-col gap-1 ">
+                    {MenuItems.map(link => (
                         <Link
                             key={link.name}
                             href={link.href}
                             onClick={handleClick}
-                            className="py-2 text-white"
+                            className="py-2 text-(--primary)"
                         >
                             {link.name}
                         </Link>
                     ))}
                 </div>
-                <div className="border-t border-t-white text-white w-full py-2 mt-2">
+                <div className="border-t border-t-primary text-(--primary) w-full py-2 mt-2">
                     <Link href="/user" onClick={handleClick}>
                         Your Account
                     </Link>
                 </div>
-
                 <ThemeToggle onClick={handleClick} />
-
             </div>
         )
     );
