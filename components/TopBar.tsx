@@ -1,14 +1,17 @@
 "use client"
-import { ArrowTurnUpLeftIcon } from "@heroicons/react/20/solid";
+import { ArrowTurnUpLeftIcon, MagnifyingGlassPlusIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import SearchBox from "./SearchBox";
 
 interface Props {
     children?: React.ReactNode;
-    wipe?: boolean;
+    noRet?: boolean;
     ret?: string | null;
 }
-export default function TopBar({ children, ret, wipe }: Props) {
+export default function TopBar({ children, ret, noRet }: Props) {
     const router = useRouter();
+    const [search, setSearch] = useState(false);
 
     const handleClick = () => {
         if (ret) {
@@ -20,16 +23,25 @@ export default function TopBar({ children, ret, wipe }: Props) {
 
     return (
         <div className="topbar">
-            {!wipe && <button
-                onClick={handleClick}
-                className=" hover:text-purple-700 text-sm font-medium my-2"
-            >
-                {/* ← Back */}
-                <ArrowTurnUpLeftIcon className="w-7 " />
-
-            </button>
+            {!noRet &&
+                <button
+                    onClick={handleClick}
+                    className=" text-sm my-2"
+                >
+                    {/* ← Back */}
+                    <ArrowTurnUpLeftIcon className="w-7" />
+                </button>
             }
+            <button
+                className=" text-sm my-2"
+                onClick={() => setSearch(true)}
+            >
+                <MagnifyingGlassPlusIcon className="w-7  hover:text-my-hilite hover:scale-110 transition" />
+            </button>
             {children}
+
+            {search && <SearchBox onClose={() => { setSearch(false); }} />}
+
         </div>
     );
 }

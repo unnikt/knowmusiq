@@ -24,7 +24,6 @@ interface AddVideo {
 export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
-    const [search, setSearch] = useState(false);
     const [message, setMessage] = useState("");
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [videoId, setVideoId] = useState("");
@@ -120,21 +119,17 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                             router.push("/auth/signin");
                             return;
                         }
-                        if (name)
-                            setOpen(true);
-                        else
-                            setSearch(true);
+                        setOpen(true);
                     }}
                 />
             </button>
-            {search && <SearchBox onClose={() => { setSearch(false); }} />}
 
             <Modal
                 isOpen={open}
                 onClose={() => { cleanup() }}
                 children={
                     <div className="p-4 scroll-auto min-h-60">
-                        <h2 className="text-xl font-semibold mb-2">Add a video</h2>
+                        <p className="text-xl  mb-2">Add a video</p>
                         <p className=" bg-my-accent/20 p-2 ">{type} : {name}</p>
 
                         {/* YouTube URL */}

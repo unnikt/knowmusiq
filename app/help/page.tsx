@@ -1,16 +1,21 @@
 import ClientWrap from "@/components/ClientWrap"
+import TopBar from "@/components/TopBar"
 
 export default function HelpPage() {
     return (
         <ClientWrap>
-            <p className="pt-2">Adding videos</p>
-            <p>
-                To add videos <br />
-                1. Click the search button <br />
-                2. Search and find a Raga <br />
-                3. Click
-            </p>
-
+            <TopBar />
+            <div className="flex gap-10 p-4">
+                <p className="pt-2">To add videos</p>
+                <p>
+                    1. Click the search icon <br />
+                    2. Find a Raga <br />
+                    3. Click the video icon on the Raga page <br />
+                    4. Sign in using your Google account <br />
+                    5. Paste the video url from Youtube <br />
+                    6. Click save
+                </p>
+            </div>
         </ClientWrap >
     )
 }

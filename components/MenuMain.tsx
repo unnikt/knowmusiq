@@ -36,9 +36,6 @@ export default function MainMenu({ onClose }: Props) {
                     ))}
                 </div>
                 <div className="border-t border-t-primary text-(--primary) w-full py-2 mt-2">
-                    <Link href="/user" onClick={handleClick}>
-                        Your Account
-                    </Link>
                 </div>
                 <ThemeToggle onClick={handleClick} />
             </div>

@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import MainMenu from "@/components/MenuMain";
 import Image from "next/image";
-import SearchBox from "./SearchBox"
-import { Bars3Icon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { Bars3Icon, UserIcon, } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 const links = [
@@ -24,7 +23,6 @@ const stats = [
 
 export default function Header() {
     const { minimiseHeader } = useApp();
-    const [search, setSearch] = useState(false);
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -66,16 +64,14 @@ export default function Header() {
                         </h2>
                     </Link>
                     <div className="flex justify-between items-center gap-2">
-                        <div>
-                            <MagnifyingGlassIcon
-                                className="w-7 h-7 text-white"
-                                onClick={() => { setSearch(true) }} />
-                        </div>
+                        <Link href="/user" >
+                            <UserIcon className="w-7 h-7 text-white mr-4"
+                            />
+                        </Link>
                     </div>
                 </div>
             </section>
             {/* <div className={search ? "hidden" : "" + "bg-(--surface) p-4!  flex mx-auto max-w-4xl items-center gap-4"} > */}
-            {search && <SearchBox onClose={() => { setSearch(false); }} />}
             {/* </div> */}
 
             {/* <div
@@ -103,8 +99,6 @@ export default function Header() {
                     className="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15"
                 />
             </div> */}
-
-
         </div >
     )
 }

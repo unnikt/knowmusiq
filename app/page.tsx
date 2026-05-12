@@ -39,9 +39,7 @@ export default async function Home() {
 
   return (
     <ClientWrap >
-      <TopBar wipe={true}
-        children={<AddVideo />}
-      />
+      <TopBar noRet={true} />
       <HomePage videos={videos}></HomePage>
       <h2 className="subtitle ">Topics</h2>
       <div className="grid gap-1 grid-cols-1 sm:grid-cols-3">
