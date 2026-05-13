@@ -78,12 +78,12 @@ export default function EditRaga({ raga, onEdited }: Props) {
                 data: payload,
             }),
         }).then((res) => {
-            if (!res.ok) {
-                throw new Error("Failed to save video");
-            }
-            else {
+            if (res.ok) {
                 if (onEdited) onEdited(`Document ${src}/${raga.slug} updated successfully`);
                 router.push(`/raga/${raga.slug}`)
+            }
+            else {
+                throw new Error("Failed to save video");
             }
         }).catch((err) => {
             console.error(err);

@@ -11,7 +11,7 @@ import TopBar from "@/components/TopBar";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
-    const currentPage = slug.replace(/%20/g, " ").split(" ")[0];
+    const currentPage = toCamelCase(slug.replace(/%20/g, " ").split(" ")[0]);
 
     const [items, setItems] = useState([]);
     const router = useRouter();
@@ -40,7 +40,6 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
                 pages={["Composers", "Singers", "Lyricists"]}
                 onPageChange={(p) => router.push(`/persons/type/${p}`)}
             />
-
             <ItemList title={""} items={items} pageSize={10} showIndex={true} />
         </ClientWrap>
     );

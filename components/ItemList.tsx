@@ -26,7 +26,7 @@ export default function ItemList({ title, items, pageSize, className, showIndex 
     }
 
     return (
-        <div className={`${className || "card"}`}>
+        <div className={`${className || "p-4 bg-(--surface) rounded"}`}>
             {title && (
                 <h3 className="text-lg font-semibold mb-3">
                     {title}
@@ -35,7 +35,7 @@ export default function ItemList({ title, items, pageSize, className, showIndex 
 
             <div className="flex">
                 {totalPages > 1 && (
-                    <div className="flex space-x-2 border-b mb-4 py-2 w-full">
+                    <div className="flex border-b-2 border-b-slate-400 gap-1 mb-4 py-2 w-full">
                         {Array.from({ length: totalPages }, (_, i) => (
                             <button
                                 key={i + 1}
