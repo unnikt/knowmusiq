@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { toCamelCase } from "@/lib/string/camelcase";
+import { deSlug } from "@/lib/string/deSlugify";
 
 export default function HeroVideoCarousel({ videos, onSelect }) {
     const [index, setIndex] = useState(0);
@@ -11,6 +11,8 @@ export default function HeroVideoCarousel({ videos, onSelect }) {
     const progressRef = useRef(null);
 
     const duration = 5000; // 5 seconds per slide
+    const raga = videos[index].raga ? toCamelCase(deSlug(videos[index].raga)) : null;
+
     // Auto-loop
     useEffect(() => {
         if (paused) return;
@@ -62,9 +64,9 @@ export default function HeroVideoCarousel({ videos, onSelect }) {
 
                             {/* Title inside image */}
                             <div className="absolute bottom-4 left-4 right-4 text-white">
-                                <h2 className="text-xl sm:text-2xl font-bold drop-shadow-lg line-clamp-2">
+                                <p className="text-xl sm:text-2xl drop-shadow-lg line-clamp-2">
                                     {v.title}
-                                </h2>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -90,6 +92,14 @@ export default function HeroVideoCarousel({ videos, onSelect }) {
             >
                 <ChevronRightIcon className="w-6 h-6" />
             </button>
+
+            {/* Link to raga */}
+            {raga && <Link
+                href={`/raga/${toCamelCase(deSlug(raga))}`}
+                className="absolute bg-slate-600 rounded p-2 right-2 top-2 text-my-hilite">
+                {toCamelCase(deSlug(raga))}
+            </Link>
+            }
 
             {/* Progress bar */}
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">

@@ -4,7 +4,6 @@ import VideoSlider from "../../components/VideoSlider";
 import VideoTile from "../../components/VideoTile";
 import HeroVideoCarousel from "@/components/HeroCarousel";
 import { useEffect, useState } from "react";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 
 interface HomeProps {
@@ -20,7 +19,7 @@ export default function HomePage({ videos }: HomeProps) {
         setMounted(true);
     }, []);
 
-    function handleSelect(v) {
+    function handleSelect(v: { videoId: string }) {
         router.push(`/videos/${v.videoId}`)
     }
     if (!mounted) {

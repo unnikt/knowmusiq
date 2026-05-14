@@ -24,12 +24,12 @@ export default async function Home() {
       title: "Legends", subtitle: "Composers | Singer | Lyricists",
       redirect: "/persons/legends",
     },
-    {
-      name: "Personalities", id: "4",
-      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
-      title: "Movies", subtitle: "Composers | Singer | Lyricists",
-      redirect: "/movies",
-    },
+    // {
+    //   name: "Personalities", id: "4",
+    //   thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
+    //   title: "Movies", subtitle: "Composers | Singer | Lyricists",
+    //   redirect: "/movies",
+    // },
   ]
 
   const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
