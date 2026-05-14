@@ -77,7 +77,7 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
             <div className="card m-auto max-w-2xl p-0! border-(--surface) border">
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate p-2">{video["title"]}</p>
-                <div className="flex gap-2 text-(--primary) p-2">
+                <div className="flex flex-wrap gap-4 text-(--primary) p-2">
                     {video && Tags.map(tag =>
                         video[tag.key] &&
                         <Link
