@@ -5,13 +5,17 @@ import Link from "next/link";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { deSlug } from "@/lib/string/deSlugify";
 
-export default function HeroVideoCarousel({ videos, onSelect }) {
+interface Props {
+    videos: any;
+    onSelect?: (v) => void;
+}
+export default function HeroVideoCarousel({ videos, onSelect }: Props) {
     const [index, setIndex] = useState(0);
     const [paused, setPaused] = useState(false);
     const progressRef = useRef(null);
 
     const duration = 5000; // 5 seconds per slide
-    const raga = videos[index].raga ? toCamelCase(deSlug(videos[index].raga)) : null;
+    const link = videos[index].raga ? toCamelCase(deSlug(videos[index].raga)) : null;
 
     // Auto-loop
     useEffect(() => {
@@ -94,22 +98,22 @@ export default function HeroVideoCarousel({ videos, onSelect }) {
             </button>
 
             {/* Link to raga */}
-            {raga && <Link
-                href={`/raga/${toCamelCase(deSlug(raga))}`}
-                className="absolute bg-slate-600 rounded p-2 right-2 top-2 text-my-hilite">
-                {toCamelCase(deSlug(raga))}
+            {link && <Link
+                href={`/raga/${toCamelCase(deSlug(link))}`}
+                className="absolute bg-slate-600 rounded p-2 right-2 top-2 text-(--primary)">
+                {toCamelCase(deSlug(link))}
             </Link>
             }
 
             {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+            {/* <div className="absolute top-0 left-0 right-0 h-1 w-[80vw] bg-white/20">
                 <div
                     ref={progressRef}
                     className="h-full bg-white"
                     style={{ animation: `progress ${duration}ms linear` }}
                 />
             </div>
-
+ */}
             {/* Progress bar animation
             <style jsx>{`
         @keyframes progress {

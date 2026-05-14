@@ -44,7 +44,7 @@ export default function Header() {
 
     return (
         <div className="wrapper">
-            <section className="py-2 bg-slate-800  relative  section-mid rounded-t-lg" >
+            <section className="py-2 bg-slate-800  relative" >
                 <Image
                     alt=""
                     src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"

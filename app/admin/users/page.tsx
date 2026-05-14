@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function UsersPage() {
     const [users, setUsers] = useState([]);
+    const [user, setUser] = useState();
     const [editing, setEditing] = useState(null);
 
     useEffect(() => {
@@ -12,44 +13,38 @@ export default function UsersPage() {
             .then(data => setUsers(data.users));
     }, []);
 
+
     return (
         <ClientWrap >
-            <h2 className="text-2xl font-semibold mb-4">User Roles</h2>
+            <p className="text-(--text)/50 mt-6">User list and rights</p>
 
-            <table className="table-auto w-full border">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="p-2 border">Email</th>
-                        <th className="p-2 border">UID</th>
-                        <th className="p-2 border">Roles</th>
-                        <th className="p-2 border">Actions</th>
-                    </tr>
-                </thead>
+            {/* Rows */}
+            {users.map((u: any) => {
+                const rights = Object.keys(u.claims);
+                return (
+                    <div className="p-4 bg-(--surface) rounded" key={u.email}>
+                        <div key={u.email} className="flex p-2 items-center">
+                            {/* User column */}
+                            <button
+                                onClick={() => { setUser(u); setEditing(true); }}>
+                                <div className="w-1/3 p-2 text-(--primary)">{u.email}</div>
+                            </button>
+                            {/* Rights columns */}
+                            <div className="flex-1 flex flex-wrap">
+                                {rights.length === 0
+                                    ? <span>None</span>
+                                    : rights.map((r, i) => (
+                                        <span key={i} className="p-2">
+                                            {r}
+                                        </span>
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
 
-                <tbody>
-                    {users.map((u: any) => (
-                        <tr key={u.uid}>
-                            <td className="p-2 border">{u.email}</td>
-                            <td className="p-2 border">{u.uid}</td>
-                            <td className="p-2 border">
-                                {Object.keys(u.claims).length === 0
-                                    ? "None"
-                                    : Object.keys(u.claims).join(", ")}
-                            </td>
-                            <td className="p-2 border">
-                                <button
-                                    className="px-3 py-1 bg-blue-600 text-white rounded"
-                                    onClick={() => setEditing(u)}
-                                >
-                                    Edit Roles
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {editing && <EditRolesModal user={editing} onClose={() => setEditing(null)} />}
+            {editing && <EditRolesModal user={user} onClose={() => setEditing(null)} />}
         </ClientWrap>
     );
 }
@@ -74,11 +69,13 @@ function EditRolesModal({ user, onClose }: any) {
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-lg w-96">
-                <h2 className="text-xl font-semibold mb-4">
-                    Edit Roles for {user.email}
-                </h2>
+            <div className="bg-(--surface) p-6 rounded shadow-lg w-96">
+                <p className="text-xl mb-4">
+                    Edit Rights
+                </p>
 
+                <p className="py-2">{user.email}</p>
+                <p className="py-2 mb-4 text-sm text-(--text)/20 border-b">uid - {user.uid}</p>
                 <label className="flex items-center gap-2 mb-2">
                     <input type="checkbox" checked={admin} onChange={e => setAdmin(e.target.checked)} />
                     Admin
@@ -90,11 +87,11 @@ function EditRolesModal({ user, onClose }: any) {
                 </label>
 
                 <div className="flex justify-end gap-2">
-                    <button className="px-3 py-1 bg-gray-300 rounded" onClick={onClose}>
-                        Cancel
-                    </button>
-                    <button className="px-3 py-1 bg-green-600 text-white rounded" onClick={save}>
+                    <button className="btn bg-my-accent border-none" onClick={save}>
                         Save
+                    </button>
+                    <button className="btn" onClick={onClose}>
+                        Cancel
                     </button>
                 </div>
             </div>
