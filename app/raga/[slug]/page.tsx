@@ -1,4 +1,6 @@
 // app/raga/[slug]/page.tsx
+export const dynamic = 'force-dynamic'; // or 'force-static' if you want to force static generation
+
 import { slugify } from "@/lib/string/slugify";
 import { toCamelCase } from "@/lib/string/camelcase";
 import ClientWrap from "@/components/ClientWrap";
@@ -25,12 +27,11 @@ import RagaClient from "@/app/client/RagaClient";
 //     },
 // };
 
-export const dynamic = 'force-static'; // or 'force-dynamic'
 export const revalidate = 0; // optional
 
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const slugy = slugify(slug);
 
     const snapRagas = await knowmusiqAdminDB.collection("ragas")
