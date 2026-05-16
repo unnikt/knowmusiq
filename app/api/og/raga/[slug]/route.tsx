@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
     const slug = slugify(params.slug);
