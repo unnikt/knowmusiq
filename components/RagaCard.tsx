@@ -54,7 +54,7 @@ export default function RagaCard({
                         <PencilSquareIcon className="w-5 text-(--primary)" />
                     </Link>
                     <ShareButton
-                        title="Check out this raga"
+                        title={`Check out raga - ${name}`}
                         text="Explore this raga on musiq-me.com"
                         url={`https://musiq-me.com/raga/${name}`}
                     />
