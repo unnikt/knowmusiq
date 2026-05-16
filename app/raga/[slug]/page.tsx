@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         .where("slug", "==", slugy)
         .limit(1)
         .get();
-
+    console.log("generateMetadata for slug:", slug, "slugy:", slugy, "snapRagas empty?", snapRagas.empty);
     if (snapRagas.empty) {
         return {
             title: "Raga not found",
