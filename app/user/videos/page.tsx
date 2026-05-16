@@ -1,7 +1,6 @@
 "use client"
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
-import TopBar from "@/components/TopBar";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 
@@ -39,8 +38,7 @@ export default function UserUpload() {
     )
 
     return (
-        <ClientWrap>
-            <TopBar children={""} ret={"/user"} />
+        <ClientWrap returnURL="/user">
             <ItemList items={videos} pageSize={15} showIndex={true} />
         </ClientWrap>
     )

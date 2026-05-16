@@ -1,6 +1,5 @@
 "use client";
 
-import TopBar from "@/components/TopBar";
 import getHeader from "@/lib/client/getHearder";
 import { Raga } from "@/lib/Definitions";
 import { ArrowPathIcon, SparklesIcon } from "@heroicons/react/20/solid";
@@ -106,7 +105,6 @@ export default function EditRaga({ raga, onEdited }: Props) {
 
     return (
         <div>
-            <TopBar />
             <div className="max-w-xl mx-auto p-6 bg-(--surface) rounded-xl shadow-sm border border-(--border)">
                 <div className="flex justify-between items-end my-2">
                     <h2 className="title">{raga.name}</h2>

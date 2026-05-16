@@ -4,7 +4,6 @@ import { toCamelCase } from "@/lib/string/camelcase";
 import ClientWrap from "@/components/ClientWrap";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ItemList from "@/components/ItemList";
-import TopBar from "@/components/TopBar";
 import RagaClient from "@/app/client/RagaClient";
 
 // export const metadata = {
@@ -92,7 +91,6 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
         return (
             <ClientWrap>
-                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={items}

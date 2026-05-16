@@ -33,9 +33,7 @@ export default function RootLayout({ children }: {
           <AppProvider>
             {<Header />}
             <Suspense fallback={null}>
-              <div className="wrapper px-4" >
-                {children}
-              </div>
+              {children}
             </Suspense>
           </AppProvider>
         </UserProvider>

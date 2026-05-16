@@ -1,6 +1,5 @@
 import EditRaga from "@/app/ui/EditRaga";
 import ItemList from "@/components/ItemList";
-import TopBar from "@/components/TopBar";
 import { getRaga } from "@/lib/database/ragaLookup";
 import { Raga } from "@/lib/Definitions";
 import { slugify } from "@/lib/string/slugify";
@@ -22,7 +21,6 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
 
     return (
         <div>
-            <TopBar />
             <ItemList items={items} title="Did you mean...?" className="p-8 bg-(--surface) rounded-lg" />
         </div>
     )

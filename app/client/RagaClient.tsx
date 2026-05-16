@@ -1,16 +1,12 @@
 "use client";
 
-import styles from "@/app/ui/home.module.css"
 import { useEffect, useState } from "react";
 import VideoTile from "@/components/VideoTile";
 import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { slugify } from "@/lib/string/slugify";
 import ClientWrap from "@/components/ClientWrap";
-import TopBar from "@/components/TopBar";
-import AddVideo from "@/components/AddVideo";
 import RagaCard from "@/components/RagaCard";
-import { Description } from "@headlessui/react";
 
 interface RagaClientProps {
     slug: string;
@@ -52,7 +48,6 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
 
     return (
         <ClientWrap>
-            <TopBar />
             <RagaCard
                 name={displayName}
                 type={type}

@@ -3,7 +3,6 @@ import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { slugify } from "@/lib/string/slugify";
-import TopBar from "@/components/TopBar";
 import { getChords } from "@/lib/music/GenerateChords";
 import { getRaga } from "@/lib/database/ragaLookup";
 
@@ -19,7 +18,6 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
     if (results.type === "suggestions") {
         return (
             <ClientWrap >
-                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={results.items}
@@ -37,7 +35,6 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
 
     return (
         <ClientWrap >
-            <TopBar />
             <RagaCard
                 name={displayName}
                 type={raga.type}

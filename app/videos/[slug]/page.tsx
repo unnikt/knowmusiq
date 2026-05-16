@@ -46,7 +46,6 @@ import { getVideoData } from '@/lib/database/getVideoData';
 // }
 
 import ClientWrap from "@/components/ClientWrap";
-import TopBar from "@/components/TopBar";
 import YouTubePlayer from "@/components/YTPlayer";
 import ButtonTag from "@/components/ButtonTagVideo";
 import ShareButton from "@/components/ButtonShare";
@@ -62,7 +61,6 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
     if (!data)
         return (
             <ClientWrap>
-                <TopBar />
                 <div className="card">
                     <p>Video not found!</p>
                 </div>
@@ -73,7 +71,6 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
 
     return (
         <ClientWrap >
-            <TopBar />
             <div className="card m-auto max-w-2xl p-0! border-(--surface) border">
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate p-2">{video["title"]}</p>

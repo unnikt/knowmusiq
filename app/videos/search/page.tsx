@@ -6,7 +6,6 @@ import { doc, setDoc } from "firebase/firestore";
 import TagVideo from "@/components/TagVideo";
 import { useApp } from "@/context/AppContext";
 import ClientWrap from "@/components/ClientWrap";
-import TopBar from "@/components/TopBar";
 
 export default function AddVideoPage() {
     const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
@@ -42,7 +41,6 @@ export default function AddVideoPage() {
     return (
 
         <ClientWrap>
-            <TopBar />
             <TagVideo onSubmit={handleSave} />
             {status === "saving" && (
                 <p className="mt-4 text-blue-600 font-medium">Saving…</p>

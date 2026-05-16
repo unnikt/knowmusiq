@@ -1,10 +1,8 @@
 import ClientWrap from "@/components/ClientWrap"
-import TopBar from "@/components/TopBar"
 
 export default function HelpPage() {
     return (
         <ClientWrap>
-            <TopBar />
             <div className="flex gap-10 p-4">
                 <p className="pt-2">To add videos</p>
                 <p>

@@ -4,7 +4,6 @@ import { use, useEffect, useState } from "react";
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import { useRouter } from "next/navigation";
-import TopBar from "@/components/TopBar";
 import DropDownMenu from "@/components/MenuDrop";
 import { deSlug } from "@/lib/string/deSlugify";
 import { malayalam } from "@/app/ui/fonts";
@@ -32,7 +31,6 @@ export default function ChakraPage({ params }: { params: Promise<{ slug: string 
 
     return (
         <ClientWrap >
-            <TopBar />
             <DropDownMenu label={deSlug(slug)} items={Chakras} onSelect={(p) => handleClick(p)} />
             <ItemList title={""} items={items} />
             <p className={`${malayalam.className}`}></p>

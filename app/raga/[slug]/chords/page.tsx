@@ -3,7 +3,6 @@ import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { slugify } from "@/lib/string/slugify";
-import TopBar from "@/components/TopBar";
 import ChordsClient from "@/app/client/ChordsClient";
 import { getRaga } from "@/lib/database/ragaLookup";
 import { getChords } from "@/lib/music/GenerateChords";
@@ -20,7 +19,6 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
     if (results.type === "suggestions") {
         return (
             <ClientWrap >
-                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={results.items}
@@ -34,7 +32,6 @@ export default async function ChordsPage({ params }: { params: Promise<{ slug: s
 
     return (
         <ClientWrap >
-            <TopBar children={null} />
             <RagaCard
                 name={displayName}
                 type={raga.type}

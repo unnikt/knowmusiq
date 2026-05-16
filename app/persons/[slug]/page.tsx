@@ -2,7 +2,6 @@ import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
 import ClientWrap from "@/components/ClientWrap";
 import VideoTile from "@/components/VideoTile";
-import TopBar from "@/components/TopBar";
 import { getWikiSummary } from "@/lib/wiki/wiki";
 import BioPage from "@/app/ui/BioPage";
 
@@ -32,7 +31,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
 
     return (
         <ClientWrap >
-            <TopBar />
             <BioPage
                 slug={slug}
                 name={person.name}

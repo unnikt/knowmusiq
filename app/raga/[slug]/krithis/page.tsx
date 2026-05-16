@@ -4,7 +4,6 @@ import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
-import TopBar from "@/components/TopBar";
 
 export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -24,7 +23,6 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
         return (
             <ClientWrap >
-                <TopBar />
                 <ItemList
                     title="Did you mean?"
                     items={items}
@@ -47,7 +45,6 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
 
     return (
         <ClientWrap >
-            <TopBar children />
             <RagaCard
                 name={displayName}
                 type={raga.type}

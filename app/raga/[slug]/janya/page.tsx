@@ -2,7 +2,6 @@
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import TopBar from "@/components/TopBar";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { slugify } from "@/lib/string/slugify";
@@ -35,7 +34,6 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
 
     return (
         <ClientWrap>
-            <TopBar />
             <RagaCard
                 name={displayName}
                 type={raga.type}

@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import GoogleSignInButton from "@/components/GoogleSignInButton";
 import ClientWrap from "@/components/ClientWrap";
-import { auth } from "@/lib/client/firebaseKM.client";
-import TopBar from "@/components/TopBar";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
@@ -56,8 +54,6 @@ export default function SignInPage() {
 
     return (
         <ClientWrap>
-            <TopBar children={""} />
-
             <div className="mx-auto mt-4 bg-(--surface) p-8 rounded border border-slate-300 w-80 space-y-4">
                 <h2 className="font-semibold text-xl text-center">Sign In</h2>
 

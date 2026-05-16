@@ -8,7 +8,6 @@ import VideoURL from "@/components/VideoURL";
 import { useSearchParams } from "next/navigation";
 import TagForm from "@/components/TagForm";
 import AddButton from "@/components/ButtonAdd";
-import TopBar from "@/components/TopBar";
 
 export default function TagVideoPage() {
 
@@ -19,7 +18,6 @@ export default function TagVideoPage() {
 
     return (
         <ClientWrap >
-            <TopBar />
             <div className={`bg-(--surface) ${videoId ? "hidden" : ""} p-4 rounded-md`}>
                 <VideoURL onChange={(id) => setVideoId(id)} />
             </div>

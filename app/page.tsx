@@ -3,7 +3,6 @@
 import HomePage from "@/app/client/Home";
 import AddVideo from "@/components/AddVideo";
 import ClientWrap from "@/components/ClientWrap";
-import TopBar from "@/components/TopBar";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import Link from "next/link";
 
@@ -38,8 +37,7 @@ export default async function Home() {
 
 
   return (
-    <ClientWrap >
-      <TopBar noRet={true} />
+    <ClientWrap noReturn={true}>
       <HomePage videos={videos}></HomePage>
       <h2 className="subtitle ">Topics</h2>
       <div className="grid gap-1 grid-cols-1 sm:grid-cols-3">

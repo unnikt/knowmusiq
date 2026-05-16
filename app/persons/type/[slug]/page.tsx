@@ -6,8 +6,6 @@ import ItemList from "@/components/ItemList";
 import Paginate from "@/components/Paginate";
 import { useRouter } from "next/navigation";
 import { toCamelCase } from "@/lib/string/camelcase";
-import AddButton from "@/components/ButtonAdd";
-import TopBar from "@/components/TopBar";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,7 +31,6 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
 
     return (
         <ClientWrap >
-            <TopBar />
             <div className="flex justify-items-start items-center  gap-7">
                 <Paginate
                     currentPage={currentPage}
