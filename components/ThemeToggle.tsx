@@ -29,30 +29,29 @@ export default function ThemeToggle({ onClick }: Props) {
 
         // No saved theme → sync with DOM (your original logic)
         // const isDark = document.documentElement.classList.contains("dark");
-        setDark(true); // default to dark if no preference
+        // setDark(true); // default to dark if no preference
     }, []);
 
-    // Apply theme + persist
-    useEffect(() => {
-        if (dark === null) return;
-        document.documentElement.classList.toggle("dark", dark);
-        localStorage.setItem("theme", dark ? "dark" : "light");
-    }, [dark]);
+    // // Apply theme + persist
+    // useEffect(() => {
+    //     if (dark === null) return;
+    //     document.documentElement.classList.toggle("dark", dark);
+    //     localStorage.setItem("theme", dark ? "dark" : "light");
+    // }, [dark]);
 
     if (dark === null) return null; // avoid hydration mismatch
 
 
     function handleClick() {
-        console.log("Toggle clicked:", dark);
-        // onClick?.();
-        setDark(prev => !prev);
+        localStorage.setItem("theme", !dark ? "dark" : "light");
+        onClick?.();
     }
 
 
     return (
         <button
             onClick={handleClick}
-            className="py-2 flex items-center gap-2 w-full text-(--primary) rounded"
+            className="flex items-center gap-2 w-full text-(--primary) rounded"
         >
             {dark ? "Light" : "Dark"}
             {dark ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
