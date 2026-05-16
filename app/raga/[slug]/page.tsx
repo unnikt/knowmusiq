@@ -29,8 +29,8 @@ export const dynamic = 'force-static'; // or 'force-dynamic'
 export const revalidate = 0; // optional
 
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const { slug } = params;
     const slugy = slugify(slug);
 
     const snapRagas = await knowmusiqAdminDB.collection("ragas")
