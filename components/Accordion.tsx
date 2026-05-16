@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 interface Props {
-    title: string;
+    title: React.ReactNode;
     children: React.ReactNode;
     state?: boolean
 }
@@ -10,14 +10,14 @@ export function Accordion({ title, children, state = false }: Props) {
     const [open, setOpen] = useState(state);
 
     return (
-        <div >
+        <div className="flex justify-between" >
+            {title}
             <button
                 onClick={() => setOpen(!open)}
-                className="w-full bg-(--surface) p-2 border-b-2 border-my-secondary rounded-t flex items-center justify-between  text-left"
+                className=" p-2 "
             >
-                <span className="title">{title}</span>
                 <svg
-                    className={`h-5 w-5 transform transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"
+                    className={`h-7 w-7 transform transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"
                         }`}
                     fill="none"
                     stroke="currentColor"

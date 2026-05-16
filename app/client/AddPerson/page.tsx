@@ -111,7 +111,7 @@ export default function AddPerson() {
     return (
         <ClientWrap >
             <TopBar children={""} />
-            <div className="p-4 bg-(--surface) rounded-md sm:mx-0 sm:p-6 ">
+            <div className="p-4 bg-(--surface) rounded-md  sm:p-6  mx-auto ">
                 <h2 className="title">Add New Tag</h2>
                 {!verifying && <p className="mb-4 italic">Your email id {user?.email || "Guest"} will be saved with the tag</p>}
 

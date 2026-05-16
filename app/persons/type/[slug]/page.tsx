@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { toCamelCase } from "@/lib/string/camelcase";
 import AddButton from "@/components/ButtonAdd";
 import TopBar from "@/components/TopBar";
+import { UserPlusIcon } from "@heroicons/react/20/solid";
 
 export default function PersonsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -32,14 +33,17 @@ export default function PersonsPage({ params }: { params: Promise<{ slug: string
 
     return (
         <ClientWrap >
-            <TopBar>
-                <AddButton text="Person" href="/client/AddPerson" />
-            </TopBar>
-            <Paginate
-                currentPage={currentPage}
-                pages={["Composers", "Singers", "Lyricists"]}
-                onPageChange={(p) => router.push(`/persons/type/${p}`)}
-            />
+            <TopBar />
+            <div className="flex justify-items-start items-center  gap-7">
+                <Paginate
+                    currentPage={currentPage}
+                    pages={["Composers", "Singers", "Lyricists"]}
+                    onPageChange={(p) => router.push(`/persons/type/${p}`)}
+                />
+                <UserPlusIcon className="h-6 w-6 ml-5 text-(--primary)"
+                    onClick={() => router.push("/client/AddPerson")} />
+            </div>
+
             <ItemList title={""} items={items} pageSize={10} showIndex={true} />
         </ClientWrap>
     );

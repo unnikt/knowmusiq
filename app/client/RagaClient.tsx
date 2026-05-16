@@ -52,9 +52,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
 
     return (
         <ClientWrap>
-            <TopBar
-                children={<AddVideo slug={slug} name={displayName} type={"raga"} onSaved={refresh} />}
-            />
+            <TopBar />
             <RagaCard
                 name={displayName}
                 type={type}

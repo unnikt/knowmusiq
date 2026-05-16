@@ -6,6 +6,7 @@ import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
 import ShareButton from "./ButtonShare";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import AddVideo from "./AddVideo";
 
 interface RagaCardProps {
     name: string;
@@ -30,6 +31,7 @@ export default function RagaCard({
     avarohana,
     parent,
     display = "videos",
+    onSaved
 }: RagaCardProps) {
 
     const slug = slugify(name); // or use slugify(name)
@@ -94,7 +96,7 @@ export default function RagaCard({
                 Note: While the swaras and notes are fundamental to the raga, their specific arrangement, ornamentation and emotional expression create the unique character of a particular raga
             </p>
             {/* 🎵 Tabs Section */}
-            <div className=" mt-2 border-t-2 pt-2 border-my-secondary">
+            <div className="flex justify-between mt-2 border-t-2 pt-2 border-my-secondary">
                 <div className="flex flex-wrap gap-1 justify-start align-middle  font-medium  rounded-md">
                     <Link
                         href={`/raga/${slug}`}
@@ -123,6 +125,7 @@ export default function RagaCard({
                         Chords
                     </Link>
                 </div>
+                <AddVideo slug={slug} name={name} type={"raga"} onSaved={onSaved} />
             </div>
 
         </div>

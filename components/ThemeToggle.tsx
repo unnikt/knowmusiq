@@ -28,14 +28,13 @@ export default function ThemeToggle({ onClick }: Props) {
         }
 
         // No saved theme → sync with DOM (your original logic)
-        const isDark = document.documentElement.classList.contains("dark");
-        setDark(isDark);
+        // const isDark = document.documentElement.classList.contains("dark");
+        setDark(true); // default to dark if no preference
     }, []);
 
     // Apply theme + persist
     useEffect(() => {
         if (dark === null) return;
-
         document.documentElement.classList.toggle("dark", dark);
         localStorage.setItem("theme", dark ? "dark" : "light");
     }, [dark]);
@@ -44,7 +43,7 @@ export default function ThemeToggle({ onClick }: Props) {
 
 
     function handleClick() {
-        console.log("Toggle clicked");
+        console.log("Toggle clicked:", dark);
         // onClick?.();
         setDark(prev => !prev);
     }

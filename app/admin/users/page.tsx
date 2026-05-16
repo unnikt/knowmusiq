@@ -16,7 +16,7 @@ export default function UsersPage() {
 
     return (
         <ClientWrap >
-            <p className="text-(--text)/50 mt-6">User list and rights</p>
+            <p className="text-(--text)/80 p-2 mt-6">User list and rights</p>
 
             {/* Rows */}
             {users.map((u: any) => {
@@ -27,10 +27,10 @@ export default function UsersPage() {
                             {/* User column */}
                             <button
                                 onClick={() => { setUser(u); setEditing(true); }}>
-                                <div className="w-1/3 p-2 text-(--primary)">{u.email}</div>
+                                <div className="w-1/3 text-(--primary)">{u.email}</div>
                             </button>
                             {/* Rights columns */}
-                            <div className="flex-1 flex flex-wrap">
+                            <div className="flex flex-wrap">
                                 {rights.length === 0
                                     ? <span>None</span>
                                     : rights.map((r, i) => (
