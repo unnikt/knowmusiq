@@ -400,7 +400,7 @@ h1,
 }
 
 input {
-  @apply p-2 bg-slate-300 text-gray-800;
+  @apply p-2 bg-(--bg) outline-0 border-0 rounded-md focus:border-my-accent focus:border;
 }
 
 .searchBox {

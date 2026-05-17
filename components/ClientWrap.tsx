@@ -18,9 +18,7 @@ export default function ClientWrap({
     minimiseHeader = true,
     restoreOnLeave = true,
     noReturn = false,
-    returnURL = "/",
-
-}: Props) {
+    returnURL }: Props) {
     const { setMinimiseHeader } = useApp();
     const router = useRouter();
     const [search, setSearch] = useState(false);

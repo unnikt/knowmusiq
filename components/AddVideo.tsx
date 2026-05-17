@@ -27,6 +27,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [videoId, setVideoId] = useState("");
     const [title, setTitle] = useState("");
+    const [movie, setMovie] = useState("");
     const [API_STATUS, setApiStatus] = useState({ status: 0, text: "" });
     const router = useRouter();
 
@@ -81,6 +82,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 videoId: videoId,
                 data: {
                     title: title,
+                    movi: movie,
                     [type]: slug.replace(/%20/g, " "),
                     rdx: Date.now() % 10000
                 },
@@ -156,9 +158,21 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                                     <YouTubePlayer key={videoId} videoId={videoId || ""} autoplay={false} />
                                 </div>
                                 {title && (
-                                    <p className="mt-1">
-                                        <span className="font-semibold">{title}</span>
-                                    </p>
+                                    <div className="mt-4 gap-1">
+                                        <input
+                                            type="text"
+                                            value={title}
+                                            onChange={(e) => setTitle(e.target.value)}
+                                            className="mt-1 w-full"
+                                        />
+                                        <input
+                                            type="text"
+                                            value={movie}
+                                            placeholder="Movie.."
+                                            onChange={(e) => setMovie(e.target.value)}
+                                            className="mt-1 w-full"
+                                        />
+                                    </div>
                                 )}
                                 <div className="flex">
                                     <button
