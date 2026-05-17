@@ -13,9 +13,9 @@ export default function Message({ message, popup }: MessageProps) {
     const textColor = type === "error" ? "text-red-500" : type === "success" ? "text-green-500" : "text-blue-500";
     return (
         visible && (
-            <div className={`${popup ? "absolute top-1/2 left-1/2 transform -translate-x-1/2 shadow-lg " : ""} p-4  bg-slate-50 z-50 rounded`}>
+            <div className={`${popup ? "absolute top-1/2 left-1/2 transform -translate-x-1/2 shadow-lg " : ""} z-50 rounded`}>
                 {popup && <XMarkIcon className="m-2 h-5 w-5 absolute top-1 right-1 cursor-pointer" onClick={() => setVisible(false)} />}
-                <p className={` ${textColor}  px-4 py-2  `}>{message.split(":")[1] || message}</p>
+                <p className={` ${textColor}  py-2  `}>{message.split(":")[1] || message}</p>
             </div>
         )
     );

@@ -109,6 +109,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
         setYoutubeUrl("");
         setVideoId("");
         setTitle("");
+        setMovie("");
         setMessage("");
         setApiStatus({ status: 0, text: "" });
     }
