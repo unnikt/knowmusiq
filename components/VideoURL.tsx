@@ -20,8 +20,8 @@ export default function VideoURL({ onChange }: VideoURLProps) {
 
     return (
         <div className="w-full my-2">
-            <p className="text-sm min-h-5 pl-1 text-gray-500">
-                {videoId ? `Video ID: ${videoId}` : "invalid url!"}
+            <p className="text-sm min-h-5 pl-1 text-slate-700">
+                {videoId ? `Video Id: ${videoId}` : "invalid url!"}
             </p>
 
             <input

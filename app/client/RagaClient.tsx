@@ -73,7 +73,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                                 video={video}
                                 url={`/videos/${video.videoId}`}
                                 target="_self"
-                                link="comp|lyri"
+                                link="comp|lyri|movi"
                                 width=""
                             />
                         ))

@@ -40,7 +40,7 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
 
     const items = snap.docs.map((doc) => ({
         label: doc.data().name,
-        href: `/krithis/${doc.data().slug}`,
+        href: `/krithi/${doc.data().slug}`,
     }));
 
     return (

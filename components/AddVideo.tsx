@@ -12,6 +12,8 @@ import { useUser } from "@/context/UserContext";
 import Message from "./Message";
 import { VideoCameraIcon } from "@heroicons/react/20/solid";
 import { PersonTypes } from "@/lib/const/PersonTypes";
+import { slugify } from "@/lib/string/slugify";
+import { deSlug } from "@/lib/string/deSlugify";
 
 interface AddVideo {
     name?: string;
@@ -19,9 +21,10 @@ interface AddVideo {
     slug?: string;
     onSaved?: (msg: string) => void;
     src?: string;
+    raga?: string;
 }
 
-export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
+export default function AddVideo({ name, type, slug, onSaved, src, raga }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
@@ -29,12 +32,13 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
     const [videoId, setVideoId] = useState("");
     const [title, setTitle] = useState("");
     const [movie, setMovie] = useState("");
+    const [suggestions, setSuggestions] = useState([]);
     const [API_STATUS, setApiStatus] = useState({ status: 0, text: "" });
     const router = useRouter();
 
     const [authReady, setAuthReady] = useState(false);
 
-    const displayType = type == "raga" ? "Raga" : PersonTypes[type];
+    const displayType = type == "raga" ? "Raga" : type == "krit" ? "Krithi" : PersonTypes[type];
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, () => {
@@ -42,8 +46,6 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
         });
         return () => unsub();
     }, []);
-
-
 
     // Fetch metadata when URL changes
     useEffect(() => {
@@ -72,7 +74,22 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
         fetchMetadata();
     }, [youtubeUrl]);
 
+    async function verifyMovie(name: string) {
+        setMovie(name);
+        const res = await fetch(`/api/tags?key=movi&value=${movie}`);
+        const data = await res.json();
+        setSuggestions(data.values || []);
+    }
+
     async function handleSave() {
+        const vData = {
+            title: title,
+            movi: movie,
+            [type]: slug.replace(/%20/g, " "),
+            rdx: Date.now() % 10000
+        };
+        if (type === "krit") vData["raga"] = slugify(raga);
+        console.log("Saving video with data:", vData);
 
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {
@@ -80,12 +97,7 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
             headers: { "Content-Type": "application/json", ...await getHeader() },
             body: JSON.stringify({
                 videoId: videoId,
-                data: {
-                    title: title,
-                    movi: movie,
-                    [type]: slug.replace(/%20/g, " "),
-                    rdx: Date.now() % 10000
-                },
+                data: { ...vData }
             }),
         }).then((res) => {
             if (!res.ok) {
@@ -110,6 +122,7 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
         setVideoId("");
         setTitle("");
         setMovie("");
+        setSuggestions([]);
         setMessage("");
         setApiStatus({ status: 0, text: "" });
     }
@@ -135,10 +148,10 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                     <div className="p-4 scroll-auto min-h-60">
                         <p className="text-xl  mb-2">Add a video</p>
                         <p className=" bg-my-accent/20 p-2 ">{displayType} : {name}</p>
-
+                        {raga && (<p className="p-2 text-sm text-(--text)/60">Raga: {raga}</p>)}
                         {/* YouTube URL */}
-                        <p className="text-sm min-h-6 px-1 pl-1 ">
-                            <span > {videoId && `Video ID: ${videoId}`}</span>
+                        <p className="text-sm min-h-6 px-1 pb-2 text-slate-500">
+                            <span > {videoId && `Video Id: ${videoId}`}</span>
                         </p>
                         <div>
                             <input
@@ -172,9 +185,27 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                                             type="text"
                                             value={movie}
                                             placeholder="Movie.."
-                                            onChange={(e) => setMovie(e.target.value)}
+                                            onChange={(e) => verifyMovie(e.target.value)}
                                             className="mt-1 w-full"
                                         />
+
+                                        {suggestions.length > 0 && (
+                                            <div className="absolute mt-1 menu min-h-10 min-w-50 rounded shadow right-5">
+                                                {suggestions.map((s, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="p-2 hover:bg-my-accent cursor-pointer"
+                                                        onClick={() => {
+                                                            setMovie(s.name);
+                                                            setSuggestions([]);
+                                                        }}
+                                                    >
+                                                        {s.name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
                                         <div className="flex">
                                             <button
                                                 onClick={() => handleSave()}

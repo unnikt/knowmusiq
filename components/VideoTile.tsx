@@ -17,7 +17,8 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
     const thumbnail = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
 
     const links = link.split("|").map(l => l.trim());
-    const urls = links.map(l => video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : `/raga/${video[l]}` : null);
+    const urls = links.map(l =>
+        video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : video[l] == "movi" ? `/movies/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
         <div className={`videoTile ${width}`}>
@@ -40,12 +41,14 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         </span>
                     )} */}
                 </div>
+                <div className="min-w-0 p-2">
+                    <p className="line-clamp-1">
+                        {toCamelCase(video.title)}
+                    </p>
+                </div>
             </Link>
-            <div className="flex flex-col justify-around p-2 min-h-20">
-                <h3 className="line-clamp-2 text-sm ">
-                    {toCamelCase(video.title)}
-                </h3>
-                <div className="flex justify-between items-center pt-2">
+            <div className="flex flex-col justify-around p-2 ">
+                <div className="flex justify-between items-center">
                     {urls.map((url, i) => (
                         url && (
                             <Link href={`${url}`} key={i}>
@@ -57,7 +60,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     ))}
                 </div>
             </div>
-            <div className="w-full flex justify-end align-middle mb-2 gap-2 border-t pt-2 border-slate-400">
+            <div className="w-full flex justify-end align-middle gap-2 border-t py-2 border-slate-400">
                 <ShareButton
                     url={`https://musiq-me.com/videos/${video.videoId}`}
                     title={video.title}
