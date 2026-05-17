@@ -52,6 +52,8 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
         const id = parseYTURL(youtubeUrl);
         setVideoId(id);
 
+        console.log("Parsed video ID:", id);
+
         if (!id) { setTitle(null); return };
 
         async function fetchMetadata() {
@@ -63,10 +65,15 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                 });
                 setApiStatus({ status: res.status, text: res.statusText });
 
+                console.log("YouTube API response status:", res.status, res.statusText);
+
                 const data = await res.json();
-                console.log("YouTube API response:", data);
+
+                console.log("YouTube API data:", data);
+
                 //  Set title and description from API response
                 setTitle(data.title || "");
+
             } catch (err) {
                 console.error("Metadata fetch failed", err);
             }
@@ -155,8 +162,8 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                                 {API_STATUS.status} {API_STATUS.text}
                             </p>
                         )}
-                        <p>title: {title ? title : "Not available"}</p>
-                        <p>API Status: {API_STATUS.text} {API_STATUS.status}</p>
+                        <p>Youtube URL: {youtubeUrl || "Not available"}</p>
+                        <p>vid: {videoId || "Not available"}</p>
 
                         {videoId && API_STATUS.status === 200 && (
                             <div>
