@@ -125,7 +125,7 @@ export default function RagaCard({
                         Chords
                     </Link>
                 </div>
-                <AddVideo slug={slug} name={name} type={"raga"} onSaved={onSaved} />
+                <AddVideo slug={slug} name={name} type={"raga"} onSaved={onSaved} src={`/raga/${slug}`} />
             </div>
 
         </div>

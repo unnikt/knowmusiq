@@ -25,10 +25,8 @@ export default function GoogleSignInButton({ ret }: Props) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idToken }),
             });
-            console.log(ret);
             // 4️⃣ Redirect
             window.location.href = ret ? ret : "/user";
-
         } catch (err) {
             console.error("Google sign-in error:", err);
         } finally {
@@ -40,14 +38,7 @@ export default function GoogleSignInButton({ ret }: Props) {
         <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="
-        flex items-center justify-center gap-3
-        w-full border border-gray-300
-        bg-white text-gray-700
-        py-2 px-4 rounded-md
-        hover:bg-gray-50
-        transition
-      "
+            className="flex items-center justify-center gap-3 w-full border border-gray-300 bg-white text-gray-700 py-2 px-4 rounded-md hover:bg-gray-50 transition"
             style={{
                 fontFamily: "Roboto, sans-serif",
                 fontWeight: 500,

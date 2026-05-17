@@ -18,9 +18,10 @@ interface AddVideo {
     type?: string;
     slug?: string;
     onSaved?: (msg: string) => void;
+    src?: string;
 }
 
-export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
+export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
@@ -63,6 +64,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 setApiStatus({ status: res.status, text: res.statusText });
 
                 const data = await res.json();
+                console.log("YouTube API response:", data);
                 //  Set title and description from API response
                 setTitle(data.title || "");
             } catch (err) {
@@ -120,7 +122,7 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                 <VideoCameraIcon className="w-7 h-7 text-(--primary)"
                     onClick={() => {
                         if (!user) {
-                            router.push("/auth/signin");
+                            router.push(`/auth/signin${src ? `?ret=${encodeURIComponent(src)}` : ''}`);
                             return;
                         }
                         setOpen(true);
@@ -153,11 +155,16 @@ export default function AddVideo({ name, type, slug, onSaved }: AddVideo) {
                                 {API_STATUS.status} {API_STATUS.text}
                             </p>
                         )}
+                        <p>title: {title ? title : "Not available"}</p>
+                        <p>API Status: {API_STATUS.text} {API_STATUS.status}</p>
+
                         {videoId && API_STATUS.status === 200 && (
                             <div>
                                 <div className="mt-2">
                                     <YouTubePlayer key={videoId} videoId={videoId || ""} autoplay={false} />
                                 </div>
+
+
                                 {title && (
                                     <div className="mt-4 gap-1">
                                         <input
