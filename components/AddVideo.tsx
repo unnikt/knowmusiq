@@ -51,28 +51,19 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
 
         const id = parseYTURL(youtubeUrl);
         setVideoId(id);
-
-        console.log("Parsed video ID:", id);
-
         if (!id) { setTitle(null); return };
 
         async function fetchMetadata() {
             try {
-
                 // Fetch data from YouTube API route
                 const res = await fetch(`/api/youtube?vid=${id}`, {
                     headers: await getHeader(),
                 });
                 setApiStatus({ status: res.status, text: res.statusText });
 
-                console.log("YouTube API response status:", res.status, res.statusText);
-
-                const data = await res.json();
-
-                console.log("YouTube API data:", data);
-
                 //  Set title and description from API response
-                setTitle(data.title || "");
+                const data = await res.json();
+                data.title ? setTitle(data.title || "") : setMessage("Error: Failed to fetch video metadata");
 
             } catch (err) {
                 console.error("Metadata fetch failed", err);
@@ -162,15 +153,12 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                                 {API_STATUS.status} {API_STATUS.text}
                             </p>
                         )}
-                        <p>Youtube URL: {youtubeUrl || "Not available"}</p>
-                        <p>vid: {videoId || "Not available"}</p>
 
                         {videoId && API_STATUS.status === 200 && (
                             <div>
                                 <div className="mt-2">
                                     <YouTubePlayer key={videoId} videoId={videoId || ""} autoplay={false} />
                                 </div>
-
 
                                 {title && (
                                     <div className="mt-4 gap-1">
@@ -187,16 +175,16 @@ export default function AddVideo({ name, type, slug, onSaved, src }: AddVideo) {
                                             onChange={(e) => setMovie(e.target.value)}
                                             className="mt-1 w-full"
                                         />
+                                        <div className="flex">
+                                            <button
+                                                onClick={() => handleSave()}
+                                                className="mt-4 px-4 py-2 bg-my-primary text-white rounded hover:bg-my-primary/80 transition"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
-                                <div className="flex">
-                                    <button
-                                        onClick={() => handleSave()}
-                                        className="mt-4 px-4 py-2 bg-my-primary text-white rounded hover:bg-my-primary/80 transition"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
                             </div>
                         )}
                         <div className="py-2">
