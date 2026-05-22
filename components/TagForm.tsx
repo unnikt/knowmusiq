@@ -166,13 +166,41 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                             ))}
                         </div>
                     )}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                        {tags.map(t => (
+                            <div
+                                key={t.key}
+                                className={`flex items-center justify-between p-2 rounded border cursor-pointer 
+                                    ${selectedTag === t.key ? "bg-my-secondary/40" : "bg-(--surface)"}`}
+                                onClick={() => handleTagChange(t.key)}
+                            >
+                                <span>
+                                    {t.value ? `${t.key}: ${t.value}` : t.key}
+                                </span>
+
+                                {selectedTag == t.key && <button
+                                    className="text-sm px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // prevent triggering handleTagChange
+                                        // handleEdit(t.key);
+                                    }}
+                                >
+                                    Edit
+                                </button>}
+                            </div>
+                        ))}
+                    </div>
+
+
                     <div className="flex flex-col gap-1">
                         {tags.map(t =>
-                            <span key={t.key}
+                            <div key={t.key}
                                 className={`p-1 cursor-pointer  ${selectedTag === t.key ? "" : ""}`}
                                 onClick={() => { handleTagChange(t.key) }}
-                            > {t.value ? `${t.key}: ${t.value}` : t.key}
-                            </span>
+                            >
+                                {t.value ? `${t.key}: ${t.value}` : t.key}
+                            </div>
                         )}
                     </div>
 
@@ -180,7 +208,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         <div>
                             <div className="flex items-center mt-2">
                                 <div className="flex items-center gap-2">
-                                    <button className="btn btn-primary"
+                                    <button className="btn bg-my-primary  border-0! "
                                         onClick={handleSave} >
                                         Save tags
                                     </button>
@@ -209,7 +237,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     {message ? message : ""}
                                 </button>
                             </div>
-                            {!verifying && <p className="p-2 italic">Updates will be linked to {user.email || "Guest"}</p>}
+                            {!verifying && <p className="pt-4 italic text-(--text)/70">Updates will be linked to {user.email || "Guest"}</p>}
                         </div>
                     }
                     {!user &&

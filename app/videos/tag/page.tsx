@@ -7,7 +7,6 @@ import ClientWrap from "@/components/ClientWrap";
 import VideoURL from "@/components/VideoURL";
 import { useSearchParams } from "next/navigation";
 import TagForm from "@/components/TagForm";
-import AddButton from "@/components/ButtonAdd";
 
 export default function TagVideoPage() {
 

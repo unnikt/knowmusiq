@@ -18,7 +18,7 @@ export default function YouTubePlayer({ videoId, autoplay = false }: Props) {
       videoId,
       playerVars: {
         autoplay: autoplay ? 1 : 0,
-        mute: 1,
+        mute: 0,
         controls: 1,
         modestbranding: 1,
         rel: 0,
