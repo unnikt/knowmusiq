@@ -4,9 +4,11 @@ import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
-import { TrashIcon, UserPlusIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
+import TagPicker from "./TagPicker";
+import { TagLabel } from "@/lib/const/Tags";
+import { deSlug } from "@/lib/string/deSlugify";
 
 interface TagFormProps {
     vid: string;
@@ -15,20 +17,18 @@ interface TagFormProps {
 export default function TagForm({ vid, onLoad }: TagFormProps) {
     const { user, verifying } = useUser();
     const [video, setVideo] = useState<any>(null);
-    const [selectedTag, setSelectedTag] = useState<string | null>("")
-    const [suggestions, setSuggestions] = useState<{ name: string; slug: string }[]>([]);
+    const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [message, setMessage] = useState("");
-    const PERSON_TAGS = ["Composer", "Singer", "Lyricist"];
-    const [persons, setPersons] = useState<{ name: string; type: string; slug: string }[]>([]);
 
     const [tags, setTags] = useState([
-        { key: "Composer", value: "" },
-        { key: "Singer", value: "" },
-        { key: "Lyricist", value: "" },
-        { key: "Movie", value: "" },
-        { key: "Language", value: "" },
-        { key: "Raga", value: "" },
-        { key: "Tala", value: "" }
+        { key: "comp", value: "" },
+        { key: "sing", value: "" },
+        { key: "lyri", value: "" },
+        { key: "movi", value: "" },
+        { key: "lang", value: "" },
+        { key: "raga", value: "" },
+        { key: "tala", value: "" },
+        { key: "krit", value: "" }
     ]);
 
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     const v = !snaps.empty ? snaps.docs[0].data() : null;
                     if (!v) return prev;
                     return prev.map(t => ({ key: t.key, value: v[t.key.slice(0, 4).toLowerCase()] || "" }))
-                })
+                });
 
             } catch (err) {
                 console.error("Error loading video:", err);
@@ -61,59 +61,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
         loadVideo();
     }, [vid]);
 
-    async function handleTagChange(tagKey: string) {
-        setSelectedTag(tagKey);
-        setSuggestions([]);
-
-        if (user && PERSON_TAGS.includes(tagKey)) {
-            setMessage("Loading ...");
-
-            const tagType = tagKey.slice(0, 4).toLowerCase();
-
-            // Check cache first
-            const values = persons?.filter((e: { type: string; }) => e.type == tagType);
-            if (values?.length > 0) {
-                setSuggestions(values || []);
-                setMessage("");
-                return;
-            }
-            // If not in cache, fetch from API and update cache
-            try {
-                const res = await fetch(`/api/persons?key=type&value=${tagKey}`);
-                const data = await res.json();
-                setPersons(prev => [...prev, ...data.values]);
-                const values = data.values.filter((e: { type: string; }) => e.type == tagType);
-                setSuggestions(values || []);
-            }
-            catch (err) {
-                console.error("Error fetching suggestions:", err);
-                setMessage("Error fetching suggestions");
-            }
-            finally {
-                setMessage("");
-            }
-        }
-    }
-
-    async function filterSuggestions(query: string) {
-
-        if (query.length < 2) {
-            // Get from cache if available
-            const tagType = selectedTag?.slice(0, 4).toLowerCase();
-            const values = persons?.filter((e: { type: string; }) => e.type == tagType);
-            if (values?.length > 0)
-                setSuggestions(values || []);
-            else
-                setSuggestions([]);
-            return;
-        };
-
-        const q = query.toLowerCase().replace(/\s+/g, "");
-        const values = suggestions.filter(p =>
-            p.name.toLowerCase().replace(/\s+/g, "").includes(q)
-        );
-        if (values?.length > 0) setSuggestions(values);
-    }
 
     function handleSave() {
         const filter = tags.filter(e => e.value != "");
@@ -123,7 +70,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
         }, {});
 
         SaveVideo(video.videoId, data)
-            .then(res => { setMessage("Saved..."); console.log(res) })
+            .then(res => { setMessage("Saved..."); console.log(res.body) })
             .catch(err => { setMessage("Error saving tags"); console.log(err) })
     }
 
@@ -141,67 +88,34 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                 </div>
 
                 <div className="w-full lg:ml-2 ">
-                    {suggestions.length > 0 && (
-                        <div className="absolute mt-1 menu min-h-10 min-w-50 rounded shadow right-5">
-                            <input className=" m-2 rounded p-0"
-                                onKeyDown={(e) => { filterSuggestions(e.currentTarget.value) }} />
-
-                            {suggestions.map((s, i) => (
-                                <div
-                                    key={i}
-                                    className="px-3 py-1 hover:text-my-hilite cursor-pointer overflow-y-auto max-h-10"
-                                    onClick={() => {
-                                        setTags(prev =>
-                                            prev.map(t =>
-                                                t.key === selectedTag
-                                                    ? { ...t, value: s.name }
-                                                    : t
-                                            )
-                                        );
-                                        setSuggestions([])
-                                    }}
-                                >
-                                    {s.name}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {tags.map(t => (
                             <div
                                 key={t.key}
-                                className={`flex items-center justify-between p-2 rounded border cursor-pointer 
-                                    ${selectedTag === t.key ? "bg-my-secondary/40" : "bg-(--surface)"}`}
-                                onClick={() => handleTagChange(t.key)}
+                                className={`flex items-center justify-between p-2 rounded cursor-pointer 
+                                    ${selectedTag === t.key ? "bg-(--surface2)" : "bg-(--surface2)"}`}
+                                onClick={() => setSelectedTag(t.key)}
                             >
                                 <span>
-                                    {t.value ? `${t.key}: ${t.value}` : t.key}
+                                    {t.key ? `${TagLabel(t.key) || t.key}: ${t.key == "raga" ? deSlug(t.value) : t.value}` : t.key}
                                 </span>
 
-                                {selectedTag == t.key && <button
-                                    className="text-sm px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                                    onClick={(e) => {
-                                        e.stopPropagation(); // prevent triggering handleTagChange
-                                        // handleEdit(t.key);
-                                    }}
-                                >
-                                    Edit
-                                </button>}
+                                {selectedTag == t.key &&
+                                    <TagPicker
+                                        open={true}
+                                        label={`Select`}
+                                        tag={selectedTag}
+                                        pValue={t.key === "raga" ? deSlug(t.value) : t.value}
+                                        onSelect={(value) => {
+                                            setTags(prev =>
+                                                prev.map(tag =>
+                                                    tag.key === t.key ? { ...tag, value } : tag
+                                                )
+                                            );
+                                        }} />
+                                }
                             </div>
                         ))}
-                    </div>
-
-
-                    <div className="flex flex-col gap-1">
-                        {tags.map(t =>
-                            <div key={t.key}
-                                className={`p-1 cursor-pointer  ${selectedTag === t.key ? "" : ""}`}
-                                onClick={() => { handleTagChange(t.key) }}
-                            >
-                                {t.value ? `${t.key}: ${t.value}` : t.key}
-                            </div>
-                        )}
                     </div>
 
                     {user &&
@@ -213,11 +127,17 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                         Save tags
                                     </button>
                                     <Link
-                                        href={"/client/AddPerson"}>
-                                        <UserPlusIcon className="w-9 h-9 text-(--primary)" />
+                                        href={"/client/AddPerson"}
+                                        className="btn-material-icon material-symbols-outlined">
+                                        person_add
+                                    </Link>
+                                    <Link
+                                        href={"/client/AddPerson"}
+                                        className="btn-material-icon material-symbols-outlined">
+                                        movie
                                     </Link>
                                     <button
-                                        className=" p-2 rounded text-slate-500"
+                                        className="btn-material-icon material-symbols-outlined"
                                         disabled={!selectedTag}
                                         onClick={() => {
                                             setTags(prev =>
@@ -226,10 +146,9 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                                 )
                                             );
                                             setSelectedTag("");
-                                            setSuggestions([]);
                                         }}
                                     >
-                                        <TrashIcon className="w-7 h-7" />
+                                        delete
                                     </button>
                                 </div>
 
@@ -237,7 +156,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     {message ? message : ""}
                                 </button>
                             </div>
-                            {!verifying && <p className="pt-4 italic text-(--text)/70">Updates will be linked to {user.email || "Guest"}</p>}
+                            {!verifying && <p className="pt-4 italic text-(--text)/70 text-sm">Updates will be linked to {user.email || "Guest"}</p>}
                         </div>
                     }
                     {!user &&

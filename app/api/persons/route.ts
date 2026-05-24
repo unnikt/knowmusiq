@@ -20,7 +20,10 @@ export async function GET(req: Request) {
         const value = searchParams.get("value");
 
         const map: Record<string, string> =
-            { Composer: "comp", Singer: "sing", Lyricist: "lyri" };
+        {
+            Composer: "comp", Singer: "sing", Lyricist: "lyri",
+            comp: "comp", sing: "sing", lyri: "lyri"
+        };
 
         if (!fld || !value) {
             return NextResponse.json({ values: ["Empty key||value"] });
@@ -29,6 +32,7 @@ export async function GET(req: Request) {
         // Map UI tag → Firestore type
         let queryRef: FirebaseFirestore.Query = knowmusiqAdminDB.collection("persons");
 
+        //Usage: /api/persons?key=type&value=comp or /api/persons?key=idx&value=TYA
         if (!(fld === "type" && value === "all")) {
             queryRef = queryRef.where(
                 fld,

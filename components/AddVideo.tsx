@@ -10,10 +10,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
 import Message from "./Message";
-import { VideoCameraIcon } from "@heroicons/react/20/solid";
 import { PersonTypes } from "@/lib/const/PersonTypes";
 import { slugify } from "@/lib/string/slugify";
-import { deSlug } from "@/lib/string/deSlugify";
 
 interface AddVideo {
     name?: string;
@@ -129,16 +127,17 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga }: AddVi
 
     return (
         <div>
-            <button>
-                <VideoCameraIcon className="w-7 h-7 text-(--primary)"
-                    onClick={() => {
-                        if (!user) {
-                            router.push(`/auth/signin${src ? `?ret=${encodeURIComponent(src)}` : ''}`);
-                            return;
-                        }
-                        setOpen(true);
-                    }}
-                />
+            <button
+                className="btn-material-icon material-symbols-outlined text-(--primary) hover:text-(--primary)/80 transition"
+                onClick={() => {
+                    if (!user) {
+                        router.push(`/auth/signin${src ? `?ret=${encodeURIComponent(src)}` : ''}`);
+                        return;
+                    }
+                    setOpen(true);
+                }}
+            >
+                video_camera_back_add
             </button>
 
             <Modal

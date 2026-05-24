@@ -6,8 +6,8 @@ interface ButtonTagProps {
 }
 export default function ButtonTag({ videoId }: ButtonTagProps) {
     return (
-        <Link href={`/videos/tag?v=${videoId}`} className="p-2">
-            <SquaresPlusIcon className="w-5 h-5 text-(--primary)" />
+        <Link href={`/videos/tag?v=${videoId}`} className="p-2  text-(--primary) btn-material-icon material-symbols-outlined">
+            video_settings
         </Link>
 
     )

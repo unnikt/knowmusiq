@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
-import { ArrowTurnUpLeftIcon, MagnifyingGlassPlusIcon } from "@heroicons/react/20/solid";
 import SearchBox from "./SearchBox";
 
 type Props = {
@@ -42,18 +41,17 @@ export default function ClientWrap({
             <div className="topbar">
                 {!noReturn &&
                     <button
+                        className="btn-material-icon material-symbols-outlined"
                         onClick={handleClick}
-                        className=" text-sm my-2"
                     >
-                        {/* ← Back */}
-                        <ArrowTurnUpLeftIcon className="w-7" />
+                        reply
                     </button>
                 }
                 <button
-                    className=" text-sm my-2"
+                    className="btn-material-icon material-symbols-outlined"
                     onClick={() => setSearch(true)}
                 >
-                    <MagnifyingGlassPlusIcon className="w-7  hover:text-my-hilite hover:scale-110 transition" />
+                    search
                 </button>
                 {search && <SearchBox onClose={() => { setSearch(false); }} />}
             </div>

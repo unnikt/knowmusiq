@@ -28,10 +28,10 @@ export default function SearchBox({ onClose }: Props) {
         <Modal
             isOpen={open}
             key="search"
-            width="50"
+            w="200px"
             onClose={() => { setOpen(false); if (onClose) onClose() }}
         >
-            <div className="bg-(--surface)  p-8 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">
+            <div className="bg-(--surface2)  p-8 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">
                 <p className=" mb-2 text-xl">Find a raga</p>
                 <input
                     type="text"

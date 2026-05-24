@@ -30,9 +30,9 @@ export default function ShareButton({ title, text, url }) {
         <>
             <button
                 onClick={handleShare}
-                className="p-2 text-(--primary)"
+                className="btn-material-icon material-symbols-outlined text-(--primary) p-2"
             >
-                <ShareIcon className="h-5 w-5 text-(--primary)" />
+                share
             </button>
 
             {open && (

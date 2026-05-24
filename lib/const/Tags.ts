@@ -8,3 +8,7 @@ export const Tags = [
     { key: "tala", label: "Tala", src: "talas", base: "/tala/" },
     { key: "krit", label: "Krithi", src: "krithis", base: "/krithi/" },
 ];
+
+export const TagLabel = (key: string) => {
+    return Tags.find(t => t.key === key)?.label || key;
+};
