@@ -141,11 +141,11 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga }: AddVi
             </button>
 
             <Modal
+                title="Add a video"
                 isOpen={open}
                 onClose={() => { cleanup() }}
                 children={
-                    <div className="p-4 scroll-auto min-h-60">
-                        <p className="text-xl  mb-2">Add a video</p>
+                    <div className="p-4 scroll-auto ">
                         <p className=" bg-my-accent/20 p-2 ">{displayType} : {name}</p>
                         {raga && (<p className="p-2 text-sm text-(--text)/60">Raga: {raga}</p>)}
                         {/* YouTube URL */}

@@ -26,13 +26,13 @@ export default function SearchBox({ onClose }: Props) {
 
     return (
         <Modal
+            title="Find a raga"
             isOpen={open}
             key="search"
             w="200px"
             onClose={() => { setOpen(false); if (onClose) onClose() }}
         >
-            <div className="bg-(--surface2)  p-8 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">
-                <p className=" mb-2 text-xl">Find a raga</p>
+            <div className="bg-(--surface2) p-4 flex flex-col justify-center gap-2 sm:flex-col sm:gap-0 sm:max-w-md">
                 <input
                     type="text"
                     value={query}
@@ -42,7 +42,7 @@ export default function SearchBox({ onClose }: Props) {
                     className=" px-4 py-2 bg-slate-400 rounded-md focus:outline-none focus:ring-1 focus:ring-my-primary/80"
                 />
                 <button
-                    className="btn btn-accent mt-2"
+                    className="btn-material-icon material-symbols-outlined "
                     onClick={handleSearch}
                 >
                     Search

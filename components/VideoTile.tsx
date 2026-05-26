@@ -3,7 +3,6 @@ import { toCamelCase } from "../lib/string/camelcase";
 import Image from "next/image";
 import Link from "next/link";
 import ShareButton from "./ButtonShare";
-import ButtonTag from "./ButtonTagVideo";
 import { deSlug } from "@/lib/string/deSlugify";
 
 interface videoTileProps {
@@ -60,13 +59,17 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     ))}
                 </div>
             </div>
-            <div className="w-full flex justify-end align-middle gap-2 border-t py-2 border-slate-400">
+            <div className="w-full flex justify-end align-middle gap-2 border-t border-slate-400 p-2 text-(--primary)">
+                {/* <Link
+                    href={`/videos/tag?v=${video.videoId}`}
+                    className="btn-material-icon material-symbols-outlined">
+                    bookmark
+                </Link> */}
                 <ShareButton
                     url={`https://musiq-me.com/videos/${video.videoId}`}
                     title={video.title}
                     text={""}
                 />
-                <ButtonTag videoId={video.videoId} />
             </div>
         </div>
     );

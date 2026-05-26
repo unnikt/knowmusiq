@@ -84,7 +84,12 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
                         </Link>
                     )}
                 </div>
-                <IconsTray justify="end">
+                <IconsTray justify="end" className="border-t border-slate-400 p-2 text-(--primary)">
+                    <Link
+                        href={`/videos/tag?v=${video.id}`}
+                        className="btn-material-icon material-symbols-outlined">
+                        bookmark
+                    </Link>
                     <ShareButton text={video["title"]} url={`/videos/${video.id}`} title={video["title"]} />
                     <ButtonTag videoId={video.id} />
                 </IconsTray>

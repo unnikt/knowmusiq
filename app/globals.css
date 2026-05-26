@@ -30,11 +30,11 @@
   --bottom-gradient-bottom: transparent;
   --button: #0b151e;
   --blurple: rgb(72 64 187/var(--tw-text-opacity));
-  --bg: white;
   --bg: #c9cacd;
   --surface: white;
-  --bg: #d4d5d8;
   /* slightly brighter, less muddy */
+
+  --bg: #d4d5d8;
   --surface: #ffffff;
   --surface2: #9cacea;
 
@@ -447,7 +447,7 @@ input {
 }
 
 .btn-material-icon {
-  @apply items-center hover:text-my-hilite hover:scale-110 transition;
+  @apply p-2 bg-(--surface) text-(--primary) rounded-md items-center hover:text-my-hilite hover:scale-110 transition;
 }
 
 @layer components {}

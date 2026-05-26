@@ -92,19 +92,22 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         {tags.map(t => (
                             <div
                                 key={t.key}
-                                className={`flex items-center justify-between p-2 rounded cursor-pointer 
+                                className={`flex items-center p-2 rounded cursor-pointer 
+                                    sm:flex-col sm:items-start 
                                     ${selectedTag === t.key ? "bg-(--surface2)" : "bg-(--surface2)"}`}
                                 onClick={() => setSelectedTag(t.key)}
                             >
-                                <span>
-                                    {t.key ? `${TagLabel(t.key) || t.key}: ${t.key == "raga" ? deSlug(t.value) : t.value}` : t.key}
+                                <span className="font-medium text-sm text-(--text)/50 w-20 inline-block">
+                                    {`${TagLabel(t.key) || t.key}: `}
                                 </span>
-
+                                <span>
+                                    {t.key ? `${t.key == "raga" ? deSlug(t.value) : t.value}` : t.key}
+                                </span>
                                 {selectedTag == t.key &&
                                     <TagPicker
                                         open={true}
-                                        label={`Select`}
                                         tag={selectedTag}
+                                        label={`Find ${TagLabel(t.key) || t.key}`}
                                         pValue={t.key === "raga" ? deSlug(t.value) : t.value}
                                         onSelect={(value) => {
                                             setTags(prev =>
@@ -112,6 +115,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                                     tag.key === t.key ? { ...tag, value } : tag
                                                 )
                                             );
+                                            // TODO - fix second click issue where it wont open after selecting once. maybe use a ref to track if its the first open or not?
                                         }} />
                                 }
                             </div>
@@ -132,7 +136,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                         person_add
                                     </Link>
                                     <Link
-                                        href={"/client/AddPerson"}
+                                        href={"/movie"}
                                         className="btn-material-icon material-symbols-outlined">
                                         movie
                                     </Link>

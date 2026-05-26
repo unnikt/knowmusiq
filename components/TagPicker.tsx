@@ -4,7 +4,7 @@ import Modal from "./Modal";
 
 interface Props {
     open?: boolean;
-    label: string;
+    label?: string;
     tag: string;
     pValue: string;
     onSelect?: (str: string) => void;
@@ -53,17 +53,23 @@ export default function TagPicker({ open: initialOpen, label, tag, pValue, onSel
 
     return (
         <div>
-            <button
-                className="btn-material-icon material-symbols-outlined"
-                onClick={() => setOpen(true)}>edit_square</button>
-
-            <Modal onClose={() => { setOpen(false); setSuggestions([]); }} isOpen={open} w="400px" h="400px">
+            {!initialOpen &&
+                <button
+                    className="flex items-center gap-1 text-(--primary) hover:text-my-hilite"
+                    onClick={() => setOpen(true)}>
+                    <span className="">
+                        {label}
+                    </span>
+                    <span className="material-symbols-outlined">search</span>
+                </button>
+            }
+            <Modal title={label} onClose={() => { setOpen(false); setSuggestions([]); }} isOpen={open} w="400px" h="400px">
                 <div
-                    className="flex flex-col justify-center h-full gap-1 p-4 min-w-90 bg-(--surface2) rounded-md">
-                    {label && <p className="text-lg mb-4">{label}</p>}
+                    className="flex flex-col justify-center min-w-0 h-full gap-1 p-4  bg-(--surface2)">
                     <input type="text" placeholder="Search..."
                         onKeyUp={(e) => handleInput(e.currentTarget.value)}
-                        defaultValue={pValue} />
+                        defaultValue={pValue}
+                    />
                     {message && <p>{message}</p>}
 
                     {suggestions.length > 0 && (

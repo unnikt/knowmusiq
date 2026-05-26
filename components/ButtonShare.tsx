@@ -1,6 +1,5 @@
 "use client";
 
-import { ShareIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
 export default function ShareButton({ title, text, url }) {
@@ -30,7 +29,7 @@ export default function ShareButton({ title, text, url }) {
         <>
             <button
                 onClick={handleShare}
-                className="btn-material-icon material-symbols-outlined text-(--primary) p-2"
+                className="btn-material-icon material-symbols-outlined text-(--primary)"
             >
                 share
             </button>

@@ -16,9 +16,9 @@ export default function BioPage({ slug, name, type, image, wiki, bio }: Props) {
     const [expand, setExpand] = useState(false);
     return (
         <div>
-            < div className="flex justify-between items-center gap-4 px-2" >
+            < div className="flex justify-between items-center gap-4 px-2 border-b border-(--primary) mb-1 " >
                 <button
-                    className="text-xl text-(--primary) border-b border-(--primary) mb-2"
+                    className="text-xl text-left text-(--primary) my-2"
                     onClick={() => setExpand(prev => !prev)}>
                     {name}
                 </button>

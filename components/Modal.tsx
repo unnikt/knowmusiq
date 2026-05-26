@@ -1,6 +1,7 @@
 import React from "react";
 
 interface ModalProps {
+    title?: string;
     isOpen?: boolean;
     onClose?: () => void;
     children?: React.ReactNode;
@@ -8,7 +9,7 @@ interface ModalProps {
     h?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, w, h }) => {
+const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children, w, h }) => {
     if (!isOpen) return null;
 
     return (
@@ -16,12 +17,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, w, h }) => {
             <div className={`w-[${w ? w : "80vw"}] h-[${h ? h : "90vh"}] bg-(--surface) max-h-[90vh] overflow-y-auto max-w-[90vw] 
             rounded-md shadow-lg relative animate-[fadeIn_0.2s_ease-out]`}>
                 {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-2 right-6  hover:text-gray-700 text-4xl"
-                >
-                    &times;
-                </button>
+                <div className="flex justify-between align-middle p-2">
+                    <p className="p-2">{title}</p>
+                    <button
+                        onClick={onClose}
+                        className="material-symbols-outlined"
+                    >
+                        close
+                    </button>
+                </div>
                 {children}
             </div>
         </div >
