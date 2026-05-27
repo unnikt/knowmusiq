@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
-import SearchBox from "./SearchBox";
+import TagPicker from "./TagPicker";
 
 type Props = {
     children: React.ReactNode;
@@ -24,6 +24,12 @@ export default function ClientWrap({
 
     const handleClick = () =>
         (returnURL) ? router.push(returnURL) : router.back();
+
+    function handleSearch(query) {
+        const trimmed = query.trim();
+        if (!trimmed) return;
+        router.push(`/raga/${encodeURIComponent(trimmed)}`);
+    }
 
     useEffect(() => {
         // Apply header state on mount
@@ -47,13 +53,13 @@ export default function ClientWrap({
                         reply
                     </button>
                 }
-                <button
-                    className="btn-material-icon material-symbols-outlined"
-                    onClick={() => setSearch(true)}
-                >
-                    search
-                </button>
-                {search && <SearchBox onClose={() => { setSearch(false); }} />}
+                <TagPicker
+                    label="Find a raga"
+                    pValue=""
+                    tag="raga"
+                    open={false}
+                    onSelect={(str) => handleSearch(str)}
+                />
             </div>
 
             {/* Main Content */}
