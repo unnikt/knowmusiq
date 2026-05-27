@@ -16,7 +16,7 @@ export default function MovieClient() {
     }
     return (
         <ClientWrap>
-            <p className="text-2xl font-bold">Movies</p>
+            <p className="text-xl">Movies</p>
             {!expand && <div className="flex gap-2 align-bottom mt-4">
                 <span className="p-2 bg-(--surface) rounded-md text-(--primary)">
                     <TagPicker

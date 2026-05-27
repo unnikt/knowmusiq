@@ -7,6 +7,7 @@ import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { slugify } from "@/lib/string/slugify";
 import ClientWrap from "@/components/ClientWrap";
 import RagaCard from "@/components/RagaCard";
+import AddVideo from "@/components/AddVideo";
 
 interface RagaClientProps {
     slug: string;
@@ -80,7 +81,15 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                     }
                 </div>
             ) : (!loading &&
-                <p className="bg-(--surface) rounded p-4">No videos found for this raga.</p>
+                <div className="flex flex-col align-middle mx-auto bg-(--surface2) p-4 mt-4 rounded-lg">
+                    <p className="">Be the first to add a video to this Raga!</p>
+                    <div className="mx-auto">
+                        <AddVideo slug={slug} name={name}
+                            type={"raga"} onSaved={refresh} src={`/raga/${slug}`}
+                            className={"text-5xl! mt-3 "} />
+
+                    </div>
+                </div>
             )
             }
         </ClientWrap >

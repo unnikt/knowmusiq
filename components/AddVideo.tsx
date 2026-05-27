@@ -20,9 +20,10 @@ interface AddVideo {
     onSaved?: (msg: string) => void;
     src?: string;
     raga?: string;
+    className?: string;
 }
 
-export default function AddVideo({ name, type, slug, onSaved, src, raga }: AddVideo) {
+export default function AddVideo({ name, type, slug, onSaved, src, raga, className }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
@@ -128,7 +129,7 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga }: AddVi
     return (
         <div>
             <button
-                className="btn-material-icon material-symbols-outlined text-(--primary) hover:text-(--primary)/80 transition"
+                className={`${className} btn-material-icon material-symbols-outlined text-(--primary) hover:text-(--primary)/80 transition`}
                 onClick={() => {
                     if (!user) {
                         router.push(`/auth/signin${src ? `?ret=${encodeURIComponent(src)}` : ''}`);

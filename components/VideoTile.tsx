@@ -17,7 +17,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
 
     const links = link.split("|").map(l => l.trim());
     const urls = links.map(l =>
-        video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : l == "movi" ? `/movies/${video[l]}` : `/raga/${video[l]}` : null);
+        video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : l == "movi" ? `/movie/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
         <div className={`videoTile ${width}`}>

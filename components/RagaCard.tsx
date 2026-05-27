@@ -96,7 +96,7 @@ export default function RagaCard({
                 Note: While the swaras and notes are fundamental to the raga, their specific arrangement, ornamentation and emotional expression create the unique character of a particular raga
             </p>
             {/* 🎵 Tabs Section */}
-            <div className="flex justify-between mt-2 border-t-2 pt-2 border-my-secondary">
+            <div className="flex justify-between items-center mt-2 border-t-2 pt-2 border-my-secondary">
                 <div className="flex flex-wrap gap-1 justify-start align-middle  font-medium  rounded-md">
                     <Link
                         href={`/raga/${slug}`}
