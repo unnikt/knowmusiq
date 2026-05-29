@@ -36,7 +36,7 @@ export default function KritiPage({ krithi, videos }: Props) {
                 <p>{krithi.type}</p>
 
                 <div className="pt-2 border-t border-t-gray-500 mt-2">
-                    <AddVideo key={displayName} type="krit" name={displayName} slug={krithi.slug}
+                    <AddVideo key={displayName} tag="krit" name={displayName} slug={krithi.slug}
                         src={`/krithi/${krithi.slug}`} raga={displayRaga}
                         onSaved={refresh} />
                 </div>

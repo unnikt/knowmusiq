@@ -40,14 +40,14 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         </span>
                     )} */}
                 </div>
-                <div className="min-w-0 p-2">
+                <div className="min-w-0 p-1">
                     <p className="line-clamp-1">
                         {toCamelCase(video.title)}
                     </p>
                 </div>
             </Link>
             <div className="flex flex-col justify-around p-2 ">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center min-h-6">
                     {urls.map((url, i) => (
                         url && (
                             <Link href={`${url}`} key={i}>
@@ -59,7 +59,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     ))}
                 </div>
             </div>
-            <div className="w-full flex justify-end align-middle gap-2 border-t border-slate-400 p-2 text-(--primary)">
+            <div className="w-full flex justify-end align-middle gap-2 border-t border-slate-400  text-(--primary)">
                 {/* <Link
                     href={`/videos/tag?v=${video.videoId}`}
                     className="btn-material-icon material-symbols-outlined">

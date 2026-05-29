@@ -12,3 +12,10 @@ export const Tags = [
 export const TagLabel = (key: string) => {
     return Tags.find(t => t.key === key)?.label || key;
 };
+
+export const TagLinks = (key: string) => {
+    let lnk = "";
+    Tags.forEach(t => { if (t.key != key) lnk += t.key + "|" });
+
+    return lnk.substring(0, lnk.length - 1)
+}

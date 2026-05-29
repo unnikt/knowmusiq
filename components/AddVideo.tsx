@@ -12,10 +12,11 @@ import { useUser } from "@/context/UserContext";
 import Message from "./Message";
 import { PersonTypes } from "@/lib/const/PersonTypes";
 import { slugify } from "@/lib/string/slugify";
+import { TagLabel } from "@/lib/const/Tags";
 
 interface AddVideo {
     name?: string;
-    type?: string;
+    tag?: string;
     slug?: string;
     onSaved?: (msg: string) => void;
     src?: string;
@@ -23,7 +24,7 @@ interface AddVideo {
     className?: string;
 }
 
-export default function AddVideo({ name, type, slug, onSaved, src, raga, className }: AddVideo) {
+export default function AddVideo({ name, tag, slug, onSaved, src, raga, className }: AddVideo) {
     const { user, verifying: authenticating } = useUser();
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
@@ -37,7 +38,7 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga, classNa
 
     const [authReady, setAuthReady] = useState(false);
 
-    const displayType = type == "raga" ? "Raga" : type == "krit" ? "Krithi" : PersonTypes[type];
+    const Tag = TagLabel(tag);
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, () => {
@@ -65,6 +66,7 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga, classNa
                 //  Set title and description from API response
                 const data = await res.json();
                 data.title ? setTitle(data.title || "") : setMessage("Error: Failed to fetch video metadata");
+                if (tag == "movi") setMovie(name);
 
             } catch (err) {
                 console.error("Metadata fetch failed", err);
@@ -84,11 +86,16 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga, classNa
         const vData = {
             title: title,
             movi: movie,
-            [type]: slug.replace(/%20/g, " "),
             rdx: Date.now() % 10000
         };
-        if (type === "krit") vData["raga"] = slugify(raga);
-        console.log("Saving video with data:", vData);
+
+        if (tag !== "movi") vData[tag] = slug.replace(/%20/g, " ");
+
+        if (tag === "krit") vData["raga"] = slugify(raga);
+
+        // TEST!!!
+        // console.log("Saving video with data:", vData);
+        // return;
 
         // Add to list, send to API, etc.
         await fetch("/api/videos/tag", {
@@ -147,7 +154,7 @@ export default function AddVideo({ name, type, slug, onSaved, src, raga, classNa
                 onClose={() => { cleanup() }}
                 children={
                     <div className="p-4 scroll-auto ">
-                        <p className=" bg-my-accent/20 p-2 ">{displayType} : {name}</p>
+                        <p className=" bg-my-accent/20 p-2 ">{Tag} : {name}</p>
                         {raga && (<p className="p-2 text-sm text-(--text)/60">Raga: {raga}</p>)}
                         {/* YouTube URL */}
                         <p className="text-sm min-h-6 px-1 pb-2 text-slate-500">

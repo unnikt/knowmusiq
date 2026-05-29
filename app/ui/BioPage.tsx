@@ -22,7 +22,7 @@ export default function BioPage({ slug, name, type, image, wiki, bio }: Props) {
                     onClick={() => setExpand(prev => !prev)}>
                     {name}
                 </button>
-                <AddVideo slug={slug} name={name} type={type} />
+                <AddVideo slug={slug} name={name} tag={type} />
             </div >
             {expand &&
                 <div className="p-4 flex flex-col rounded-md bg-(--surface) ">

@@ -85,7 +85,7 @@ export default function RagaClient({ slug, name, displayName, type, rid, pid, pa
                     <p className="">Be the first to add a video to this Raga!</p>
                     <div className="mx-auto">
                         <AddVideo slug={slug} name={name}
-                            type={"raga"} onSaved={refresh} src={`/raga/${slug}`}
+                            tag={"raga"} onSaved={refresh} src={`/raga/${slug}`}
                             className={"text-5xl! mt-3 "} />
 
                     </div>
