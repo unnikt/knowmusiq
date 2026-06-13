@@ -16,6 +16,7 @@ const SWARAS = {
     P: "G",
     D1: "G#", D2: "A", D3: "A#",
     N1: "A", N2: "A#", N3: "B",
+    S8: "C^",
 };
 const NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 

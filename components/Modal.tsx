@@ -14,7 +14,7 @@ const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children, w, h })
 
     return (
         <div className="fixed inset-0 z-50  bg-black/50 flex items-center justify-center">
-            <div className={`w-[${w ? w : "80vw"}] h-[${h ? h : "90vh"}] bg-(--surface) max-h-[90vh] overflow-y-auto max-w-[90vw] 
+            <div className={`w-[${w ? w : "80vw"}] h-[${h ? h : "90vh"}] bg-(--surface2) max-h-[90vh] overflow-y-auto max-w-[90vw] 
             rounded-md shadow-lg relative animate-[fadeIn_0.2s_ease-out]`}>
                 {/* Close Button */}
                 <div className="flex justify-between align-middle p-2">

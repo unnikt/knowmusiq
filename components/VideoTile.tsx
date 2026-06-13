@@ -24,7 +24,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
             <Link
                 href={url}
                 target={target}
-                className="group block overflow-hidden "
+                className="group block overflow-hidden m-2 "
             >
                 <div className="relative aspect-video">
                     <Image
