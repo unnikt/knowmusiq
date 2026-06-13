@@ -100,7 +100,7 @@ export default function HeroVideoCarousel({ videos, onSelect }: Props) {
             {/* Link to raga */}
             {link && <Link
                 href={`/raga/${toCamelCase(deSlug(link))}`}
-                className="absolute bg-slate-600 rounded p-2 right-2 top-2 text-(--primary)">
+                className="absolute bg-(--surface) rounded px-2 p-1 min-w-30 text-center right-2 top-2 text-(--primary)">
                 {toCamelCase(deSlug(link))}
             </Link>
             }

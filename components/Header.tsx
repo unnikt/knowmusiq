@@ -59,7 +59,7 @@ export default function Header() {
                         {open && <MainMenu onClose={() => setOpen(false)} />}
                     </div>
                     <Link href="/">
-                        <h2 className="text-2xl font-semibold tracking-tight text-(--link)">
+                        <h2 className="text-2xl font-semibold tracking-tight text-[#6ed3f7]">
                             musiq me
                         </h2>
                     </Link>

@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { hasRights } from "@/lib/auth/hasRights";
+import { slugify } from "@/lib/string/slugify";
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
 
-        const { videoId, data } = body;
+        const { videoId, data, movie } = body;
 
         if (!videoId || !data) {
             return NextResponse.json(
@@ -33,6 +34,22 @@ export async function POST(req: Request) {
             },
             { merge: true } // <-- MAGIC: update only required fields
         );
+
+        const movi = String(movie);
+
+        if (movie)
+            // Create movie if not present, update only provided fields if present
+            await knowmusiqAdminDB.collection("movies").doc(slugify(movie)).set(
+                {
+                    name: movi,
+                    idx: movi.slice(0, 3).toUpperCase(),
+                    rdx: Date.now() % 10000,
+                    updatedAt: Date.now(),
+                    user: roles.user || "unknown", // Assuming you have user authentication set up
+                },
+                { merge: true } // <-- MAGIC: update only required fields
+            );
+
 
         return NextResponse.json({
             success: true,

@@ -6,14 +6,11 @@ const client = new OpenAI({
 });
 
 export async function POST(req: Request) {
-    const { text } = await req.json();
-    console.log("Summarise?")
-    if (!text) {
-        return NextResponse.json({ error: "No text provided" }, { status: 400 });
-    }
+    const { prompt } = await req.json();
 
-    const prompt = `Summarise the following Carnatic raga description in 3–4 sentences.Keep it musical, clear, and emotionally expressive.
-    Text:${text}`;
+    if (!prompt) {
+        return NextResponse.json({ error: "No prompt provided" }, { status: 400 });
+    }
 
     const completion = await client.chat.completions.create({
         model: "gpt-4o-mini",

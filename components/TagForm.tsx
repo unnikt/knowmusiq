@@ -132,16 +132,16 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     </button>
                                     <Link
                                         href={"/client/AddPerson"}
-                                        className="btn-material-icon material-symbols-outlined">
+                                        className="material-symbols-outlined">
                                         person_add
                                     </Link>
                                     <Link
                                         href={"/movie"}
-                                        className="btn-material-icon material-symbols-outlined">
+                                        className="material-symbols-outlined">
                                         movie
                                     </Link>
                                     <button
-                                        className="btn-material-icon material-symbols-outlined"
+                                        className="material-symbols-outlined"
                                         disabled={!selectedTag}
                                         onClick={() => {
                                             setTags(prev =>

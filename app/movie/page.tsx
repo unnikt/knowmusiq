@@ -16,21 +16,25 @@ export default function MovieClient() {
     }
     return (
         <ClientWrap>
-            <p className="text-xl">Movies</p>
-            {!expand && <div className="flex gap-2 align-bottom mt-4">
-                <span className="p-2 bg-(--surface) rounded-md text-(--primary)">
+            <p className="text-xl mx-auto ">Movies</p>
+            {!expand &&
+                <div className="flex flex-col gap-2 align-bottom mt-4 w-fit mx-auto">
                     <TagPicker
                         key={""}
                         label={"Find movies"}
                         tag={"movi"} pValue={""}
+                        hidelabel={false}
+                        className="bg-my-secondary/80 p-2 rounded text-white w-full"
                         onSelect={handleSelect} />
-                </span>
-                <button
-                    className="btn-material-icon material-symbols-outlined"
-                    onClick={() => setExpand(true)}>
-                    add
-                </button>
-            </div>}
+                    <button
+                        className="flex items-center bg-my-secondary/80 px-2 rounded text-white!"
+                        onClick={() => setExpand(true)}>
+                        Add a movie
+                        <span className="btn-round-icon material-symbols-outlined text-white!">
+                            add
+                        </span>
+                    </button>
+                </div>}
             {expand &&
                 <div className="bg-(--surface) p-4 rounded my-2 flex flex-col gap-2 justify-center">
                     <button

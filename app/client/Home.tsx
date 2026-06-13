@@ -10,6 +10,7 @@ interface HomeProps {
     videos: any;
 }
 export default function HomePage({ videos }: HomeProps) {
+    const shuffle0 = Shuffle(videos)
     const shuffle1 = Shuffle(videos)
     const shuffle2 = Shuffle(shuffle1)
     const router = useRouter();
@@ -30,7 +31,7 @@ export default function HomePage({ videos }: HomeProps) {
 
     return (
         <div className="text-(--text)">
-            <HeroVideoCarousel videos={videos} onSelect={(v) => handleSelect(v)} />
+            <HeroVideoCarousel videos={shuffle0} onSelect={(v) => handleSelect(v)} />
 
             <p className="text-lg mt-1">Ragas</p>
             <VideoSlider>

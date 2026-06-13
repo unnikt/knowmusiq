@@ -66,13 +66,13 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
                 //  Set title and description from API response
                 const data = await res.json();
                 data.title ? setTitle(data.title || "") : setMessage("Error: Failed to fetch video metadata");
-                if (tag == "movi") setMovie(name);
 
             } catch (err) {
                 console.error("Metadata fetch failed", err);
             }
         }
         fetchMetadata();
+
     }, [youtubeUrl]);
 
     async function verifyMovie(name: string) {
@@ -103,7 +103,8 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
             headers: { "Content-Type": "application/json", ...await getHeader() },
             body: JSON.stringify({
                 videoId: videoId,
-                data: { ...vData }
+                data: { ...vData },
+                movie: movie
             }),
         }).then((res) => {
             if (!res.ok) {
@@ -136,7 +137,7 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
     return (
         <div>
             <button
-                className={`${className} btn-material-icon material-symbols-outlined text-(--primary) hover:text-(--primary)/80 transition`}
+                className={`${className} btn-round-icon material-symbols-outlined text-(--primary) hover:text-(--primary)/80 transition`}
                 onClick={() => {
                     if (!user) {
                         router.push(`/auth/signin${src ? `?ret=${encodeURIComponent(src)}` : ''}`);
@@ -150,6 +151,7 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
 
             <Modal
                 title="Add a video"
+                w="sm:max-3xl"
                 isOpen={open}
                 onClose={() => { cleanup() }}
                 children={

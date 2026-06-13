@@ -44,10 +44,10 @@ export default function ClientWrap({
     return <>{
         <div className="wrapper px-4" >
             {/* Top Bar  */}
-            <div className="topbar">
+            <div className="flex justify-center gap-4 items-end p-1 mt-1">
                 {!noReturn &&
                     <button
-                        className="btn-material-icon material-symbols-outlined"
+                        className="btn-round-icon material-symbols-outlined"
                         onClick={handleClick}
                     >
                         reply

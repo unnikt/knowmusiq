@@ -17,8 +17,7 @@
   --color-my-lolite: var(--color-slate-400);
 }
 
-:root {
-  /* --primary-contrast: #1871bf; */
+/* :root {
   --primary-contrast: var(--color-indigo-700);
   --secondary-contrast: #0b151e99;
   --background-gradient: linear-gradient(90deg, #ffca28, #f57c00);
@@ -32,17 +31,78 @@
   --blurple: rgb(72 64 187/var(--tw-text-opacity));
   --bg: #c9cacd;
   --surface: white;
-  /* slightly brighter, less muddy */
 
   --bg: #d4d5d8;
   --surface: #ffffff;
   --surface2: #9cacea;
 
-  /* keep pure white for crisp surfaces */
 
   --text: var(--color-gray-800);
   --primary: var(--color-my-primary);
   --link: #6ed3f7;
+} */
+:root {
+  /* Background layers */
+  --bg: #f7f8fa;
+  /* soft neutral base */
+  --surface: #ffffff;
+  /* primary card surface */
+  --surface2: #f0f2f7;
+  /* elevated sections */
+  --surface-hover: #e9ecf3;
+  /* subtle hover */
+
+  /* Text */
+  --text: #1a1f2e;
+  /* deep navy text for contrast */
+  --text-muted: #6b7285;
+  /* cool muted grey */
+
+  /* Accents */
+  --accent: #d49f1d;
+  /* gold but slightly toned for light mode */
+  --accent-soft: #d49f1d22;
+  /* translucent gold */
+
+  /* Borders */
+  --border: #d9dce3;
+  /* subtle cool-grey border */
+
+  /* Primary brand color */
+  --primary: #2aa8d8;
+  /* balanced cyan for light mode */
+}
+
+:root {
+  /* Background layers */
+  --bg: #f5f6f8;
+  /* softer, cleaner base */
+  --surface: #ffffff;
+  /* crisp card surface */
+  --surface2: #eef1f6;
+  /* elevated sections with subtle tint */
+  --surface-hover: #e6e9f0;
+  /* smoother hover transition */
+
+  /* Text */
+  --text: #161b26;
+  /* slightly deeper navy for stronger contrast */
+  --text-muted: #707789;
+  /* refined cool grey */
+
+  /* Accents */
+  --accent: #c89217;
+  /* richer gold with better contrast on white */
+  --accent-soft: #c892171a;
+  /* softer translucent gold */
+
+  /* Borders */
+  --border: #d3d7df;
+  /* cleaner, more modern border tone */
+
+  /* Primary brand color */
+  --primary: #6b1fc8;
+
 }
 
 /* .dark {
@@ -58,29 +118,48 @@
   --bottom-gradient-bottom: #1b72e850;
   --button: linear-gradient(90deg, #ffca28, #f57c00);
 } */
-.dark {
-  --bg: #030303;
-  --surface: #242424;
-  --surface: #151519;
-  --surface: #333333;
-  --surface: #252728;
-
-  --bg: #000000;
+/* .dark {
   --bg: #151a28;
-  --surface: #2a2a2a;
   --surface: #23283a;
-
   --surface2: #354271;
-
   --surface-hover: #1d1d22;
-  --text: #e6e6e9;
   --text: white;
   --text-muted: #a1a1aa;
   --accent: #f5c242;
   --accent-soft: #f5c24222;
   --border: var(--surface);
-  /* --border: #6c6c70; */
   --primary: #6ed3f7;
+} */
+.dark {
+  /* Background layers */
+  --bg: #0f1320;
+  /* deeper, cleaner base */
+  --surface: #1a1f2e;
+  /* primary card surface */
+  --surface2: #2a3150;
+  /* elevated cards / sections */
+  --surface-hover: #242a3d;
+  /* subtle hover lift */
+
+  /* Text */
+  --text: #f2f4f8;
+  /* softer white, less harsh */
+  --text-muted: #8f95a8;
+  /* cooler muted tone */
+
+  /* Accents */
+  --accent: #f5c242;
+  /* your gold stays */
+  --accent-soft: #f5c2421a;
+  /* softer translucent gold */
+
+  /* Borders */
+  --border: #1f2535;
+  /* subtle, not same as surface */
+
+  /* Primary brand color */
+  --primary: #6ed3f7;
+  /* your cyan, unchanged */
 }
 
 body {
@@ -450,6 +529,11 @@ input {
   @apply p-2 bg-(--surface) text-(--primary) rounded-md items-center hover:text-my-hilite hover:scale-110 transition;
 }
 
+.material-symbols-outlined {
+  padding: 6px;
+  color: var(--primary);
+}
+
 @layer components {}
 
 /* Hide scrollbar but keep scroll functionality */
@@ -476,14 +560,6 @@ input {
   @apply mx-auto flex flex-col gap-1;
 }
 
-.topbar {
-  @apply flex justify-center gap-4 items-end p-1 mt-1;
-}
-
-.topbar > button {
-  @apply text-(--primary)
-}
-
 .input-field {
   @apply rounded-sm bg-slate-200 text-slate-800;
 }
@@ -499,8 +575,6 @@ input {
 .videoTile {
   @apply my-2 bg-(--surface) text-(--text) border border-(--surface) rounded-lg group-hover:scale-105 transition-transform;
 }
-
-
 
 /* .edit > input {
   @apply rounded-lg

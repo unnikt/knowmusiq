@@ -47,11 +47,11 @@ export default function RagaCard({
                         `${ordinalString(rid)} Melakarta raga`
                         : `Janya raga`}</p>
                 </div>
-                <div className="flex gap-1 items-center text-my-secondary">
+                <div className="flex gap-1 items-center text-(--primary)">
                     <Link
                         href={`/raga/${slug}/edit`}
-                        className="p-2">
-                        <PencilSquareIcon className="w-5 text-(--primary)" />
+                        className="material-symbols-outlined">
+                        edit_square
                     </Link>
                     <ShareButton
                         title={`Check out raga - ${name}`}

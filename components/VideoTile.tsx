@@ -20,7 +20,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
         video[l] ? ["comp", "sing", "lyri"].includes(l) ? `/persons/${video[l]}` : l == "movi" ? `/movie/${video[l]}` : `/raga/${video[l]}` : null);
 
     return (
-        <div className={`videoTile ${width}`}>
+        <div className={`videoTile ${width} shadow`}>
             <Link
                 href={url}
                 target={target}
@@ -31,7 +31,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                         src={thumbnail}
                         alt={video.title ?? ""}
                         fill
-                        sizes="(max-width: 768px) 100vw, 400px"
+                        sizes="(max-width: 768px) 50vw sm:100vw, 400px"
                         className="object-cover rounded-t-lg"
                     />
                     {/* {video.duration && (
@@ -41,7 +41,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                     )} */}
                 </div>
                 <div className="min-w-0 p-1">
-                    <p className="line-clamp-1">
+                    <p className="font-semibold line-clamp-1">
                         {toCamelCase(video.title)}
                     </p>
                 </div>
@@ -62,7 +62,7 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
             <div className="w-full flex justify-end align-middle gap-2 border-t border-slate-400  text-(--primary)">
                 {/* <Link
                     href={`/videos/tag?v=${video.videoId}`}
-                    className="btn-material-icon material-symbols-outlined">
+                    className="material-symbols-outlined">
                     bookmark
                 </Link> */}
                 <ShareButton

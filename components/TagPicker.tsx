@@ -9,9 +9,10 @@ interface Props {
     label?: string;
     tag: string;
     pValue: string;
+    className?: string;
     onSelect?: (str: string) => void;
 }
-export default function TagPicker({ open: initialOpen, hideicon = true, hidelabel = true, label, tag, pValue, onSelect }: Props) {
+export default function TagPicker({ open: initialOpen, hideicon = true, hidelabel = true, label, tag, pValue, className, onSelect }: Props) {
     const [open, setOpen] = useState(initialOpen);
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [message, setMessage] = useState("");
@@ -56,12 +57,12 @@ export default function TagPicker({ open: initialOpen, hideicon = true, hidelabe
     return (
         <div>
             <button
-                className="btn-material-icon material-symbols-outlined"
+                className={`flex items-center gap-2 ${className}`}
                 onClick={() => setOpen(true)}>
-                {!hidelabel && <span className="">
-                    {label}
-                </span>
-                }
+                {!hidelabel &&
+                    <span className="">
+                        {label}
+                    </span>}
                 <span className="material-symbols-outlined">search</span>
             </button>
             <Modal title={label} onClose={() => { setOpen(false); setSuggestions([]); }} isOpen={open} w="400px" h="400px">

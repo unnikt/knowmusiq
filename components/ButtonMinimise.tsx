@@ -11,12 +11,11 @@ export default function MinimiseButton({ isMinimised, setIsMinimised }: Minimise
     return (
         <button
             onClick={() => setIsMinimised(!isMinimised)}
-            className="p-2 rounded-full text-pink-400 hover:bg-my-hilite hover:text-white transition"
         >
             {isMinimised ? (
-                <ArrowsPointingOutIcon className="h-5 w-5" />
+                <span className="material-symbols-outlined">zoom_out_map</span>
             ) : (
-                <ArrowsPointingInIcon className="h-5 w-5" />
+                <span className="material-symbols-outlined">zoom_in_map</span>
             )}
         </button>
     );

@@ -1,5 +1,6 @@
 "use client";
 
+import ClientWrap from "@/components/ClientWrap";
 import getHeader from "@/lib/client/getHearder";
 import { Raga } from "@/lib/Definitions";
 import { ArrowPathIcon, SparklesIcon } from "@heroicons/react/20/solid";
@@ -93,9 +94,11 @@ export default function EditRaga({ raga, onEdited }: Props) {
     }
     async function handleSummarise() {
         setLoading(true);
+        const prompt = `Summarise the following Carnatic raga description in 3–4 sentences.Keep it musical, clear, and emotionally expressive. ${raga.name}`;
+
         const res = await fetch("/api/summarise", {
             method: "POST",
-            body: JSON.stringify({ text: raga.name }),
+            body: JSON.stringify({ prompt: prompt }),
         });
 
         const data = await res.json();
@@ -104,8 +107,8 @@ export default function EditRaga({ raga, onEdited }: Props) {
     }
 
     return (
-        <div>
-            <div className="max-w-xl mx-auto p-6 bg-(--surface) rounded-xl shadow-sm border border-(--border)">
+        <ClientWrap>
+            <div className="w-full sm:max-w-xl mx-auto p-6 bg-(--surface) rounded-xl shadow-sm border border-(--border)">
                 <div className="flex justify-between items-end my-2">
                     <h2 className="title">{raga.name}</h2>
                     <ArrowPathIcon className="w-7 h-7 text-(--primary)/70"
@@ -163,6 +166,6 @@ export default function EditRaga({ raga, onEdited }: Props) {
                     </button>
                 </div>
             </div>
-        </div>
+        </ClientWrap>
     );
 }

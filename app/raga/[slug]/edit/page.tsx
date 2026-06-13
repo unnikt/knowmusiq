@@ -1,4 +1,5 @@
 import EditRaga from "@/app/ui/EditRaga";
+import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import { getRaga } from "@/lib/database/ragaLookup";
 import { Raga } from "@/lib/Definitions";
@@ -20,9 +21,9 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
     items.forEach(itm => itm.href = itm.href + "/edit")
 
     return (
-        <div>
+        <ClientWrap>
             <ItemList items={items} title="Did you mean...?" className="p-8 bg-(--surface) rounded-lg" />
-        </div>
+        </ClientWrap>
     )
 
 }
