@@ -1,3 +1,4 @@
+"use server";
 import { NextResponse } from "next/server";
 import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
                 action: "delete-video",
                 collection: "videos",
                 docId: docId,
-                uid: uid ,
+                uid: uid,
                 email: email,
             }),
         });
