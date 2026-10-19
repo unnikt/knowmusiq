@@ -2,11 +2,13 @@
 
 import ClientWrap from "@/components/ClientWrap";
 import TagPicker from "@/components/TagPicker";
+import { slugify } from "@/lib/string/slugify";
 import { useState } from "react";
 
 export default function MovieClient() {
     const [expand, setExpand] = useState(false);
-    const [name, setName] = useState("");
+    const [movie, setMovie] = useState("");
+    const [lang, setLang] = useState("");
     const [year, setYear] = useState("");
     const [dir, setDirector] = useState("");
     const [desc, setDescription] = useState("");
@@ -14,6 +16,20 @@ export default function MovieClient() {
     function handleSelect(value: string) {
         console.log("Selected movie:", value);
     }
+
+    function handleSave() {
+        const doc = {
+            name: { movie },
+            slug: slugify(movie),
+            year: year,
+            dir: dir,
+            desc: desc,
+            lang: lang
+        }
+        console.log(doc);
+
+    }
+
     return (
         <ClientWrap>
             <p className="text-xl mx-auto ">Movies</p>
@@ -50,9 +66,20 @@ export default function MovieClient() {
                     <input
                         className="w-full border border-gray-400 rounded p-2"
                         placeholder="Enter value"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={movie}
+                        onChange={(e) => setMovie(e.target.value)}
                     />
+                    {/* lang name Input */}
+                    <div className="flex items-center gap-2">
+                        <TagPicker tag="lang" pValue="" label="Language"
+                            hidelabel={false}
+                            onSelect={(str) => setLang(str)}
+                        />
+                        <label className="block">
+                            {lang}
+                        </label>
+                    </div>
+
                     {/* Year */}
                     <label className="block text-sm">
                         Year
@@ -64,15 +91,8 @@ export default function MovieClient() {
                         onChange={(e) => setYear(e.target.value)}
                     />
                     {/* Director */}
-                    <label className="block text-sm">
-                        Director
-                    </label>
-                    <input
-                        className="w-full border border-gray-400 rounded p-2"
-                        placeholder="Enter value"
-                        value={dir}
-                        onChange={(e) => setDirector(e.target.value)}
-                    />
+                    <TagPicker tag="sing" pValue="" label="Director" hidelabel={false} />
+
                     {/* Description */}
                     <label className="block text-sm">
                         Description
@@ -83,7 +103,8 @@ export default function MovieClient() {
                         value={desc}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    <button className="btn border-0! bg-my-primary mt-2">Save</button>
+                    <button className="btn border-0! bg-my-primary mt-2"
+                        onClick={handleSave}>Save</button>
                 </div>
             }
 

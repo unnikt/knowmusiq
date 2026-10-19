@@ -20,18 +20,23 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const tag = searchParams.get("key");
         const value = searchParams.get("value");
+        const mode = searchParams.get("mode") || "idx";
+
+        // TODO: Can be refactored, simplified...
         const src = Tags.find(t => t.key === tag)?.src; // Default to "persons" if tag not found
 
-        // console.log("API Request - Tag:", tag, "Value:", value, "Source:", src);
+        console.log("API Request - Tag:", tag, "Value:", value, "Source:", src);
 
         if (!tag || !value || !src) {
-            return NextResponse.json({ error: ["Invalid tag, value, or source"] });
+            return NextResponse.json({ error: "Invalid tag, value, or source", status: -1 });
         }
 
         // Map UI tag → Firestore type
         let queryRef: FirebaseFirestore.Query = knowmusiqAdminDB.collection(src);
 
-        queryRef = queryRef.where("idx", "==", value.slice(0, 3).toUpperCase()); // Default filter to get all entries of the type
+        const srch = mode == "idx" ? value.slice(0, 3).toUpperCase() : value;
+        // If mode is idx return multiple docs with same idx... else if mode is name get 1 doc 
+        queryRef = queryRef.where(mode, "==", srch); // Default filter to get all entries of the type
 
         const snaps = await queryRef.get();
         const values = snaps.docs.map(doc => {
@@ -48,6 +53,6 @@ export async function GET(req: Request) {
         return NextResponse.json({ values });
     } catch (err: any) {
         console.error("ERR: api/persons:", err);
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        return NextResponse.json({ error: err.message, status: 500 });
     }
 }

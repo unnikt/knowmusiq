@@ -167,9 +167,9 @@ body {
   color: var(--text);
 }
 
-.menu {
+/* .menu {
   @apply bg-slate-600 text-white hover:bg-slate-700;
-}
+} */
 
 /* * {
   margin: 0;
@@ -530,6 +530,11 @@ input {
 }
 
 .material-symbols-outlined {
+  padding: 6px;
+  color: var(--primary);
+}
+
+.material-symbols-outlined-red {
   padding: 6px;
   color: var(--primary);
 }

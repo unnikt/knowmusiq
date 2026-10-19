@@ -11,9 +11,10 @@ interface Props {
     image?: string;
     wiki?: string;
     bio?: string;
+    xpnd?: boolean;
 }
-export default function BioPage({ slug, name, type, image, wiki, bio }: Props) {
-    const [expand, setExpand] = useState(false);
+export default function BioPage({ slug, name, type, image, wiki, bio, xpnd = false }: Props) {
+    const [expand, setExpand] = useState(xpnd);
     return (
         <div>
             < div className="flex justify-between items-center gap-4 px-2 border-b border-(--primary) mb-1 " >

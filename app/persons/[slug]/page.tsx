@@ -38,6 +38,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
                 bio={bio}
                 wiki={person.wiki}
                 image={wiki.pic}
+                xpnd={videos.length <= 0}
             />
             <div className="videoGrid">
                 {videos.map((video) => (

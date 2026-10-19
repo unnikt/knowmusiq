@@ -13,15 +13,18 @@ export default async function Home() {
   const items = [
     {
       name: "Chakra", id: "2",
-      thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png/330px-Melakarta.katapayadi.sankhya.72_correction_for_no_41-47-53-59-65-71_da2-instead-of-da3.png",
+      thumbnail: "./img/Chakras.png",
       title: "Chakras", subtitle: "Subtitle",
       redirect: "/chakras/Indu Chakra",
+      text: "In Carnatic music, Chakras are twelve foundational groups that organize the 72 Melakarta ragas. Each chakra contains six ragas sharing similar scale patterns. The chakra names—Indu, Netra, Agni, Veda, Bana, Rutu, Rishi, Vasu, Brahma, Disi, Rudra, and Aditya—symbolize spiritual and aesthetic concepts within Indian music theory."
     },
     {
       name: "Legends", id: "3",
-      thumbnail: "./legends.png",
+      thumbnail: "./img/legends.png",
       title: "Legends", subtitle: "Composers | Singer | Lyricists",
       redirect: "/persons/legends",
+      text: "Explore the lives and contributions of legendary figures in Indian music, including composers, singers, and lyricists. Learn about their musical journeys, compositions, and the impact they have had on the evolution of this classical art form."
+
     },
     // {
     //   name: "Personalities", id: "4",
@@ -45,21 +48,22 @@ export default async function Home() {
           <Link
             key={item.id}
             href={item.redirect}
-            className="sm:max-w-100 p-4 rounded mt-2 border-b-4 bg-(--surface)  border-b-my-secondary hover:border-b-my-accent/80  hover:shadow-md transition block"
+            className="sm:max-w-100 rounded mt-2 border-t-4 bg-(--surface)  border-t-my-secondary hover:border-t-my-accent/80  hover:shadow-md transition block"
           >
-            <div className="aspect-video">
+            <div className="p-3 w-fit">
+              <h3 className="text-lg text-(--primary) tracking-wider line-clamp-2">
+                {item.title}
+              </h3>
+              <p>{item.text}</p>
+            </div>
+
+            {/* <div className="aspect-video">
               <img
                 src={item.thumbnail}
                 alt={item.title}
-                className="w-full h-full object-cover bg-white rounded-lg"
+                className=" object-cover bg-white rounded-lg"
               />
-            </div>
-            <div className="p-3 w-fit">
-              <h3 className="text-lg  tracking-wider line-clamp-2">
-                {item.title}
-              </h3>
-              <p className="text-xs ">{item.subtitle}</p>
-            </div>
+            </div> */}
           </Link>))}
       </div>
     </ClientWrap>

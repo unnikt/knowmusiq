@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "./Modal";
 import YouTubePlayer from "./YTPlayer";
 import { parseYTURL } from "@/lib/video/ParseYTURL";
@@ -10,7 +10,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import getHeader from "@/lib/client/getHearder";
 import { useUser } from "@/context/UserContext";
 import Message from "./Message";
-import { PersonTypes } from "@/lib/const/PersonTypes";
 import { slugify } from "@/lib/string/slugify";
 import { TagLabel } from "@/lib/const/Tags";
 
@@ -35,6 +34,7 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
     const [suggestions, setSuggestions] = useState([]);
     const [API_STATUS, setApiStatus] = useState({ status: 0, text: "" });
     const router = useRouter();
+    const prevPrefix = useRef("");
 
     const [authReady, setAuthReady] = useState(false);
 
@@ -75,8 +75,19 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
 
     }, [youtubeUrl]);
 
-    async function verifyMovie(name: string) {
-        setMovie(name);
+    async function verifyMovie(movie: string) {
+        setMovie(movie);
+
+        if (movie.length < 3) return;
+
+        const prefix = movie.substring(0, 3).toLowerCase();
+
+        // Only call API if prefix changed
+        if (prefix === prevPrefix.current) {
+            return;
+        }
+
+        prevPrefix.current = prefix;
         const res = await fetch(`/api/tags?key=movi&value=${movie}`);
         const data = await res.json();
         setSuggestions(data.values || []);
@@ -94,7 +105,16 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
         if (tag === "krit") vData["raga"] = slugify(raga);
 
         // TEST!!!
-        // console.log("Saving video with data:", vData);
+        if (movie) {
+            const res = await fetch(`/api/tags?key=movi&value=${movie}&mode=name`);
+            const data = await res.json();
+            setMovie(data.values[0]?.name || "");
+            console.log("Movie data:", data.values[0])
+        }
+        else {
+            setMovie("");
+        }
+        // // console.log("Saving video with data:", vData);
         // return;
 
         // Add to list, send to API, etc.
@@ -106,7 +126,7 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
                 data: { ...vData },
                 movie: movie
             }),
-        }).then((res) => {
+        }).then(async (res) => {
             if (!res.ok) {
                 setMessage(`Error:${res.status} ${res.statusText}`);
                 throw new Error("Failed to save video");
@@ -117,6 +137,13 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
                 if (onSaved) {
                     onSaved("Video added successfully!");
                 }
+                if (movie) {
+                    const res = await fetch(`/api/tags?key=movi&value=${movie}&mode=name`);
+                    const data = await res.json();
+                    setMovie(data.values[0]?.name || "");
+
+                }
+
             }
         }).catch((err) => {
             console.error(err);
@@ -193,7 +220,7 @@ export default function AddVideo({ name, tag, slug, onSaved, src, raga, classNam
                                         <input
                                             type="text"
                                             value={movie}
-                                            placeholder="Movie.."
+                                            placeholder="Movie / Album.."
                                             onChange={(e) => verifyMovie(e.target.value)}
                                             className="mt-1 w-full"
                                         />

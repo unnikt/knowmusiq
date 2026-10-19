@@ -9,6 +9,7 @@ import { useUser } from "@/context/UserContext";
 import TagPicker from "./TagPicker";
 import { TagLabel } from "@/lib/const/Tags";
 import { deSlug } from "@/lib/string/deSlugify";
+import Modal from "./Modal";
 
 interface TagFormProps {
     vid: string;
@@ -19,6 +20,8 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     const [video, setVideo] = useState<any>(null);
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [message, setMessage] = useState("");
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
     const [tags, setTags] = useState([
         { key: "comp", value: "" },
@@ -126,7 +129,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         <div>
                             <div className="flex items-center mt-2">
                                 <div className="flex items-center gap-2">
-                                    <button className="btn bg-my-primary  border-0! "
+                                    <button className="btn btn-primary"
                                         onClick={handleSave} >
                                         Save tags
                                     </button>
@@ -142,18 +145,16 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                     </Link>
                                     <button
                                         className="material-symbols-outlined"
-                                        disabled={!selectedTag}
+                                        disabled={!vid}
                                         onClick={() => {
-                                            setTags(prev =>
-                                                prev.map(tag =>
-                                                    tag.key === selectedTag ? { ...tag, value: "" } : tag
-                                                )
-                                            );
-                                            setSelectedTag("");
+                                            if (!vid) return;
+                                            setPendingDeleteId(vid);
+                                            setShowDeleteModal(true);
                                         }}
                                     >
                                         delete
                                     </button>
+
                                 </div>
 
                                 <button className="btn pl-4 border-0! ">
@@ -169,7 +170,81 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         </Link>
                     }
                 </div>
+
+                <Modal
+                    title="Confirm Delete"
+                    isOpen={showDeleteModal}
+                    onClose={() => setShowDeleteModal(false)}
+                    w="400px"
+                    h="auto"
+                >
+                    <div className="p-4 space-y-4">
+                        <p className="text-lg">
+                            Are you sure you want to delete this video?
+                        </p>
+
+                        <p className="font-mono bg-gray-200 p-2 rounded">
+                            {pendingDeleteId && video.title ? `${video.title} [vid:${pendingDeleteId}]` : ""}
+                        </p>
+
+                        <div className="flex justify-end space-x-3 mt-4">
+                            <button
+                                className="px-4 py-2 rounded bg-gray-300"
+                                onClick={() => setShowDeleteModal(false)}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                className="px-4 py-2 rounded bg-red-600 text-white"
+                                onClick={async () => {
+                                    if (!pendingDeleteId) return;
+
+                                    // Call delete API
+                                    const res = await fetch("/api/admin/delete-video", {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            payload: {
+                                                docId: pendingDeleteId,
+                                                // Optionally, you can include user info for audit logging
+                                                user: user ? { email: user.email, uid: user.uid } : null
+                                            }
+                                        }),
+                                    });
+
+                                    const json = await res.json();
+
+                                    if (json.error) {
+                                        alert(`Error: ${json.error}`);
+                                    } else {
+                                        alert(json.message);
+
+                                        // Clear tag locally
+                                        setTags(prev =>
+                                            prev.map(tag =>
+                                                tag.key === pendingDeleteId
+                                                    ? { ...tag, value: "" }
+                                                    : tag
+                                            )
+                                        );
+
+                                        setSelectedTag("");
+                                    }
+
+                                    setShowDeleteModal(false);
+                                    setPendingDeleteId(null);
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </Modal>
+
+
             </div>
+
         </div >
     )
 

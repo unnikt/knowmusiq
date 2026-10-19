@@ -11,4 +11,5 @@ export const UserMenu = [
 export const AdminMenu = [
     // { name: "Videos", href: "/videos" },
     { name: "Users and Rights", href: "/admin/users" },
+    { name: "Edit documents", href: "/admin/edit-docs" },
 ];
