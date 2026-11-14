@@ -1,4 +1,3 @@
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import VideoTile from "./VideoTile";
 import { Video } from "@/lib/Definitions";
 import { TagLinks } from "@/lib/const/Tags";
@@ -16,6 +15,7 @@ export default async function VideoGrid({ videoId, tag, value, videos }: Props) 
 
     if (videoId) {
         const doc = await knowmusiqAdminDB.collection("videos").doc(videoId).get();
+
 
         if (!doc.exists)
             return <div className="p-10 text-center text-gray-500">Video not found!</div>;
