@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { knowmusiqAdminAuth, knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB, getKnowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
 
 export async function GET(req: Request) {
     try {
@@ -27,7 +27,7 @@ export async function GET(req: Request) {
 
         let decoded;
         try {
-            decoded = await knowmusiqAdminAuth.verifySessionCookie(sessionCookie, true);
+            decoded = (await getKnowmusiqAdminAuth()).verifySessionCookie(sessionCookie, true);
         } catch (err) {
             return NextResponse.json(
                 { error: "Invalid session" },
@@ -46,7 +46,7 @@ export async function GET(req: Request) {
         }
 
         // 🔍 3. Query Firestore
-        const snapshot = await knowmusiqAdminDB
+        const snapshot = await (await getKnowmusiqAdminDB())
             .collection("videos")
             .where(field, "==", value)
             .get();

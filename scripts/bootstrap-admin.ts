@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import path from "path";
+import { getKnowmusiqAdminAuth } from "../lib/server/knowmusiqAdmin";
 
 dotenv.config({
     path: path.resolve(process.cwd(), ".env.local"),
@@ -12,7 +13,6 @@ async function main() {
     }
     const uid = process.env.BOOTSTRAP_ADMIN_UID;
     // dynamic import happens AFTER dotenv
-    const { knowmusiqAdminAuth } = await import("../dist/lib/knowmusiqAdmin");
     console.log("Loaded ENV:", {
         projectId: process.env.FIREBASE_PROJECT_ID,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
@@ -27,7 +27,7 @@ async function main() {
 
     console.log("Setting admin role for:", uid);
 
-    await knowmusiqAdminAuth.setCustomUserClaims(uid, {
+    (await getKnowmusiqAdminAuth()).setCustomUserClaims(uid, {
         admin: true,
         tagEditor: true,
     });

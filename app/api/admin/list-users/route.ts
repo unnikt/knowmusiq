@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
 
 export async function GET() {
     try {
-        const list = await knowmusiqAdminAuth.listUsers();
+        const list = await (await getKnowmusiqAdminAuth()).listUsers();
 
         const users = list.users.map(u => ({
             uid: u.uid,

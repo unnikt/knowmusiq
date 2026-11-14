@@ -1,4 +1,4 @@
-import { knowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
 
 export async function verifyUser(req: Request) {
     const authHeader = req.headers.get("authorization");
@@ -10,11 +10,11 @@ export async function verifyUser(req: Request) {
     const idToken = authHeader.split(" ")[1];
 
     try {
-        const decoded = await knowmusiqAdminAuth.verifyIdToken(idToken);
+        const decoded = (await getKnowmusiqAdminAuth()).verifyIdToken(idToken);
 
         return {
-            uid: decoded.uid,
-            email: decoded.email,
+            uid: (await decoded).uid,
+            email: (await decoded).email,
             decoded: decoded,
         };
     } catch (err) {

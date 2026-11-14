@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminAuth } from "@/lib/server/knowmusiqAdmin";
 
 export async function POST(req: Request) {
     try {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
             );
         }
 
-        await knowmusiqAdminAuth.setCustomUserClaims(uid, claims);
+        (await getKnowmusiqAdminAuth()).setCustomUserClaims(uid, claims);
 
         return NextResponse.json({
             success: true,
