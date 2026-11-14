@@ -16,5 +16,10 @@ const knowmusiqAdminApp =
         "knowmusiq"
     );
 
-export const knowmusiqAdminAuth = getAuth(knowmusiqAdminApp);
-export const knowmusiqAdminDB = getFirestore(knowmusiqAdminApp);
+export async function getKnowmusiqAdminAuth() {
+    return getAuth(knowmusiqAdminApp);
+}
+
+export async function getKnowmusiqAdminDB() {
+    return getFirestore(knowmusiqAdminApp);
+}

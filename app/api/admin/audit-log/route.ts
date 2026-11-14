@@ -1,6 +1,6 @@
 "use server";
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export async function POST(req: Request) {
     try {
@@ -13,7 +13,7 @@ export async function POST(req: Request) {
             );
         }
 
-        await knowmusiqAdminDB
+        await (await getKnowmusiqAdminDB())
             .collection("admin")
             .doc("audit-logs")
             .collection("entries")

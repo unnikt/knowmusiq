@@ -1,6 +1,6 @@
 "use server";
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export async function POST(req: Request) {
     try {
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         }
 
         // Delete the video document
-        const ref = knowmusiqAdminDB.collection("videos").doc(docId);
+        const ref = (await getKnowmusiqAdminDB()).collection("videos").doc(docId);
         const snap = await ref.get();
 
         if (!snap.exists) {

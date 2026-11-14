@@ -1,7 +1,7 @@
 import VideoTile from "./VideoTile";
 import { Video } from "@/lib/Definitions";
 import { TagLinks } from "@/lib/const/Tags";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 interface Props {
     videoId?: string,
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default async function VideoGrid({ videoId, tag, value, videos }: Props) {
+    const knowmusiqAdminDB = await getKnowmusiqAdminDB();
 
     let data: Video[] = [];
 
