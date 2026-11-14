@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'; // or 'force-static' if you want to forc
 import { slugify } from "@/lib/string/slugify";
 import { toCamelCase } from "@/lib/string/camelcase";
 import ClientWrap from "@/components/ClientWrap";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import ItemList from "@/components/ItemList";
 import RagaClient from "@/app/client/RagaClient";
 
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const slugy = slugify(slug);
 
-    const snapRagas = await knowmusiqAdminDB.collection("ragas")
+    const snapRagas = await (await getKnowmusiqAdminDB()).collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
@@ -79,13 +79,13 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
 
     const displayName = toCamelCase(slug.replaceAll(/%20/g, " ").replaceAll(/-/g, " "))
 
-    const snapRagas = await knowmusiqAdminDB.collection("ragas")
+    const snapRagas = await (await getKnowmusiqAdminDB()).collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
 
     if (snapRagas.empty) {
-        const snapRagas = await knowmusiqAdminDB.collection("ragas")
+        const snapRagas = await (await getKnowmusiqAdminDB()).collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
         const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { hasRights } from "@/lib/auth/hasRights";
 
 export async function GET(req: Request) {
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
         }
 
         // Map UI tag → Firestore type
-        let queryRef: FirebaseFirestore.Query = knowmusiqAdminDB.collection("persons");
+        let queryRef: FirebaseFirestore.Query = (await getKnowmusiqAdminDB()).collection("persons");
 
         //Usage: /api/persons?key=type&value=comp or /api/persons?key=idx&value=TYA
         if (!(fld === "type" && value === "all")) {

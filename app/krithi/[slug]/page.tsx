@@ -1,7 +1,7 @@
 import ClientWrap from "@/components/ClientWrap";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { slugify } from "@/lib/string/slugify";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { deSlug } from "@/lib/string/deSlugify";
 import { Krithi, Query, Video } from "@/lib/Definitions";
 import getData from "@/lib/database/getData";
@@ -13,7 +13,7 @@ export default async function KrithiPage({ params }: { params: Promise<{ slug: s
 
     const displayName = toCamelCase(deSlug(slug));
 
-    const snaps = await knowmusiqAdminDB.collection("krithis")
+    const snaps = await (await getKnowmusiqAdminDB()).collection("krithis")
         .where("slug", "==", slugy).get()
 
     if (snaps.empty) {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
 import { slugify } from "@/lib/string/slugify";
 
 export async function GET() {
@@ -13,7 +13,7 @@ export async function GET() {
     try {
 
         // 1. Read from KnowMusic (Admin SDK)
-        const snapshot = await knowmusiqAdminDB.collection(sCollection).get();
+        const snapshot = await (await getKnowmusiqAdminDB()).collection(sCollection).get();
 
         const rows = snapshot.docs.map(doc => {
             const d = doc.data();
@@ -31,8 +31,8 @@ export async function GET() {
         });
 
         // 2. Write to KnowMusic (Admin SDK)
-        const batch = knowmusiqAdminDB.batch();
-        const colRef = knowmusiqAdminDB.collection(sCollection);
+        const batch = (await getKnowmusiqAdminDB()).batch();
+        const colRef = (await getKnowmusiqAdminDB()).collection(sCollection);
 
         rows.forEach(row => {
             const docRef = colRef.doc(row.slug);

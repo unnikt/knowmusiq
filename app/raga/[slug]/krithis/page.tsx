@@ -2,7 +2,7 @@ import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
 import { toCamelCase } from "@/lib/string/camelcase";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
 
 export default async function KrithisPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -10,17 +10,18 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
     const slugy = slugify(slug);
 
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
+    const KnowmusiqAdminDB = await getKnowmusiqAdminDB();
 
-    const snapRagas = await knowmusiqAdminDB.collection("ragas")
+    const snapRagas = await KnowmusiqAdminDB.collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
 
     if (snapRagas.empty) {
-        const snapRagas = await knowmusiqAdminDB.collection("ragas")
+        const snapRagas = await KnowmusiqAdminDB.collection("ragas")
             .where("idx", "==", slugy.toUpperCase().slice(0, 3)) // for melakarta search by idx
             .get();
-        const items = snapRagas.docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
+        const items = (await snapRagas).docs.map((doc) => ({ label: doc.data().name, href: `/raga/${doc.data().slug}` }));
         return (
             <ClientWrap >
                 <ItemList
@@ -32,13 +33,13 @@ export default async function KrithisPage({ params }: { params: Promise<{ slug: 
     }
     const raga = snapRagas.docs[0].data();
 
-    const snap = await knowmusiqAdminDB
+    const snap = await KnowmusiqAdminDB
         .collection("krithis")
         .where("raga", "==", slugify(slug))
         .orderBy("name")
         .get();
 
-    const items = snap.docs.map((doc) => ({
+    const items = (await snap).docs.map((doc) => ({
         label: doc.data().name,
         href: `/krithi/${doc.data().slug}`,
     }));

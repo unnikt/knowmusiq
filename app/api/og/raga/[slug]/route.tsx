@@ -1,6 +1,6 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
 
 export const runtime = "nodejs";
@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
     const slug = slugify(params.slug);
 
-    const snap = await knowmusiqAdminDB
+    const snap = await (await getKnowmusiqAdminDB())
         .collection("ragas")
         .where("slug", "==", slug)
         .limit(1)

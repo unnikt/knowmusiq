@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { hasRights } from "@/lib/auth/hasRights";
 import { Tags } from "@/lib/const/Tags";
 
@@ -32,7 +32,7 @@ export async function GET(req: Request) {
         }
 
         // Map UI tag → Firestore type
-        let queryRef: FirebaseFirestore.Query = knowmusiqAdminDB.collection(src);
+        let queryRef: FirebaseFirestore.Query = (await getKnowmusiqAdminDB()).collection(src);
 
         const srch = mode == "idx" ? value.slice(0, 3).toUpperCase() : value;
         // If mode is idx return multiple docs with same idx... else if mode is name get 1 doc 

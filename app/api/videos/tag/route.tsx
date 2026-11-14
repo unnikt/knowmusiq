@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { hasRights } from "@/lib/auth/hasRights";
 import { slugify } from "@/lib/string/slugify";
 
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         }
 
         // Create if not present, update only provided fields if present
-        await knowmusiqAdminDB.collection("videos").doc(videoId).set(
+        await (await getKnowmusiqAdminDB()).collection("videos").doc(videoId).set(
             {
                 ...data,
                 videoId,
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 
         if (movie)
             // Create movie if not present, update only provided fields if present
-            await knowmusiqAdminDB.collection("movies").doc(slugify(movie)).set(
+            await (await getKnowmusiqAdminDB()).collection("movies").doc(slugify(movie)).set(
                 {
                     name: movi,
                     idx: movi.slice(0, 3).toUpperCase(),

@@ -1,4 +1,4 @@
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { slugify } from "@/lib/string/slugify";
 import ClientWrap from "@/components/ClientWrap";
 import VideoTile from "@/components/VideoTile";
@@ -10,7 +10,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     const slugy = slugify(slug);
 
     // Fetch person by slug
-    const snap = await knowmusiqAdminDB
+    const snap = await (await getKnowmusiqAdminDB())
         .collection("persons")
         .where("slug", "==", slugy)
         .limit(1)
@@ -25,7 +25,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
     const wiki = await getWikiSummary(person.wiki);
     const bio = person.bio || wiki.summary || "No biography available.";
 
-    const snapshot = await knowmusiqAdminDB.collection("videos").where(person.type, "==", person.name).limit(20).get();
+    const snapshot = await (await getKnowmusiqAdminDB()).collection("videos").where(person.type, "==", person.name).limit(20).get();
     const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
 
 

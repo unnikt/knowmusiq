@@ -2,7 +2,7 @@
 import ClientWrap from "@/components/ClientWrap";
 import ItemList from "@/components/ItemList";
 import RagaCard from "@/components/RagaCard";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import { toCamelCase } from "@/lib/string/camelcase";
 import { slugify } from "@/lib/string/slugify";
 
@@ -12,12 +12,12 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
 
     const displayName = toCamelCase(slug.replace(/%20/g, " "))
 
-    const snapRagas = await knowmusiqAdminDB.collection("ragas")
+    const snapRagas = await (await getKnowmusiqAdminDB()).collection("ragas")
         .where("slug", "==", slugy)
         .limit(1)
         .get();
 
-    const janyaRagas = await knowmusiqAdminDB.collection("ragas")
+    const janyaRagas = await (await getKnowmusiqAdminDB()).collection("ragas")
         .where("pid", "==", snapRagas.docs[0].data().rid)
         .get();
 

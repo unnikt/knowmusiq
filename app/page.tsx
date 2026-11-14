@@ -1,9 +1,8 @@
 // app/page.tsx
 
 import HomePage from "@/app/client/Home";
-import AddVideo from "@/components/AddVideo";
 import ClientWrap from "@/components/ClientWrap";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 import Link from "next/link";
 
 
@@ -34,7 +33,7 @@ export default async function Home() {
     // },
   ]
 
-  const snapshot = await knowmusiqAdminDB.collection("videos").limit(20).get();
+  const snapshot = await (await getKnowmusiqAdminDB()).collection("videos").limit(20).get();
 
   const videos = snapshot.docs.map((doc) => ({ id: doc.id, videoId: doc.data().videoId, ...doc.data() }));
 

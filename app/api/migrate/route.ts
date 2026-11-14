@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { shruthiAdmin } from "@/lib/server/shruthiAdmin";        // Admin SDK (Shruthi)
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";    // Admin SDK (KnowMusic)
 import { slugify } from "@/lib/string/slugify";
 
 export async function GET() {
@@ -32,8 +32,8 @@ export async function GET() {
         // 2. Write to KnowMusic (Admin SDK)
         console.log("Writing to KnowMusic...");
 
-        const batch = knowmusiqAdminDB.batch();
-        const colRef = knowmusiqAdminDB.collection(sCollection);
+        const batch = (await getKnowmusiqAdminDB()).batch();
+        const colRef = (await getKnowmusiqAdminDB()).collection(sCollection);
 
         rows.forEach(row => {
             const docRef = colRef.doc(row.slug);

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { knowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
+import { getKnowmusiqAdminDB } from "@/lib/server/knowmusiqAdmin";
 
 export async function POST(req: Request) {
     try {
@@ -12,12 +12,12 @@ export async function POST(req: Request) {
             );
         }
 
-        const snap = await knowmusiqAdminDB
+        const snap = await (await getKnowmusiqAdminDB())
             .collection(collection)
             .doc(docId)
             .get();
 
-        if (!snap.exists) {
+        if (!(await snap).exists) {
             return NextResponse.json(
                 { error: `Document '${docId}' not found in '${collection}'` },
                 { status: 404 }
@@ -25,8 +25,8 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json({
-            data: snap.data(),
-            id: snap.id,
+            data: (await snap).data(),
+            id: (await snap).id,
         });
     } catch (err: any) {
         return NextResponse.json(
