@@ -1,11 +1,12 @@
 "use client";
+import { useUser } from "@/context/UserContext";
+
 import { useEffect, useState } from "react";
 import YouTubePlayer from "./YTPlayer";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { dbKnowMusic } from "@/lib/client/firebaseKM.client";
 import { SaveVideo } from "@/lib/video/SaveVideo";
 import Link from "next/link";
-import { useUser } from "@/context/UserContext";
 import TagPicker from "./TagPicker";
 import { TagLabel } from "@/lib/const/Tags";
 import { deSlug } from "@/lib/string/deSlugify";
@@ -16,7 +17,9 @@ interface TagFormProps {
     onLoad?: (flag: boolean) => void;
 }
 export default function TagForm({ vid, onLoad }: TagFormProps) {
+    // Get user from context
     const { user, verifying } = useUser();
+
     const [video, setVideo] = useState<any>(null);
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
     const [message, setMessage] = useState("");
@@ -90,14 +93,14 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     )}
                 </div>
 
-                <div className="w-full lg:ml-2 ">
+                <div className="w-full lg:ml-2 border-2 border-(--border) rounded-md p-2 ">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {tags.map(t => (
                             <div
                                 key={t.key}
                                 className={`flex items-center p-2 rounded cursor-pointer 
                                     sm:flex-col sm:items-start 
-                                    ${selectedTag === t.key ? "bg-(--surface2)" : "bg-(--surface2)"}`}
+                                    ${selectedTag === t.key ? "bg-(--surface2)" : "bg-(--surface)"}`}
                                 onClick={() => setSelectedTag(t.key)}
                             >
                                 <span className="font-medium text-sm text-(--text)/50 w-20 inline-block">
@@ -125,11 +128,13 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         ))}
                     </div>
 
-                    {user &&
+
+                    {user ?
+                        // if user is logged in, show save button and delete button
                         <div>
-                            <div className="flex items-center mt-2">
+                            <div className="flex items-center mt-2 bg-(--surface2) p-2 rounded gap-2">
                                 <div className="flex items-center gap-2">
-                                    <button className="btn btn-primary"
+                                    <button className=" btn-primary"
                                         onClick={handleSave} >
                                         Save tags
                                     </button>
@@ -137,11 +142,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                         href={"/client/AddPerson"}
                                         className="material-symbols-outlined">
                                         person_add
-                                    </Link>
-                                    <Link
-                                        href={"/movie"}
-                                        className="material-symbols-outlined">
-                                        movie
                                     </Link>
                                     <button
                                         className="material-symbols-outlined"
@@ -163,8 +163,8 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                             </div>
                             {!verifying && <p className="pt-4 italic text-(--text)/70 text-sm">Updates will be linked to {user.email || "Guest"}</p>}
                         </div>
-                    }
-                    {!user &&
+                        :
+                        //if user is not logged in, show login link
                         <Link href="/user" className="p-2 mx-auto text-center rounded text-(--primary) block w-max" >
                             Login to edit tags
                         </Link>
@@ -241,8 +241,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                         </div>
                     </div>
                 </Modal>
-
-
             </div>
 
         </div >

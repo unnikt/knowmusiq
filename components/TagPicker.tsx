@@ -1,22 +1,27 @@
 "use client";
 import { useState } from "react";
 import Modal from "./Modal";
+import AddMovie from "./AddMovie";
 
 interface Props {
     open?: boolean;
     hideicon?: boolean;
     hidelabel?: boolean;
     label?: string;
+    icon?: string;
     tag: string;
     pValue: string;
     className?: string;
     onSelect?: (str: string) => void;
 }
-export default function TagPicker({ open: initialOpen, hideicon = true, hidelabel = true, label, tag, pValue, className, onSelect }: Props) {
+export default function TagPicker({ open: initialOpen, hideicon = true, hidelabel = true, label, icon, tag, pValue, className, onSelect }: Props) {
     const [open, setOpen] = useState(initialOpen);
+    const [shwAddMovie, setShwAddMovie] = useState(false);
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [message, setMessage] = useState("");
     const [tags, setTags] = useState<any[]>([]);
+
+    console.log(suggestions.length, "suggestions");
 
     async function handleInput(value: string) {
         if (value.trim().length < 3) {
@@ -57,17 +62,14 @@ export default function TagPicker({ open: initialOpen, hideicon = true, hidelabe
     return (
         <div>
             <button
-                className={`flex items-center gap-2 ${className}`}
+                className={`flex items-center  ${className}`}
                 onClick={() => setOpen(true)}>
-                {!hidelabel &&
-                    <span className="">
-                        {label}
-                    </span>}
-                <span className="material-symbols-outlined">search</span>
+                {!hidelabel && <span className="">{label}</span>}
+                {!hideicon && <span className="material-symbols-outlined">{icon || "search"}</span>}
             </button>
             <Modal title={label} onClose={() => { setOpen(false); setSuggestions([]); }} isOpen={open} w="400px" h="400px">
                 <div
-                    className="flex flex-col justify-center min-w-0 h-full gap-1 p-4  bg-(--surface)">
+                    className="flex flex-col justify-center min-w-0 h-full gap-1 p-4">
                     <input type="text" placeholder="Search..."
                         onKeyUp={(e) => handleInput(e.currentTarget.value)}
                         defaultValue={pValue}
@@ -90,9 +92,22 @@ export default function TagPicker({ open: initialOpen, hideicon = true, hidelabe
                             ))}
                         </div>
                     )}
+                    {suggestions.length === 0 && !message && (
+                        <div>
+                            {tag == "movi" &&
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-500">Add a new movie</span>
+                                    <span className="material-symbols-outlined cursor-pointer" onClick={() => setShwAddMovie(true)}>
+                                        add
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    )}
                 </div>
-
             </Modal>
+
+            <AddMovie open={shwAddMovie} onCancel={() => setShwAddMovie(false)} />
         </div>
     )
 

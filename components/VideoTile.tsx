@@ -47,12 +47,12 @@ export default function VideoTile({ video, url, target = "_self", link = "raga",
                 </div>
             </Link>
             <div className="flex flex-col justify-around p-2 ">
-                <div className="flex justify-between items-center min-h-6">
+                <div className="flex items-center min-h-6">
                     {urls.map((url, i) => (
                         url && (
                             <Link href={`${url}`} key={i}>
                                 {(video[links[i]]) &&
-                                    <p className="mt-1 text-sm text-(--primary)">{deSlug(video[links[i]])}</p>
+                                    <p className="mt-1 text-sm text-(--primary) pr-2">{deSlug(video[links[i]])}</p>
                                 }
                             </Link>
                         )

@@ -98,33 +98,14 @@ export default function HeroVideoCarousel({ videos, onSelect }: Props) {
             </button>
 
             {/* Link to raga */}
-            {link && <Link
-                href={`/raga/${toCamelCase(deSlug(link))}`}
-                className="absolute bg-(--surface) rounded px-2 p-1 min-w-30 text-center right-2 top-2 text-(--primary)">
-                {toCamelCase(deSlug(link))}
-            </Link>
+            {
+                <div className="text-center h-4 my-2 font-semibold text-(--primary)">
+                    <Link
+                        href={`/raga/${toCamelCase(deSlug(link))}`}>
+                        {toCamelCase(deSlug(link))}
+                    </Link>
+                </div>
             }
-
-            {/* Progress bar */}
-            {/* <div className="absolute top-0 left-0 right-0 h-1 w-[80vw] bg-white/20">
-                <div
-                    ref={progressRef}
-                    className="h-full bg-white"
-                    style={{ animation: `progress ${duration}ms linear` }}
-                />
-            </div>
- */}
-            {/* Progress bar animation
-            <style jsx>{`
-        @keyframes progress {
-          from {
-            width: 0%;
-          }
-          to {
-            width: 100%;
-          }
-        }
-      `}</style> */}
         </div>
     );
 }

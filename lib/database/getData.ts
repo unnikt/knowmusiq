@@ -1,4 +1,3 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { Query } from "../Definitions";
 import { getKnowmusiqAdminDB } from "../server/knowmusiqAdmin";
 

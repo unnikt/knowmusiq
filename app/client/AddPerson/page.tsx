@@ -23,7 +23,9 @@ const TAG_TYPES = [
 ];
 
 export default function AddPerson() {
+    // Get user from context
     const { user, verifying } = useUser();
+
     const [tagType, setTagType] = useState("Composer");
     const [tagValue, setTagValue] = useState("");
     const [pageid, setPageid] = useState("");
@@ -54,6 +56,7 @@ export default function AddPerson() {
         setSaving(true);
         const doc_id = slugify(tagValue);
 
+        // Create the body for the API request
         const body = {
             db: src,
             doc_id: doc_id,
