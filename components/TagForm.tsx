@@ -27,14 +27,14 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
     const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
     const [tags, setTags] = useState([
-        { key: "comp", value: "" },
-        { key: "sing", value: "" },
-        { key: "lyri", value: "" },
-        { key: "movi", value: "" },
-        { key: "lang", value: "" },
-        { key: "raga", value: "" },
-        { key: "tala", value: "" },
-        { key: "krit", value: "" }
+        { key: "movi", value: "", icon: "movie" },
+        { key: "comp", value: "", icon: "music_note" },
+        { key: "sing", value: "", icon: "mic" },
+        { key: "lyri", value: "", icon: "text_snippet" },
+        { key: "lang", value: "", icon: "language" },
+        { key: "raga", value: "", icon: "music_note" },
+        { key: "tala", value: "", icon: "timer" },
+        { key: "krit", value: "", icon: "music_note" }
     ]);
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                 setTags(prev => {
                     const v = !snaps.empty ? snaps.docs[0].data() : null;
                     if (!v) return prev;
-                    return prev.map(t => ({ key: t.key, value: v[t.key.slice(0, 4).toLowerCase()] || "" }))
+                    return prev.map(t => ({ key: t.key, value: v[t.key.slice(0, 4).toLowerCase()] || "", icon: t.icon }));
                 });
 
             } catch (err) {
@@ -93,27 +93,24 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                     )}
                 </div>
 
-                <div className="w-full lg:ml-2 border-2 border-(--border) rounded-md p-2 ">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <div >
+                    <div className="card">
                         {tags.map(t => (
                             <div
                                 key={t.key}
-                                className={`flex items-center p-2 rounded cursor-pointer 
-                                    sm:flex-col sm:items-start 
-                                    ${selectedTag === t.key ? "bg-(--surface2)" : "bg-(--surface)"}`}
+                                className={`flex items-center p-2 gap-2 rounded cursor-pointer bg-(--surface)
+                                    ${selectedTag === t.key ? "border border-(--primary)" : ""}`}
                                 onClick={() => setSelectedTag(t.key)}
                             >
-                                <span className="font-medium text-sm text-(--text)/50 w-20 inline-block">
-                                    {`${TagLabel(t.key) || t.key}: `}
-                                </span>
-                                <span>
+                                <span className="material-symbols-outlined">{t.icon}</span>
+                                <label>{TagLabel(t.key) || t.key}</label>
+                                <span className="bg-(--surface2) rounded p-2 text-sm">
                                     {t.key ? `${t.key == "raga" ? deSlug(t.value) : t.value}` : t.key}
                                 </span>
                                 {selectedTag == t.key &&
                                     <TagPicker
                                         open={true}
                                         tag={selectedTag}
-                                        label={`Find ${TagLabel(t.key) || t.key}`}
                                         pValue={t.key === "raga" ? deSlug(t.value) : t.value}
                                         onSelect={(value) => {
                                             setTags(prev =>
@@ -138,11 +135,6 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
                                         onClick={handleSave} >
                                         Save tags
                                     </button>
-                                    <Link
-                                        href={"/client/AddPerson"}
-                                        className="material-symbols-outlined">
-                                        person_add
-                                    </Link>
                                     <button
                                         className="material-symbols-outlined"
                                         disabled={!vid}
@@ -157,11 +149,9 @@ export default function TagForm({ vid, onLoad }: TagFormProps) {
 
                                 </div>
 
-                                <button className="btn pl-4 border-0! ">
-                                    {message ? message : ""}
-                                </button>
+                                <span>{message ? message : ""}</span>
                             </div>
-                            {!verifying && <p className="pt-4 italic text-(--text)/70 text-sm">Updates will be linked to {user.email || "Guest"}</p>}
+                            {!verifying && <span className="pt-4 italic text-(--text)/70 text-sm">Updates will be linked to {user.email || "Guest"}</span>}
                         </div>
                         :
                         //if user is not logged in, show login link

@@ -71,15 +71,17 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
 
     return (
         <ClientWrap >
-            <div className="card m-auto max-w-2xl p-0! border-(--surface) border">
+            <div className="card m-auto max-w-2xl p-0!">
                 <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
                 <p className="title truncate p-2">{video["title"]}</p>
-                <div className="flex flex-wrap gap-4 text-(--primary) p-2">
+                <div className="flex-list">
                     {video && Tags.map(tag =>
                         video[tag.key] &&
                         <Link
                             key={tag.key}
-                            href={`${tag.base}/${video[tag.key]}`}>
+                            href={`${tag.base}/${video[tag.key]}`}
+                            className="flex items-center gap-1 hover:text-my-hilite">
+                            <span className="material-symbols-outlined">{tag.icon || "label"}</span>
                             {deSlug(video[tag.key])}
                         </Link>
                     )}

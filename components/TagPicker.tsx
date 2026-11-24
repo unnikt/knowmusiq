@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import AddMovie from "./AddMovie";
+import AddPerson from "./AddPerson";
 
 interface Props {
     open?: boolean;
@@ -17,6 +18,7 @@ interface Props {
 export default function TagPicker({ open: initialOpen, hideicon = true, hidelabel = true, label, icon, tag, pValue, className, onSelect }: Props) {
     const [open, setOpen] = useState(initialOpen);
     const [shwAddMovie, setShwAddMovie] = useState(false);
+    const [shwAddPerson, setShwAddPerson] = useState(false);
     const [suggestions, setSuggestions] = useState<any[]>([]);
     const [message, setMessage] = useState("");
     const [tags, setTags] = useState<any[]>([]);
@@ -102,12 +104,22 @@ export default function TagPicker({ open: initialOpen, hideicon = true, hidelabe
                                     </span>
                                 </div>
                             }
+                            {(tag == "comp" || tag == "sing" || tag == "lyri") &&
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-500">Add a new Person</span>
+                                    <span className="material-symbols-outlined cursor-pointer" onClick={() => setShwAddPerson(true)}>
+                                        add
+                                    </span>
+                                </div>
+                            }
+
                         </div>
                     )}
                 </div>
             </Modal>
 
             <AddMovie open={shwAddMovie} onCancel={() => setShwAddMovie(false)} />
+            <AddPerson open={shwAddPerson} onCancel={() => setShwAddPerson(false)} />
         </div>
     )
 

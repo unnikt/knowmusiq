@@ -1,12 +1,12 @@
 export const Tags = [
-    { key: "comp", label: "Composer", src: "persons", base: "/persons/" },
-    { key: "lyri", label: "Lyricist", src: "persons", base: "/persons/" },
-    { key: "sing", label: "Singer", src: "persons", base: "/persons/" },
-    { key: "movi", label: "Movie", src: "movies", base: "/movie/" },
-    { key: "lang", label: "Language", src: "languages", base: "/language/" },
-    { key: "raga", label: "Raga", src: "ragas", base: "/raga/" },
-    { key: "tala", label: "Tala", src: "talas", base: "/tala/" },
-    { key: "krit", label: "Krithi", src: "krithis", base: "/krithi/" },
+    { key: "movi", label: "Movie", src: "movies", base: "/movie/", icon: "movie" },
+    { key: "lang", label: "Language", src: "languages", base: "/language/", icon: "language" },
+    { key: "comp", label: "Composer", src: "persons", base: "/persons/", icon: "music_note" },
+    { key: "sing", label: "Singer", src: "persons", base: "/persons/", icon: "mic" },
+    { key: "lyri", label: "Lyricist", src: "persons", base: "/persons/", icon: "text_snippet" },
+    { key: "raga", label: "Raga", src: "ragas", base: "/raga/", icon: "music_note" },
+    { key: "tala", label: "Tala", src: "talas", base: "/tala/", icon: "timer" },
+    { key: "krit", label: "Krithi", src: "krithis", base: "/krithi/", icon: "music_note" },
 ];
 
 export const TagLabel = (key: string) => {

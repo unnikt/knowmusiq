@@ -44,19 +44,21 @@ export default function ClientWrap({
     return <>{
         <div className="wrapper px-4" >
             {/* Top Bar  */}
-            <div className="flex justify-center gap-4 items-end p-1 mt-1">
+            <div className="flex-list justify-center items-center">
                 {!noReturn &&
                     <button
                         className="btn-round-icon material-symbols-outlined"
                         onClick={handleClick}
                     >
-                        reply
+                        chevron_left
                     </button>
                 }
                 <TagPicker
                     label="Find a raga"
                     pValue=""
                     tag="raga"
+                    hideicon={false}
+                    icon="interests"
                     open={false}
                     onSelect={(str) => handleSearch(str)}
                 />
