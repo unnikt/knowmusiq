@@ -66,12 +66,12 @@ export default function TagPicker({ open: initialOpen, hideicon = true, hidelabe
             <button
                 className={`flex items-center  ${className}`}
                 onClick={() => setOpen(true)}>
-                {!hidelabel && <span className="">{label}</span>}
+                {!hidelabel && <span>{label}</span>}
                 {!hideicon && <span className="material-symbols-outlined">{icon || "search"}</span>}
             </button>
             <Modal title={label} onClose={() => { setOpen(false); setSuggestions([]); }} isOpen={open} w="400px" h="400px">
                 <div
-                    className="flex flex-col justify-center min-w-0 h-full gap-1 p-4">
+                    className="card">
                     <input type="text" placeholder="Search..."
                         onKeyUp={(e) => handleInput(e.currentTarget.value)}
                         defaultValue={pValue}

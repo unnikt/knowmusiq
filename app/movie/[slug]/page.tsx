@@ -24,17 +24,12 @@ export default async function MoviePage({ params }: { params: Promise<{ slug: st
     return (
         <ClientWrap >
             <div className="flex justify-between">
-                <h2 className="text-xl py-2">{movie}</h2>
+                <span className="text-xl ">{movie}</span>
                 <div className="flex gap-2 w-fit">
                     <AddVideo
                         name={movie}
                         tag="movi"
                     />
-                    <Link
-                        href={"/movie"}
-                        className="btn-round-icon material-symbols-outlined h-10">
-                        movie
-                    </Link>
                 </div>
 
 

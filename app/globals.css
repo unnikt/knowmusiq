@@ -309,7 +309,7 @@ h1,
 }
 
 .flex-list {
-  @apply flex flex-wrap sm:justify-center sm:gap-2 text-(--primary);
+  @apply flex flex-wrap text-(--primary) px-2;
 }
 
 /* =========================================================

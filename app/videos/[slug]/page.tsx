@@ -51,8 +51,8 @@ import ButtonTag from "@/components/ButtonTagVideo";
 import ShareButton from "@/components/ButtonShare";
 import Link from "next/link";
 import IconsTray from "@/components/IconsTray";
-import { deSlug } from '@/lib/string/deSlugify';
-import { Tags } from '@/lib/const/Tags';
+import TagsTray from '@/components/TagsTray';
+import VideoTile from '@/components/VideoTile';
 
 export default async function VideoPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -71,31 +71,7 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
 
     return (
         <ClientWrap >
-            <div className="card m-auto max-w-2xl p-0!">
-                <YouTubePlayer videoId={slug} autoplay={false} key={slug} />
-                <p className="title truncate p-2">{video["title"]}</p>
-                <div className="flex-list">
-                    {video && Tags.map(tag =>
-                        video[tag.key] &&
-                        <Link
-                            key={tag.key}
-                            href={`${tag.base}/${video[tag.key]}`}
-                            className="flex items-center gap-1 hover:text-my-hilite">
-                            <span className="material-symbols-outlined">{tag.icon || "label"}</span>
-                            {deSlug(video[tag.key])}
-                        </Link>
-                    )}
-                </div>
-                <IconsTray justify="end" className="border-t border-slate-400 p-2 text-(--primary)">
-                    <Link
-                        href={`/videos/tag?v=${video.id}`}
-                        className="material-symbols-outlined">
-                        bookmark
-                    </Link>
-                    <ShareButton text={video["title"]} url={`/videos/${video.id}`} title={video["title"]} />
-                    <ButtonTag videoId={video.id} />
-                </IconsTray>
-            </div>
+            <VideoTile video={video} url={`/videos/${slug}`} target="_self" link="raga" width="m-auto max-w-2xl" />
         </ClientWrap>
     );
 }
